@@ -74,7 +74,7 @@ alias gac="git aa && git ci -m $1"
 alias gacj="jekyll build && gac"
 
 # Push
-alias gpom="git push origin master"
+alias gp="git push origin master"
 alias gph="git push heroku"
 
 # Remote
