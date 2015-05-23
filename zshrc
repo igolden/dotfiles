@@ -3,13 +3,6 @@ autoload -U promptinit
 promptinit
 prompt grb
 
-#Hub Alias
-eval "$(hub alias -s)"
-
-#chruby stuff
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby ruby-2.1.3
-
 export PATH=/opt/local/bin:/opt/local/sbin:$HOME/local/bin:$PATH
 export PATH=$PATH:/usr/local/git/bin/
 export MANPATH=/opt/local/share/man:$MANPATH
@@ -18,6 +11,13 @@ export PATH="$HOME/bin:$PATH"
 
 autoload -U compinit
 compinit
+
+#Hub Alias
+eval "$(hub alias -s)"
+
+#chruby
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+chruby ruby-2.1.3
 
 # Utilities
 alias ls='ls -G'
@@ -53,12 +53,20 @@ alias diff=colordiff
 
 # Personal Commands
 alias es='exec $SHELL'
-alias js='jekyll serve'
-alias jb='jekyll build'
 alias b='bundle install --path .bundle/gems --binstubs .bundle/bin'
 alias be='bundle exec --path .bundle/gems --binstubs .bundle/bin'
 alias grh="git reset --hard"
 alias gl='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset'\'' --abbrev-commit --date=relative'
+
+# Jekyll Commands
+alias js='jekyll serve'
+alias jb='jekyll build'
+alias gacj="jekyll build && gac"
+function gacjp() {
+    jekyll build
+    gac $1 
+    gpo
+}
 
 # Sys Admin Commands
 alias duh='du -csh'
@@ -69,9 +77,10 @@ alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/serv
 alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
 
+#
 # Git Commands
 #
-#  Generate Rake File
+#  Generate Rake File (deprecated for CLI)
 alias grf='git clone git@bitbucket.org:igolden/hosting_rake.git . && rm -rf .git && echo "Deploy with: rake deploy" && echo "Update with: rake update"'
 
 # Init
@@ -80,7 +89,6 @@ alias gsetup="git init && git aa && git ci -m 'initial'"
 # Commit
 alias gc="git ci -m $1"
 alias gac="git aa && git ci -m $1"
-alias gacj="jekyll build && gac"
 
 # Push
 alias gp="git push origin master"
@@ -91,11 +99,6 @@ alias gro="git remote add origin"
 alias bbro="git remote add origin git@bitbucket:igolden/$1"
 
 
-function gacjp() {
-    jekyll build
-    gac $1 
-    gpo
-}
 function gacp() {
     gac $1 
     gpo
@@ -106,14 +109,13 @@ function gach() {
     gph
 }
 
-function bbcn {
-  gsetup;
-  if [ "$1" != "" ]; then
-    bb create $1;
-    bbro;
-   else
-      echo "bb repo not created"
-  fi
-}
+
+#Hub Alias
+eval "$(hub alias -s)"
+
+#chruby
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+chruby ruby-2.1.3
+
 
 [[ -f ~/.localrc ]] && . ~/.localrc
