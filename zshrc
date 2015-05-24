@@ -61,11 +61,11 @@ alias gl='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Crese
 # Jekyll Commands
 alias js='jekyll serve'
 alias jb='jekyll build'
-<<<<<<< HEAD
+
 alias gti='git'
 alias vmi='vim'
 alias cim='vim'
-=======
+
 alias gacj="jekyll build && gac"
 function gacjp() {
     jekyll build
@@ -103,6 +103,7 @@ alias gph="git push heroku"
 alias gro="git remote add origin"
 alias bbro="git remote add origin git@bitbucket:igolden/$1"
 
+alias agno="vim .antigen/repos/https-COLON--SLASH--SLAcd .antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh.git/themes/"
 
 function gacp() {
     gac $1 
