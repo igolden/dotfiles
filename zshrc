@@ -53,6 +53,9 @@ alias diff=colordiff
 alias es='exec $SHELL'
 alias js='jekyll serve'
 alias jb='jekyll build'
+alias gti='git'
+alias vmi='vim'
+alias cim='vim'
 
 #start/stop postgres
 
@@ -109,4 +112,10 @@ function bbcn {
 
 chruby ruby-2.1.3
 eval "$(hub alias -s)"
+source "$HOME/.antigen/antigen.zsh"
+antigen bundle robbyrussell/oh-my-zsh lib/
+antigen bundle git
+antigen-theme agnoster
+antigen-apply
+
 [[ -f ~/.localrc ]] && . ~/.localrc
