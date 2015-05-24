@@ -121,7 +121,7 @@ eval "$(hub alias -s)"
 source "$HOME/.antigen/antigen.zsh"
 antigen bundle robbyrussell/oh-my-zsh lib/
 antigen bundle git
-antigen-theme agnoster
+antigen-theme https://gist.github.com/igolden/55e972cc9372073a465c igolden
 antigen-apply
 
 #chruby
