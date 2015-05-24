@@ -1,7 +1,7 @@
 setopt promptsubst
 autoload -U promptinit
 promptinit
-prompt grb
+prompt igolden
 
 export PATH=/opt/local/bin:/opt/local/sbin:$HOME/local/bin:$PATH
 export PATH=$PATH:/usr/local/git/bin/
@@ -121,7 +121,7 @@ eval "$(hub alias -s)"
 source "$HOME/.antigen/antigen.zsh"
 antigen bundle robbyrussell/oh-my-zsh lib/
 antigen bundle git
-antigen-theme https://gist.github.com/igolden/55e972cc9372073a465c igolden
+antigen-theme https://gist.github.com/b13f9353014327743137 igolden
 antigen-apply
 
 #chruby
