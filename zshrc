@@ -8,16 +8,8 @@ export PATH=$PATH:/usr/local/git/bin/
 export MANPATH=/opt/local/share/man:$MANPATH
 export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
 export PATH="$HOME/bin:$PATH"
-
 autoload -U compinit
 compinit
-
-#Hub Alias
-eval "$(hub alias -s)"
-
-#chruby
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby ruby-2.1.3
 
 # Utilities
 alias ls='ls -G'
@@ -49,7 +41,6 @@ alias sr="screen -r"
 alias :q="You're not in Vim"
 alias :w="You're not in Vim"
 alias diff=colordiff
-# eval "$(hub alias -s)"
 
 # Personal Commands
 alias es='exec $SHELL'
@@ -115,10 +106,11 @@ function gach() {
     gph
 }
 
+if [ -f ~/.git-completion.zsh ]; then
+  . ~/.git-completion.zsh
+fi
 
-#Hub Alias
-eval "$(hub alias -s)"
-source "$HOME/.antigen/antigen.zsh"
+source "$HOME/dotfiles/.antigen/antigen.zsh"
 antigen bundle robbyrussell/oh-my-zsh lib/
 antigen bundle git
 antigen-theme https://gist.github.com/b13f9353014327743137 igolden
@@ -127,6 +119,9 @@ antigen-apply
 #chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby ruby-2.1.3
+#Hub Alias
+eval "$(hub alias -s)"
+
 
 
 [[ -f ~/.localrc ]] && . ~/.localrc
