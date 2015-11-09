@@ -118,7 +118,7 @@ antigen-apply
 
 #chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby ruby-2.1.3
+chruby ruby-2.2.3
 #Hub Alias
 eval "$(hub alias -s)"
 
