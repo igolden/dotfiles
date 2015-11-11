@@ -45,8 +45,9 @@ alias diff=colordiff
 # Personal Commands
 alias es='exec $SHELL'
 alias b='bundle install --path .bundle/gems --binstubs .bundle/bin'
-alias be='bundle exec --path .bundle/gems --binstubs .bundle/bin'
+alias be='bundle exec'
 alias grh="git reset --hard"
+alias gph="git push origin HEAD"
 alias gl='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset'\'' --abbrev-commit --date=relative'
 
 # Jekyll Commands
