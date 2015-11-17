@@ -8,6 +8,7 @@ export PATH=$PATH:/usr/local/git/bin/
 export MANPATH=/opt/local/share/man:$MANPATH
 export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
 export PATH="$HOME/bin:$PATH"
+export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 autoload -U compinit
 compinit
 
