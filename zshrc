@@ -49,6 +49,7 @@ alias b='bundle install --path .bundle/gems --binstubs .bundle/bin'
 alias be='bundle exec'
 alias grh="git reset --hard"
 alias push="git push origin HEAD"
+alias pr="git pull-request"
 alias gl='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset'\'' --abbrev-commit --date=relative'
 
 # Jekyll Commands

@@ -71,7 +71,7 @@ set wildmenu
 set cuc
 let mapleader=","
 
-map <leader>e :!rake routes<CR>
+map <leader>r :!rake routes<CR>
 map <leader>b :!bundle install --path .bundle/gems --binstubs .bundle/bin<CR>
 map <leader>d :!rake db:migrate<CR>
 map <leader>s :!rake spec<CR>
