@@ -3,6 +3,7 @@
 	email = ian@iangolden.com
 [core]
   editor = vim
+	compression = 0
 [diff]
 [color]
 	ui = auto
@@ -37,3 +38,4 @@
 
 [push]
 	defaul = matching
+
