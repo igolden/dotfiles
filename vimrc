@@ -71,11 +71,20 @@ set wildmenu
 set cuc
 let mapleader=","
 
-map <leader>r :!rake routes<CR>
+map <leader>r :w<CR> :!ruby %<CR>
 map <leader>b :!bundle install --path .bundle/gems --binstubs .bundle/bin<CR>
 map <leader>d :!rake db:migrate<CR>
 map <leader>s :!rake spec<CR>
 map <c-m> :!rails g -migration
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+:au FocusLost * :set number
+:au FocusGained * :set relativenumber
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
@@ -93,6 +102,7 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+nnoremap <c-n> :call NumberToggle()<cr>
 " Insert a hash rocket with <c-l>
 " imap <c-l> <space>=><space>
 " Clear the search buffer when hitting return

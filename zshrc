@@ -97,6 +97,12 @@ alias gph="git push heroku"
 alias gro="git remote add origin"
 alias bbro="git remote add origin git@bitbucket:igolden/$1"
 
+
+# Arduino
+alias pf="platformio platforms"
+alias bbro="git remote add origin git@bitbucket:igolden/$1"
+alias ngrok="/Applications/ngrok"
+
 alias agno="vim .antigen/repos/https-COLON--SLASH--SLAcd .antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh.git/themes/"
 
 function gacp() {
@@ -121,7 +127,7 @@ antigen-apply
 
 #chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby ruby-2.2.3
+chruby ruby-2.3.0
 #Hub Alias
 eval "$(hub alias -s)"
 alias todo="bundle exec todo"
