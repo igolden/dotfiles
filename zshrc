@@ -16,6 +16,10 @@ compinit
 alias ls='ls -G'
 alias ll='ls -lG'
 alias c="clear"
+alias vup="vagrant up"
+alias vupp="vagrant up --provision"
+alias vs="vagrant ssh"
+alias vp="vagrant provision"
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-color'
@@ -127,7 +131,7 @@ antigen-apply
 
 #chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby ruby-2.3.0
+#chruby 2.3.0
 #Hub Alias
 eval "$(hub alias -s)"
 alias todo="bundle exec todo"

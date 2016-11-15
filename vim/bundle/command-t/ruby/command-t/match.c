@@ -1,189 +1,243 @@
-// Copyright 2010 Wincent Colaiuta. All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are met:
-//
-// 1. Redistributions of source code must retain the above copyright notice,
-//    this list of conditions and the following disclaimer.
-// 2. Redistributions in binary form must reproduce the above copyright notice,
-//    this list of conditions and the following disclaimer in the documentation
-//    and/or other materials provided with the distribution.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-// POSSIBILITY OF SUCH DAMAGE.
+// Copyright 2010-present Greg Hurrell. All rights reserved.
+// Licensed under the terms of the BSD 2-clause license.
 
+#include <float.h> /* for DBL_MAX */
 #include "match.h"
 #include "ext.h"
 #include "ruby_compat.h"
 
-// use a struct to make passing params during recursion easier
-typedef struct
-{
-    char    *str_p;                 // pointer to string to be searched
-    long    str_len;                // length of same
-    char    *abbrev_p;              // pointer to search string (abbreviation)
-    long    abbrev_len;             // length of same
-    double  max_score_per_char;
-    int     dot_file;               // boolean: true if str is a dot-file
-    int     always_show_dot_files;  // boolean
-    int     never_show_dot_files;   // boolean
+#define UNSET_SCORE FLT_MAX
+
+// Use a struct to make passing params during recursion easier.
+typedef struct {
+    char    *haystack_p;            // Pointer to the path string to be searched.
+    long    haystack_len;           // Length of same.
+    char    *needle_p;              // Pointer to search string (needle).
+    long    needle_len;             // Length of same.
+    long    *rightmost_match_p;     // Rightmost match for each char in needle.
+    float   max_score_per_char;
+    int     always_show_dot_files;  // Boolean.
+    int     never_show_dot_files;   // Boolean.
+    int     case_sensitive;         // Boolean.
+    int     recurse;                // Boolean.
+    float   *memo;                  // Memoization.
 } matchinfo_t;
 
-double recursive_match(matchinfo_t *m,  // sharable meta-data
-                       long str_idx,    // where in the path string to start
-                       long abbrev_idx, // where in the search string to start
-                       long last_idx,   // location of last matched character
-                       double score)    // cumulative score so far
-{
-    double seen_score = 0;      // remember best score seen via recursion
-    int dot_file_match = 0;     // true if abbrev matches a dot-file
-    int dot_search = 0;         // true if searching for a dot
+float recursive_match(
+    matchinfo_t *m,    // Sharable meta-data.
+    long haystack_idx, // Where in the path string to start.
+    long needle_idx,   // Where in the needle string to start.
+    long last_idx,     // Location of last matched character.
+    float score        // Cumulative score so far.
+) {
+    long distance, i, j;
+    float *memoized = NULL;
+    float score_for_char;
+    float seen_score = 0;
 
-    for (long i = abbrev_idx; i < m->abbrev_len; i++)
-    {
-        char c = m->abbrev_p[i];
-        if (c == '.')
-            dot_search = 1;
-        int found = 0;
-        for (long j = str_idx; j < m->str_len; j++, str_idx++)
-        {
-            char d = m->str_p[j];
-            if (d == '.')
-            {
-                if (j == 0 || m->str_p[j - 1] == '/')
-                {
-                    m->dot_file = 1;        // this is a dot-file
-                    if (dot_search)         // and we are searching for a dot
-                        dot_file_match = 1; // so this must be a match
-                }
+    // Iterate over needle.
+    for (i = needle_idx; i < m->needle_len; i++) {
+        // Iterate over (valid range of) haystack.
+        for (j = haystack_idx; j <= m->rightmost_match_p[i]; j++) {
+            char c, d;
+
+            // Do we have a memoized result we can return?
+            memoized = &m->memo[j * m->needle_len + i];
+            if (*memoized != UNSET_SCORE) {
+                return *memoized > seen_score ? *memoized : seen_score;
             }
-            else if (d >= 'A' && d <= 'Z')
-                d += 'a' - 'A'; // add 32 to downcase
-            if (c == d)
-            {
-                found = 1;
-                dot_search = 0;
+            c = m->needle_p[i];
+            d = m->haystack_p[j];
+            if (d == '.') {
+                if (j == 0 || m->haystack_p[j - 1] == '/') { // This is a dot-file.
+                    int dot_search = c == '.'; // Searching for a dot.
+                    if (
+                        m->never_show_dot_files ||
+                        (!dot_search && !m->always_show_dot_files)
+                    ) {
+                        return *memoized = 0.0;
+                    }
+                }
+            } else if (d >= 'A' && d <= 'Z' && !m->case_sensitive) {
+                d += 'a' - 'A'; // Add 32 to downcase.
+            }
 
-                // calculate score
-                double score_for_char = m->max_score_per_char;
-                long distance = j - last_idx;
-                if (distance > 1)
-                {
-                    double factor = 1.0;
-                    char last = m->str_p[j - 1];
-                    char curr = m->str_p[j]; // case matters, so get again
-                    if (last == '/')
+            if (c == d) {
+                // Calculate score.
+                float sub_score = 0;
+                score_for_char = m->max_score_per_char;
+                distance = j - last_idx;
+
+                if (distance > 1) {
+                    float factor = 1.0;
+                    char last = m->haystack_p[j - 1];
+                    char curr = m->haystack_p[j]; // Case matters, so get again.
+                    if (last == '/') {
                         factor = 0.9;
-                    else if (last == '-' ||
-                            last == '_' ||
-                            last == ' ' ||
-                            (last >= '0' && last <= '9'))
+                    } else if (
+                        last == '-' ||
+                        last == '_' ||
+                        last == ' ' ||
+                        (last >= '0' && last <= '9')
+                    ) {
                         factor = 0.8;
-                    else if (last >= 'a' && last <= 'z' &&
-                            curr >= 'A' && curr <= 'Z')
+                    } else if (
+                        last >= 'a' && last <= 'z' &&
+                        curr >= 'A' && curr <= 'Z'
+                    ) {
                         factor = 0.8;
-                    else if (last == '.')
+                    } else if (last == '.') {
                         factor = 0.7;
-                    else
-                        // if no "special" chars behind char, factor diminishes
-                        // as distance from last matched char increases
+                    } else {
+                        // If no "special" chars behind char, factor diminishes
+                        // as distance from last matched char increases.
                         factor = (1.0 / distance) * 0.75;
+                    }
                     score_for_char *= factor;
                 }
 
-                if (++j < m->str_len)
-                {
-                    // bump cursor one char to the right and
-                    // use recursion to try and find a better match
-                    double sub_score = recursive_match(m, j, i, last_idx, score);
-                    if (sub_score > seen_score)
+                if (j < m->rightmost_match_p[i] && m->recurse) {
+                    sub_score = recursive_match(m, j + 1, i, last_idx, score);
+                    if (sub_score > seen_score) {
                         seen_score = sub_score;
+                    }
                 }
-
+                last_idx = j;
+                haystack_idx = last_idx + 1;
                 score += score_for_char;
-                last_idx = str_idx++;
-                break;
-            }
-        }
-        if (!found)
-            return 0.0;
-    }
-    if (m->dot_file)
-    {
-        if (m->never_show_dot_files ||
-            (!dot_file_match && !m->always_show_dot_files))
-            return 0.0;
-    }
-    return (score > seen_score) ? score : seen_score;
-}
-
-// Match.new abbrev, string, options = {}
-VALUE CommandTMatch_initialize(int argc, VALUE *argv, VALUE self)
-{
-    // process arguments: 2 mandatory, 1 optional
-    VALUE str, abbrev, options;
-    if (rb_scan_args(argc, argv, "21", &str, &abbrev, &options) == 2)
-        options = Qnil;
-    str             = StringValue(str);
-    abbrev          = StringValue(abbrev); // already downcased by caller
-
-    // check optional options hash for overrides
-    VALUE always_show_dot_files = CommandT_option_from_hash("always_show_dot_files", options);
-    VALUE never_show_dot_files = CommandT_option_from_hash("never_show_dot_files", options);
-
-    matchinfo_t m;
-    m.str_p                 = RSTRING_PTR(str);
-    m.str_len               = RSTRING_LEN(str);
-    m.abbrev_p              = RSTRING_PTR(abbrev);
-    m.abbrev_len            = RSTRING_LEN(abbrev);
-    m.max_score_per_char    = (1.0 / m.str_len + 1.0 / m.abbrev_len) / 2;
-    m.dot_file              = 0;
-    m.always_show_dot_files = always_show_dot_files == Qtrue;
-    m.never_show_dot_files  = never_show_dot_files == Qtrue;
-
-    // calculate score
-    double score = 1.0;
-    if (m.abbrev_len == 0) // special case for zero-length search string
-    {
-        // filter out dot files
-        if (!m.always_show_dot_files)
-        {
-            for (long i = 0; i < m.str_len; i++)
-            {
-                char c = m.str_p[i];
-                if (c == '.' && (i == 0 || m.str_p[i - 1] == '/'))
-                {
-                    score = 0.0;
+                *memoized = seen_score > score ? seen_score : score;
+                if (i == m->needle_len - 1) {
+                    // Whole string matched.
+                    return *memoized;
+                }
+                if (!m->recurse) {
                     break;
                 }
             }
         }
     }
-    else // normal case
-        score = recursive_match(&m, 0, 0, 0, 0.0);
-
-    // clean-up and final book-keeping
-    rb_iv_set(self, "@score", rb_float_new(score));
-    rb_iv_set(self, "@str", str);
-    return Qnil;
+    return *memoized = score;
 }
 
-VALUE CommandTMatch_matches(VALUE self)
-{
-    double score = NUM2DBL(rb_iv_get(self, "@score"));
-    return score > 0 ? Qtrue : Qfalse;
-}
+float calculate_match(
+    VALUE haystack,
+    VALUE needle,
+    VALUE case_sensitive,
+    VALUE always_show_dot_files,
+    VALUE never_show_dot_files,
+    VALUE recurse,
+    long needle_bitmask,
+    long *haystack_bitmask
+) {
+    matchinfo_t m;
+    long i;
+    float score             = 1.0;
+    int compute_bitmasks    = *haystack_bitmask == UNSET_BITMASK;
+    m.haystack_p            = RSTRING_PTR(haystack);
+    m.haystack_len          = RSTRING_LEN(haystack);
+    m.needle_p              = RSTRING_PTR(needle);
+    m.needle_len            = RSTRING_LEN(needle);
+    m.rightmost_match_p     = NULL;
+    m.max_score_per_char    = (1.0 / m.haystack_len + 1.0 / m.needle_len) / 2;
+    m.always_show_dot_files = always_show_dot_files == Qtrue;
+    m.never_show_dot_files  = never_show_dot_files == Qtrue;
+    m.case_sensitive        = (int)case_sensitive;
+    m.recurse               = recurse == Qtrue;
 
-VALUE CommandTMatch_to_s(VALUE self)
-{
-    return rb_iv_get(self, "@str");
+    // Special case for zero-length search string.
+    if (m.needle_len == 0) {
+        // Filter out dot files.
+        if (m.never_show_dot_files || !m.always_show_dot_files) {
+            for (i = 0; i < m.haystack_len; i++) {
+                char c = m.haystack_p[i];
+                if (c == '.' && (i == 0 || m.haystack_p[i - 1] == '/')) {
+                    return 0.0;
+                }
+            }
+        }
+    } else {
+        long haystack_limit;
+        long memo_size;
+        long needle_idx;
+        long mask;
+        long rightmost_match_p[m.needle_len];
+
+        if (*haystack_bitmask != UNSET_BITMASK) {
+            if ((needle_bitmask & *haystack_bitmask) != needle_bitmask) {
+                return 0.0;
+            }
+        }
+
+        // Pre-scan string:
+        // - Bail if it can't match at all.
+        // - Record rightmost match for each character (prune search space).
+        // - Record bitmask for haystack to speed up future searches.
+        m.rightmost_match_p = rightmost_match_p;
+        needle_idx = m.needle_len - 1;
+        mask = 0;
+        for (i = m.haystack_len - 1; i >= 0; i--) {
+            char c = m.haystack_p[i];
+            char lower = c >= 'A' && c <= 'Z' ? c + ('a' - 'A') : c;
+            if (!m.case_sensitive) {
+                c = lower;
+            }
+            if (compute_bitmasks) {
+                mask |= (1 << (lower - 'a'));
+            }
+
+            if (needle_idx >= 0) {
+                char d = m.needle_p[needle_idx];
+                if (c == d) {
+                    rightmost_match_p[needle_idx] = i;
+                    needle_idx--;
+                }
+            }
+        }
+        if (compute_bitmasks) {
+            *haystack_bitmask = mask;
+        }
+        if (needle_idx != -1) {
+            return 0.0;
+        }
+
+        // Prepare for memoization.
+        haystack_limit = rightmost_match_p[m.needle_len - 1] + 1;
+        memo_size = m.needle_len * haystack_limit;
+        {
+            float memo[memo_size];
+            for (i = 0; i < memo_size; i++) {
+                memo[i] = UNSET_SCORE;
+            }
+            m.memo = memo;
+            score = recursive_match(&m, 0, 0, 0, 0.0);
+
+#ifdef DEBUG
+            fprintf(stdout, "   ");
+            for (i = 0; i < m.needle_len; i++) {
+                fprintf(stdout, "    %c   ", m.needle_p[i]);
+            }
+            fprintf(stdout, "\n");
+            for (i = 0; i < memo_size; i++) {
+                char formatted[8];
+                if (i % m.needle_len == 0) {
+                    long haystack_idx = i / m.needle_len;
+                    fprintf(stdout, "%c: ", m.haystack_p[haystack_idx]);
+                }
+                if (memo[i] == UNSET_SCORE) {
+                    snprintf(formatted, sizeof(formatted), "    -  ");
+                } else {
+                    snprintf(formatted, sizeof(formatted), " %-.4f", memo[i]);
+                }
+                fprintf(stdout, "%s", formatted);
+                if ((i + 1) % m.needle_len == 0) {
+                    fprintf(stdout, "\n");
+                } else {
+                    fprintf(stdout, " ");
+                }
+            }
+            fprintf(stdout, "Final score: %f\n\n", score);
+#endif
+        }
+    }
+    return score;
 }

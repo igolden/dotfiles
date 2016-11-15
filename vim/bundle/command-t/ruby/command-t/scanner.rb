@@ -1,28 +1,32 @@
-# Copyright 2010-2011 Wincent Colaiuta. All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are met:
-#
-# 1. Redistributions of source code must retain the above copyright notice,
-#    this list of conditions and the following disclaimer.
-# 2. Redistributions in binary form must reproduce the above copyright notice,
-#    this list of conditions and the following disclaimer in the documentation
-#    and/or other materials provided with the distribution.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
-# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-# POSSIBILITY OF SUCH DAMAGE.
-
-require 'command-t/vim'
+# Copyright 2010-present Greg Hurrell. All rights reserved.
+# Licensed under the terms of the BSD 2-clause license.
 
 module CommandT
-  class Scanner; end
-end # module CommandT
+  class Scanner
+    autoload :BufferScanner,    'command-t/scanner/buffer_scanner'
+    autoload :CommandScanner,   'command-t/scanner/command_scanner'
+    autoload :FileScanner,      'command-t/scanner/file_scanner'
+    autoload :HelpScanner,      'command-t/scanner/help_scanner'
+    autoload :HistoryScanner,   'command-t/scanner/history_scanner'
+    autoload :JumpScanner,      'command-t/scanner/jump_scanner'
+    autoload :LineScanner,      'command-t/scanner/line_scanner'
+    autoload :MRUBufferScanner, 'command-t/scanner/mru_buffer_scanner'
+    autoload :TagScanner,       'command-t/scanner/tag_scanner'
+
+    # Subclasses implement this method to return the list of paths that should
+    # be searched.
+    #
+    # Note that as an optimization, the C extension will record the
+    # `Object#object_id` of the returned array and assumes it will not be
+    # mutated.
+    def paths
+      raise RuntimeError, 'Subclass responsibility'
+    end
+
+  private
+
+    def progress_reporter
+      @progress_reporter ||= ProgressReporter.new
+    end
+  end
+end
