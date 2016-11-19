@@ -66,11 +66,12 @@ map <leader>] :!gulp notes \| grep FIXME<CR>
 map <leader>\ :!gulp notes \| grep OPTIMIZE<CR>
 
 
+map <leader>v ggVG=
 
 " rails
 map <leader>b :!bundle install --path .bundle/gems --binstubs .bundle/bin<CR>
 map <leader>d :!rake db:migrate<CR>
-map <leader>s :!rake spec<CR>
+map <leader>s :!bundle exec rake test<CR>
 
 
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)

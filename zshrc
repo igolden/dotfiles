@@ -64,13 +64,6 @@ alias gti='git'
 alias vmi='vim'
 alias cim='vim'
 
-alias gacj="jekyll build && gac"
-function gacjp() {
-    jekyll build
-    gac $1 
-    gpo
-}
-
 # Sys Admin Commands
 alias duh='du -csh'
 alias dimage='du -hc *.png'
@@ -78,13 +71,6 @@ alias dimage='du -hc *.png'
 #start/stop postgres
 alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
-
-
-#
-# Git Commands
-#
-#  Generate Rake File (deprecated for CLI)
-alias grf='git clone git@bitbucket.org:igolden/hosting_rake.git . && rm -rf .git && echo "Deploy with: rake deploy" && echo "Update with: rake update"'
 
 # Init
 alias gsetup="git init && git aa && git ci -m 'initial'"
@@ -131,7 +117,7 @@ antigen-apply
 
 #chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-#chruby 2.3.0
+chruby 2.3.0
 #Hub Alias
 eval "$(hub alias -s)"
 alias todo="bundle exec todo"
