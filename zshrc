@@ -20,6 +20,7 @@ alias vup="vagrant up"
 alias vupp="vagrant up --provision"
 alias vs="vagrant ssh"
 alias vp="vagrant provision"
+alias rn="react-native"
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-color'

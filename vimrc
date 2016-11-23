@@ -4,7 +4,7 @@ let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 :set t_Co=256 
-:color railscasts
+:color codeblue
 
 set nocompatible
 set hidden
@@ -173,7 +173,7 @@ map :W :w
 imap <c-l> <space>=><space>
 
 " Command T ignore
-set wildignore+=vendor/**
+set wildignore+=vendor/**,*node_modules*
 
 " Nerdtree
 map <leader>t :NERDTreeToggle<CR>
