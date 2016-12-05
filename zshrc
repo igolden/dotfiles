@@ -1,4 +1,5 @@
 setopt promptsubst
+setopt EXTENDED_GLOB
 autoload -U promptinit
 promptinit
 prompt igolden
@@ -21,6 +22,9 @@ alias vupp="vagrant up --provision"
 alias vs="vagrant ssh"
 alias vp="vagrant provision"
 alias rn="react-native"
+# md5sum
+alias md5='md5 -r'
+alias md5sum='md5 -r'
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-color'
