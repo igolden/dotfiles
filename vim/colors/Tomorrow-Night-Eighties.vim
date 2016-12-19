@@ -1,30 +1,28 @@
-" Vim Blues - Full Colour and 256 Colour
-" http://iangolden.com
+" Tomorrow Night Eighties - Full Colour and 256 Colour
+" http://chriskempson.com
 "
 " Hex colour conversion functions borrowed from the theme "Desert256""
 
 " Default GUI Colours
-let s:foreground = "ffffff"
-let s:background = "002299"
-let s:selection = "003f8e"
-let s:number_color = "ffffff"
-let s:darkblue = "001851"
-let s:comment = "c1c6ab"
-let s:red = "ff9da4"
-let s:orange = "ffc58f"
-let s:yellow = "ffeead"
-let s:green = "d1f1a9"
-let s:aqua = "99ffff"
-let s:blue = "bbdaff"
-let s:purple = "ebbbff"
-let s:window = "ffffff"
-let s:cursor = "03095d"
+let s:foreground = "cccccc"
+let s:background = "2d2d2d"
+let s:selection = "515151"
+let s:line = "393939"
+let s:comment = "999999"
+let s:red = "f2777a"
+let s:orange = "f99157"
+let s:yellow = "ffcc66"
+let s:green = "99cc99"
+let s:aqua = "009999"
+let s:blue = "99cccc"
+let s:purple = "cc99cc"
+let s:window = "4d5057"
 
 set background=dark
 hi clear
 syntax reset
 
-let g:colors_name = "codeblue"
+let g:colors_name = "Tomorrow-Night-Eighties"
 
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	" Returns an approximate grey index for the given grey level
@@ -236,15 +234,15 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
 	" Vim Highlighting
 	call <SID>X("Normal", s:foreground, s:background, "")
-	call <SID>X("LineNr", s:yellow, s:darkblue, "")
+	call <SID>X("LineNr", s:selection, "", "")
 	call <SID>X("NonText", s:selection, "", "")
 	call <SID>X("SpecialKey", s:selection, "", "")
 	call <SID>X("Search", s:background, s:yellow, "")
 	call <SID>X("TabLine", s:foreground, s:background, "reverse")
-	call <SID>X("StatusLine", s:window, s:background, "reverse")
-	call <SID>X("StatusLineNC", s:window, s:background, "reverse")
-	call <SID>X("VertSplit", s:darkblue, s:darkblue, "none")
-	call <SID>X("Visual", "", s:darkblue, "")
+	call <SID>X("StatusLine", s:window, s:yellow, "0000ff")
+	call <SID>X("StatusLineNC", s:window, s:foreground, "reverse")
+	call <SID>X("VertSplit", s:window, s:window, "none")
+	call <SID>X("Visual", "", s:selection, "")
 	call <SID>X("Directory", s:blue, "", "")
 	call <SID>X("ModeMsg", s:green, "", "")
 	call <SID>X("MoreMsg", s:green, "", "")
@@ -254,14 +252,14 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("Folded", s:comment, s:background, "")
 	call <SID>X("FoldColumn", "", s:background, "")
 	if version >= 700
-		call <SID>X("CursorLine", "", s:cursor, "none")
-		call <SID>X("CursorColumn", "", s:cursor, "none")
+		call <SID>X("CursorLine", "", s:line, "none")
+		call <SID>X("CursorColumn", "", s:line, "none")
 		call <SID>X("PMenu", s:foreground, s:selection, "none")
 		call <SID>X("PMenuSel", s:foreground, s:selection, "reverse")
 		call <SID>X("SignColumn", "", s:background, "none")
 	end
 	if version >= 703
-		call <SID>X("ColorColumn", "", s:darkblue, "none")
+		call <SID>X("ColorColumn", "", s:line, "none")
 	end
 
 	" Standard Highlighting

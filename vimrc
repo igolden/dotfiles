@@ -1,4 +1,5 @@
 call pathogen#infect()
+filetype plugin indent on
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
@@ -37,10 +38,14 @@ set showcmd " display incomplete commands
 syntax on
 set splitbelow
 set splitright
-filetype plugin indent on
 set wildmode=longest,list
 set wildmenu
 set cuc
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
 
 let mapleader=","
 
@@ -66,6 +71,7 @@ map <leader>] :!gulp notes \| grep FIXME<CR>
 map <leader>\ :!gulp notes \| grep OPTIMIZE<CR>
 
 
+map <leader>c :NERDComToggleComment<CR>
 map <leader>v ggVG=
 
 " rails

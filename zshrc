@@ -25,6 +25,7 @@ alias rn="react-native"
 # md5sum
 alias md5='md5 -r'
 alias md5sum='md5 -r'
+alias rncc='watchman watch-del-all && rm -rf node_modules && npm install && npm start -- --reset-cache'
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-color'

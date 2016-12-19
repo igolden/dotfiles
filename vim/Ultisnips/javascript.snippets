@@ -1,0 +1,133 @@
+snippet rnccf
+import React, { PropTypes } from 'react'
+import { View, StyleSheet, Text } from 'react-native'
+
+$1.propTypes = {
+
+}
+
+export default function ${1:FunctionName} (props) {
+  return (
+    <View>
+      <Text>
+       $1
+      </Text>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+	$0
+
+})
+
+endsnippet
+
+
+snippet rnccs
+import React, { PropTypes, Component } from 'react'
+import { View, Text } from 'react-native'
+
+export default class ${1:ClassName} extends Component {
+  static propTypes = {}
+  state = {}
+  render () {
+    return (
+      ${0:<View>
+        <Text>
+          $1
+        </Text>
+      </View>}
+    )
+  }
+}
+endsnippet
+
+snippet duck
+const initialState = {}
+
+export default function ${1:FunctionName} (state = initialState, action) {
+  switch (action.type) {
+    default :
+      return state
+  }
+}
+endsnippet
+
+snippet imcon
+import { connect } from 'react-redux'
+$0
+endsnippet
+
+snippet prot
+static propTypes = {
+	$0
+}
+endsnippet
+
+snippet maps
+function mapStateToProps ({${1:reducerName}}) {
+	return {
+		$1
+	}
+}
+endsnippet
+
+snippet mapdis
+function mapDispatchToProps (dispatch) {
+	return {
+		$1	
+	}
+}
+endsnippet
+
+snippet expcon
+export default connect(
+	mapStateToProps
+)(
+	${1:FileName}
+)
+endsnippet
+
+snippet imf
+import {$1} from '$2'
+endsnippet
+
+snippet imc
+import $1 from '$2'
+endsnippet
+
+snippet navc
+<${1:Component} navigator={navigator} />
+endsnippet
+
+snippet ssc
+const styles = StyleSheet.create({
+	${1:Property:} {
+		$0
+	}
+})
+endsnippet
+
+snippet sty
+style={{$0}}
+endsnippet
+
+snippet cns
+constructor(props) {
+	super(props);
+	this.state = {$0};
+}
+endsnippet
+
+
+snippet rcf
+import React, {Component} from 'react'
+
+export default class $1 extends Component {
+    render() {
+      return(<p>$1</p>)
+    }
+  }
+endsnippet
+

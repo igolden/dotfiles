@@ -1,5 +1,5 @@
-" Vim Blues - Full Colour and 256 Colour
-" http://iangolden.com
+" Tomorrow Night Blue - Full Colour and 256 Colour
+" http://chriskempson.com
 "
 " Hex colour conversion functions borrowed from the theme "Desert256""
 
@@ -24,7 +24,7 @@ set background=dark
 hi clear
 syntax reset
 
-let g:colors_name = "codeblue"
+let g:colors_name = "Tomorrow-Night-Blue"
 
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	" Returns an approximate grey index for the given grey level
@@ -244,7 +244,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("StatusLine", s:window, s:background, "reverse")
 	call <SID>X("StatusLineNC", s:window, s:background, "reverse")
 	call <SID>X("VertSplit", s:darkblue, s:darkblue, "none")
-	call <SID>X("Visual", "", s:darkblue, "")
+	call <SID>X("Visual", "", s:selection, "")
 	call <SID>X("Directory", s:blue, "", "")
 	call <SID>X("ModeMsg", s:green, "", "")
 	call <SID>X("MoreMsg", s:green, "", "")

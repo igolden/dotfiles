@@ -1,258 +1,211 @@
 " Vim syntax file
-" Language:     JavaScript
-" Maintainer:   Yi Zhao (ZHAOYI) <zzlinux AT hotmail DOT com>
-" Last Change By: Marc Harter
-" Last Change:  February 18, 2011
-" Version:      0.7.9
-" Changes:      Updates JSDoc syntax
-"
-" TODO:
-"  - Add the HTML syntax inside the JSDoc
+"      Language: JavaScript
+"    Maintainer: Ruslan Ismagilov <https://github.com/isRuslan>
+"       Version: 2.0.3
+"       Credits: Kao Wei-Ko(othree), Zhao Yi, Claudio Fleiner, Scott Shattuck
+"                (This file is based on their hard work)
 
 if !exists("main_syntax")
-  if version < 600
-    syntax clear
-  elseif exists("b:current_syntax")
-    finish
-  endif
-  let main_syntax = 'javascript'
+	if version < 600
+		syntax clear
+	elseif exists("b:current_syntax")
+		finish
+	endif
+	let main_syntax = 'javascript'
 endif
 
-"" Drop fold if it set but VIM doesn't support it.
-let b:javascript_fold='true'
-if version < 600    " Don't support the old version
-  unlet! b:javascript_fold
+" Drop fold if it set but vim doesn't support it.
+if version < 600 && exists("javaScript_fold")
+	unlet javaScript_fold
 endif
-
-"" dollar sigh is permittd anywhere in an identifier
-setlocal iskeyword+=$
 
 syntax sync fromstart
 
-"" JavaScript comments
-syntax keyword javaScriptCommentTodo    TODO FIXME XXX TBD contained
-syntax region  javaScriptLineComment    start=+\/\/+ end=+$+ keepend contains=javaScriptCommentTodo,@Spell
-syntax region  javaScriptEnvComment     start="\%^#!" end="$" display
-syntax region  javaScriptLineComment    start=+^\s*\/\/+ skip=+\n\s*\/\/+ end=+$+ keepend contains=javaScriptCommentTodo,@Spell fold
-syntax region  javaScriptCvsTag         start="\$\cid:" end="\$" oneline contained
-syntax region  javaScriptComment        start="/\*"  end="\*/" contains=javaScriptCommentTodo,javaScriptCvsTag,@Spell fold
+"" syntax coloring shebang line
+syntax match shebang "^#!.*"
+hi link shebang Comment
 
-"" JSDoc / JSDoc Toolkit
-if !exists("javascript_ignore_javaScriptdoc")
-  syntax case ignore
-
-  "" syntax coloring for javadoc comments (HTML)
-  "syntax include @javaHtml <sfile>:p:h/html.vim
-  "unlet b:current_syntax
-
-  syntax region javaScriptDocComment      matchgroup=javaScriptComment start="/\*\*\s*"  end="\*/" contains=javaScriptDocTags,javaScriptCommentTodo,javaScriptCvsTag,@javaScriptHtml,@Spell fold
-
-  " tags containing a param
-  syntax match  javaScriptDocTags         contained "@\(augments\|base\|borrows\|class\|constructs\|default\|exception\|exports\|extends\|file\|member\|memberOf\|module\|name\|namespace\|optional\|requires\|title\|throws\|version\)\>" nextgroup=javaScriptDocParam skipwhite
-  " tags containing type and param
-  syntax match  javaScriptDocTags         contained "@\(argument\|param\|property\)\>" nextgroup=javaScriptDocType skipwhite
-  " tags containing type but no param
-  syntax match  javaScriptDocTags         contained "@\(type\|return\|returns\)\>" nextgroup=javaScriptDocTypeNoParam skipwhite
-  " tags containing references
-  syntax match  javaScriptDocTags         contained "@\(lends\|link\|see\)\>" nextgroup=javaScriptDocSeeTag skipwhite
-  " other tags (no extra syntax)
-  syntax match  javaScriptDocTags         contained "@\(access\|addon\|alias\|author\|beta\|constant\|constructor\|copyright\|deprecated\|description\|event\|example\|exec\|field\|fileOverview\|fileoverview\|function\|global\|ignore\|inner\|license\|overview\|private\|protected\|project\|public\|readonly\|since\|static\)\>"
-
-  syntax region javaScriptDocType         start="{" end="}" oneline contained nextgroup=javaScriptDocParam skipwhite
-  syntax match  javaScriptDocType         contained "\%(#\|\"\|\w\|\.\|:\|\/\)\+" nextgroup=javaScriptDocParam skipwhite
-  syntax region javaScriptDocTypeNoParam  start="{" end="}" oneline contained
-  syntax match  javaScriptDocTypeNoParam  contained "\%(#\|\"\|\w\|\.\|:\|\/\)\+"
-  syntax match  javaScriptDocParam        contained "\%(#\|\"\|{\|}\|\w\|\.\|:\|\/\)\+"
-  syntax region javaScriptDocSeeTag       contained matchgroup=javaScriptDocSeeTag start="{" end="}" contains=javaScriptDocTags
-
-  syntax case match
-endif   "" JSDoc end
-
-syntax case match
-
-"" Syntax in the JavaScript code
-syntax match   javaScriptSpecial        "\\\d\d\d\|\\x\x\{2\}\|\\u\x\{4\}\|\\."
-syntax region  javaScriptStringD        start=+"+  skip=+\\\\\|\\$"+  end=+"+  contains=javaScriptSpecial,@htmlPreproc
-syntax region  javaScriptStringS        start=+'+  skip=+\\\\\|\\$'+  end=+'+  contains=javaScriptSpecial,@htmlPreproc
-syntax region  javaScriptRegexpCharClass start=+\[\]\|\[^\]\|\[+ end=+\]+ contained
-syntax region  javaScriptRegexpString   start=+\(\(\(return\|case\)\s\+\)\@<=\|\(\([)\]"']\|\d\|\w\)\s*\)\@<!\)/\(\*\|/\)\@!+ skip=+\\\\\|\\/+ end=+/[gim]\{,3}+ contains=javaScriptSpecial,javaScriptRegexpCharClass,@htmlPreproc oneline
-syntax match   javaScriptNumber         /\<-\=\d\+L\=\>\|\<0[xX]\x\+\>/
-syntax match   javaScriptFloat          /\<-\=\%(\d\+\.\d\+\|\d\+\.\|\.\d\+\)\%([eE][+-]\=\d\+\)\=\>/
-syntax match   javaScriptLabel          /\(?\s*\)\@<!\<\w\+\(\s*:\)\@=/
-
-"" JavaScript Prototype
-syntax keyword javaScriptPrototype      prototype
-
-"" Programm Keywords
+" Statement Keywords
 syntax keyword javaScriptSource         import export
-syntax keyword javaScriptType           const undefined var void yield 
-syntax keyword javaScriptOperator       delete new in instanceof let typeof
+syntax keyword javaScriptIdentifier     arguments this let const var void yield
+syntax keyword javaScriptOperator       delete new instanceof typeof
 syntax keyword javaScriptBoolean        true false
-syntax keyword javaScriptNull           null
-syntax keyword javaScriptThis           this
+syntax keyword javaScriptNull           null undefined
+syntax keyword javaScriptMessage        alert confirm prompt
+syntax keyword javaScriptDeprecated     escape unescape applets alinkColor bgColor fgColor linkColor vlinkColor xmlEncoding
+syntax keyword javaScriptConditional    if else switch
+syntax keyword javaScriptRepeat         do while for in
+syntax keyword javaScriptBranch         break continue
+syntax keyword javaScriptLabel          case default
+syntax keyword javaScriptPrototype      prototype
+syntax keyword javaScriptStatement      return with
+syntax keyword javaScriptGlobalObjects  Array Boolean Date Function Math Number Object RegExp String
+syntax keyword javaScriptExceptions     try catch throw finally Error EvalError RangeError ReferenceError SyntaxError TypeError URIError
+syntax keyword javaScriptReserved       abstract enum int short boolean export interface static byte extends long super char final native synchronized class float package throws goto private transient debugger implements protected volatile double import public
 
-"" Statement Keywords
-syntax keyword javaScriptConditional    if else
-syntax keyword javaScriptRepeat         do while for
-syntax keyword javaScriptBranch         break continue switch case default return
-syntax keyword javaScriptStatement      try catch throw with finally
+" Comments
+syntax keyword javaScriptCommentTodo      TODO FIXME XXX TBD contained
+syntax match   javaScriptLineComment      "\/\/.*" contains=@Spell,javaScriptCommentTodo
+syntax match   javaScriptCommentSkip      "^[ \t]*\*\($\|[ \t]\+\)"
+syntax region  javaScriptComment          start="/\*"  end="\*/" contains=@Spell,javaScriptCommentTodo
 
-syntax keyword javaScriptGlobalObjects  Array Boolean Date Function Infinity JavaArray JavaClass JavaObject JavaPackage Math Number NaN Object Packages RegExp String Undefined java netscape sun
+" Strings, Numbers and Regex Highlight
+syntax match   javaScriptSpecial           "\\\d\d\d\|\\."
+syntax region  javaScriptString            start=+"+  skip=+\\\\\|\\"+  end=+"\|$+	contains=javaScriptSpecial,@htmlPreproc
+syntax region  javaScriptString            start=+'+  skip=+\\\\\|\\'+  end=+'\|$+	contains=javaScriptSpecial,@htmlPreproc
+syntax region  javascriptTemplate          start=/`/  skip=/\\\\\|\\`\|\n/  end=/`\|$/ contains=javascriptTemplateSubstitution nextgroup=@javascriptComments,@javascriptSymbols skipwhite skipempty
+syntax region  javascriptTemplateSubstitution matchgroup=javascriptTemplateSB contained start=/\${/ end=/}/ contains=@javascriptExpression
 
-syntax keyword javaScriptExceptions     Error EvalError RangeError ReferenceError SyntaxError TypeError URIError
+syntax match   javaScriptSpecialCharacter "'\\.'"
+syntax match   javaScriptNumber           "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>"
+syntax region  javaScriptRegexpString     start=+/[^/*]+me=e-1 skip=+\\\\\|\\/+ end=+/[gim]\{0,2\}\s*$+ end=+/[gim]\{0,2\}\s*[;.,)\]}]+me=e-1 contains=@htmlPreproc oneline
+syntax match   javaScriptFloat            /\<-\=\%(\d\+\.\d\+\|\d\+\.\|\.\d\+\)\%([eE][+-]\=\d\+\)\=\>/
+syntax match   javascriptDollar           "\$"
 
-syntax keyword javaScriptFutureKeys     abstract enum int short boolean export interface static byte extends long super char final native synchronized class float package throws goto private transient debugger implements protected volatile double import public
+" No need?
+" syntax keyword javaScriptGlobal         self top parent
 
-"" DOM/HTML/CSS specified things
-
-  " DOM2 Objects
-  syntax keyword javaScriptGlobalObjects  DOMImplementation DocumentFragment Document Node NodeList NamedNodeMap CharacterData Attr Element Text Comment CDATASection DocumentType Notation Entity EntityReference ProcessingInstruction
-  syntax keyword javaScriptExceptions     DOMException
-
-  " DOM2 CONSTANT
-  syntax keyword javaScriptDomErrNo       INDEX_SIZE_ERR DOMSTRING_SIZE_ERR HIERARCHY_REQUEST_ERR WRONG_DOCUMENT_ERR INVALID_CHARACTER_ERR NO_DATA_ALLOWED_ERR NO_MODIFICATION_ALLOWED_ERR NOT_FOUND_ERR NOT_SUPPORTED_ERR INUSE_ATTRIBUTE_ERR INVALID_STATE_ERR SYNTAX_ERR INVALID_MODIFICATION_ERR NAMESPACE_ERR INVALID_ACCESS_ERR
-  syntax keyword javaScriptDomNodeConsts  ELEMENT_NODE ATTRIBUTE_NODE TEXT_NODE CDATA_SECTION_NODE ENTITY_REFERENCE_NODE ENTITY_NODE PROCESSING_INSTRUCTION_NODE COMMENT_NODE DOCUMENT_NODE DOCUMENT_TYPE_NODE DOCUMENT_FRAGMENT_NODE NOTATION_NODE
-
-  " HTML events and internal variables
-  syntax case ignore
-  syntax keyword javaScriptHtmlEvents     onblur onclick oncontextmenu ondblclick onfocus onkeydown onkeypress onkeyup onmousedown onmousemove onmouseout onmouseover onmouseup onresize
-  syntax case match
-
-" Follow stuff should be highligh within a special context
-" While it can't be handled with context depended with Regex based highlight
-" So, turn it off by default
-if exists("javascript_enable_domhtmlcss")
-
-    " DOM2 things
-    syntax match javaScriptDomElemAttrs     contained /\%(nodeName\|nodeValue\|nodeType\|parentNode\|childNodes\|firstChild\|lastChild\|previousSibling\|nextSibling\|attributes\|ownerDocument\|namespaceURI\|prefix\|localName\|tagName\)\>/
-    syntax match javaScriptDomElemFuncs     contained /\%(insertBefore\|replaceChild\|removeChild\|appendChild\|hasChildNodes\|cloneNode\|normalize\|isSupported\|hasAttributes\|getAttribute\|setAttribute\|removeAttribute\|getAttributeNode\|setAttributeNode\|removeAttributeNode\|getElementsByTagName\|getAttributeNS\|setAttributeNS\|removeAttributeNS\|getAttributeNodeNS\|setAttributeNodeNS\|getElementsByTagNameNS\|hasAttribute\|hasAttributeNS\)\>/ nextgroup=javaScriptParen skipwhite
-    " HTML things
-    syntax match javaScriptHtmlElemAttrs    contained /\%(className\|clientHeight\|clientLeft\|clientTop\|clientWidth\|dir\|id\|innerHTML\|lang\|length\|offsetHeight\|offsetLeft\|offsetParent\|offsetTop\|offsetWidth\|scrollHeight\|scrollLeft\|scrollTop\|scrollWidth\|style\|tabIndex\|title\)\>/
-    syntax match javaScriptHtmlElemFuncs    contained /\%(blur\|click\|focus\|scrollIntoView\|addEventListener\|dispatchEvent\|removeEventListener\|item\)\>/ nextgroup=javaScriptParen skipwhite
-
-    " CSS Styles in JavaScript
-    syntax keyword javaScriptCssStyles      contained color font fontFamily fontSize fontSizeAdjust fontStretch fontStyle fontVariant fontWeight letterSpacing lineBreak lineHeight quotes rubyAlign rubyOverhang rubyPosition
-    syntax keyword javaScriptCssStyles      contained textAlign textAlignLast textAutospace textDecoration textIndent textJustify textJustifyTrim textKashidaSpace textOverflowW6 textShadow textTransform textUnderlinePosition
-    syntax keyword javaScriptCssStyles      contained unicodeBidi whiteSpace wordBreak wordSpacing wordWrap writingMode
-    syntax keyword javaScriptCssStyles      contained bottom height left position right top width zIndex
-    syntax keyword javaScriptCssStyles      contained border borderBottom borderLeft borderRight borderTop borderBottomColor borderLeftColor borderTopColor borderBottomStyle borderLeftStyle borderRightStyle borderTopStyle borderBottomWidth borderLeftWidth borderRightWidth borderTopWidth borderColor borderStyle borderWidth borderCollapse borderSpacing captionSide emptyCells tableLayout
-    syntax keyword javaScriptCssStyles      contained margin marginBottom marginLeft marginRight marginTop outline outlineColor outlineStyle outlineWidth padding paddingBottom paddingLeft paddingRight paddingTop
-    syntax keyword javaScriptCssStyles      contained listStyle listStyleImage listStylePosition listStyleType
-    syntax keyword javaScriptCssStyles      contained background backgroundAttachment backgroundColor backgroundImage gackgroundPosition backgroundPositionX backgroundPositionY backgroundRepeat
-    syntax keyword javaScriptCssStyles      contained clear clip clipBottom clipLeft clipRight clipTop content counterIncrement counterReset cssFloat cursor direction display filter layoutGrid layoutGridChar layoutGridLine layoutGridMode layoutGridType
-    syntax keyword javaScriptCssStyles      contained marks maxHeight maxWidth minHeight minWidth opacity MozOpacity overflow overflowX overflowY verticalAlign visibility zoom cssText
-    syntax keyword javaScriptCssStyles      contained scrollbar3dLightColor scrollbarArrowColor scrollbarBaseColor scrollbarDarkShadowColor scrollbarFaceColor scrollbarHighlightColor scrollbarShadowColor scrollbarTrackColor
-
-    " Highlight ways
-    syntax match javaScriptDotNotation      "\." nextgroup=javaScriptPrototype,javaScriptDomElemAttrs,javaScriptDomElemFuncs,javaScriptHtmlElemAttrs,javaScriptHtmlElemFuncs
-    syntax match javaScriptDotNotation      "\.style\." nextgroup=javaScriptCssStyles
-
-endif "DOM/HTML/CSS
-
-"" end DOM/HTML/CSS specified things
-
-
-"" Code blocks
-syntax cluster javaScriptAll       contains=javaScriptComment,javaScriptLineComment,javaScriptDocComment,javaScriptStringD,javaScriptStringS,javaScriptRegexpString,javaScriptNumber,javaScriptFloat,javaScriptLabel,javaScriptSource,javaScriptThis,javaScriptType,javaScriptOperator,javaScriptBoolean,javaScriptNull,javaScriptFunction,javaScriptConditional,javaScriptRepeat,javaScriptBranch,javaScriptStatement,javaScriptGlobalObjects,javaScriptExceptions,javaScriptFutureKeys,javaScriptDomErrNo,javaScriptDomNodeConsts,javaScriptHtmlEvents,javaScriptDotNotation
-syntax region  javaScriptBracket   matchgroup=javaScriptBracket transparent start="\[" end="\]" contains=@javaScriptAll,javaScriptParensErrB,javaScriptParensErrC,javaScriptBracket,javaScriptParen,javaScriptBlock,@htmlPreproc
-syntax region  javaScriptParen     matchgroup=javaScriptParen   transparent start="("  end=")"  contains=@javaScriptAll,javaScriptParensErrA,javaScriptParensErrC,javaScriptParen,javaScriptBracket,javaScriptBlock,@htmlPreproc
-syntax region  javaScriptBlock     matchgroup=javaScriptBlock   transparent start="{"  end="}"  contains=@javaScriptAll,javaScriptParensErrA,javaScriptParensErrB,javaScriptParen,javaScriptBracket,javaScriptBlock,@htmlPreproc 
-
-"" catch errors caused by wrong parenthesis
-syntax match   javaScriptParensError    ")\|}\|\]"
-syntax match   javaScriptParensErrA     contained "\]"
-syntax match   javaScriptParensErrB     contained ")"
-syntax match   javaScriptParensErrC     contained "}"
+" Code blocks
+syntax cluster javaScriptAll       contains=javaScriptComment,javaScriptLineComment,javaScriptDocComment,javaScriptString,javaScriptRegexpString,javascriptTemplate,javaScriptNumber,javaScriptFloat,javascriptDollar,javaScriptLabel,javaScriptSource,javaScriptWebAPI,javaScriptOperator,javaScriptBoolean,javaScriptNull,javaScriptFuncKeyword,javaScriptConditional,javaScriptRepeat,javaScriptBranch,javaScriptStatement,javaScriptGlobalObjects,javaScriptMessage,javaScriptIdentifier,javaScriptExceptions,javaScriptReserved,javaScriptDeprecated,javaScriptDomErrNo,javaScriptDomNodeConsts,javaScriptHtmlEvents,javaScriptDotNotation,javaScriptBrowserObjects,javaScriptDOMObjects,javaScriptAjaxObjects,javaScriptPropietaryObjects,javaScriptDOMMethods,javaScriptHtmlElemProperties,javaScriptDOMProperties,javaScriptEventListenerKeywords,javaScriptEventListenerMethods,javaScriptAjaxProperties,javaScriptAjaxMethods,javaScriptFuncArg
 
 if main_syntax == "javascript"
-  syntax sync clear
-  syntax sync ccomment javaScriptComment minlines=200
-  syntax sync match javaScriptHighlight grouphere javaScriptBlock /{/
+	syntax sync clear
+	syntax sync ccomment javaScriptComment minlines=200
+	" syntax sync match javaScriptHighlight grouphere javaScriptBlock /{/
 endif
 
-"" Fold control
-if exists("b:javascript_fold")
-    syntax match   javaScriptFunction       /\<function\>/ nextgroup=javaScriptFuncName skipwhite
-    syntax match   javaScriptOpAssign       /=\@<!=/ nextgroup=javaScriptFuncBlock skipwhite skipempty
-    syntax region  javaScriptFuncName       contained matchgroup=javaScriptFuncName start=/\%(\$\|\w\)*\s*(/ end=/)/ contains=javaScriptLineComment,javaScriptComment nextgroup=javaScriptFuncBlock skipwhite skipempty
-    syntax region  javaScriptFuncBlock      contained matchgroup=javaScriptFuncBlock start="{" end="}" contains=@javaScriptAll,javaScriptParensErrA,javaScriptParensErrB,javaScriptParen,javaScriptBracket,javaScriptBlock fold
-else
-    syntax keyword javaScriptFunction       function
-endif
+" Function and arguments highlighting
+syntax keyword javaScriptFuncKeyword     function contained
+syntax region  javaScriptFuncExp         start=/\w\+\s\==\s\=function\>/ end="\([^)]*\)" contains=javaScriptFuncEq,javaScriptFuncKeyword,javaScriptFuncArg keepend
+syntax match   javaScriptFuncArg         "\(([^()]*)\)" contains=javaScriptParens,javaScriptFuncComma contained
+syntax match   javaScriptFuncComma       /,/ contained
+syntax match   javaScriptFuncEq          /=/ contained
+syntax region  javaScriptFuncDef         start="\<function\>" end="\([^)]*\)" contains=javaScriptFuncKeyword,javaScriptFuncArg keepend
 
+" Braces, Parens, symbols, colons 
+syntax match javaScriptBraces       "[{}\[\]]"
+syntax match javaScriptParens       "[()]"
+syntax match javaScriptOpSymbols    "=\{1,3}\|!==\|!=\|<\|>\|>=\|<=\|++\|+=\|--\|-="
+syntax match javaScriptEndColons    "[;,]"
+syntax match javaScriptLogicSymbols "\(&&\)\|\(||\)"
+
+" include syntax modules
+runtime syntax/vim-es6/modules/*.vim
+
+" JavaScriptFold Function
+function! JavaScriptFold()
+	setl foldmethod=syntax
+	setl foldlevelstart=1
+	syntax region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+endfunction
+
+" Highlight links
 " Define the default highlighting.
 " For version 5.7 and earlier: only when not done already
 " For version 5.8 and later: only when an item doesn't have highlighting yet
 if version >= 508 || !exists("did_javascript_syn_inits")
-  if version < 508
-    let did_javascript_syn_inits = 1
-    command -nargs=+ HiLink hi link <args>
-  else
-    command -nargs=+ HiLink hi def link <args>
-  endif
-  HiLink javaScriptComment              Comment
-  HiLink javaScriptLineComment          Comment
-  HiLink javaScriptEnvComment           PreProc
-  HiLink javaScriptDocComment           Comment
-  HiLink javaScriptCommentTodo          Todo
-  HiLink javaScriptCvsTag               Function
-  HiLink javaScriptDocTags              Special
-  HiLink javaScriptDocSeeTag            Function
-  HiLink javaScriptDocType              Type
-  HiLink javaScriptDocTypeNoParam       Type
-  HiLink javaScriptDocParam             Label
-  HiLink javaScriptStringS              String
-  HiLink javaScriptStringD              String
-  HiLink javaScriptRegexpString         String
-  HiLink javaScriptRegexpCharClass      Character
-  HiLink javaScriptCharacter            Character
-  HiLink javaScriptPrototype            Type
-  HiLink javaScriptConditional          Conditional
-  HiLink javaScriptBranch               Conditional
-  HiLink javaScriptRepeat               Repeat
-  HiLink javaScriptStatement            Statement
-  HiLink javaScriptFunction             Function
-  HiLink javaScriptError                Error
-  HiLink javaScriptParensError          Error
-  HiLink javaScriptParensErrA           Error
-  HiLink javaScriptParensErrB           Error
-  HiLink javaScriptParensErrC           Error
-  HiLink javaScriptOperator             Operator
-  HiLink javaScriptType                 Type
-  HiLink javaScriptThis                 Type
-  HiLink javaScriptNull                 Type
-  HiLink javaScriptNumber               Number
-  HiLink javaScriptFloat                Number
-  HiLink javaScriptBoolean              Boolean
-  HiLink javaScriptLabel                Label
-  HiLink javaScriptSpecial              Special
-  HiLink javaScriptSource               Special
-  HiLink javaScriptGlobalObjects        Special
-  HiLink javaScriptExceptions           Special
+	if version < 508
+		let did_javascript_syn_inits = 1
+		command -nargs=+ HiLink hi link <args>
+	else
+		command -nargs=+ HiLink hi def link <args>
+	endif
+	HiLink javaScriptEndColons              Operator
+	HiLink javaScriptOpSymbols              Operator
+	HiLink javaScriptLogicSymbols           Boolean
+	HiLink javaScriptBraces                 Function
+	HiLink javaScriptParens                 Operator
 
-  HiLink javaScriptDomErrNo             Constant
-  HiLink javaScriptDomNodeConsts        Constant
-  HiLink javaScriptDomElemAttrs         Label
-  HiLink javaScriptDomElemFuncs         PreProc
+	HiLink javaScriptComment                Comment
+	HiLink javaScriptLineComment            Comment
+	HiLink javaScriptDocComment             Comment
+	HiLink javaScriptCommentTodo            Todo
 
-  HiLink javaScriptHtmlEvents           Special
-  HiLink javaScriptHtmlElemAttrs        Label
-  HiLink javaScriptHtmlElemFuncs        PreProc
+	HiLink javaScriptDocTags                Special
+	HiLink javaScriptDocSeeTag              Function
+	HiLink javaScriptDocParam               Function
 
-  HiLink javaScriptCssStyles            Label
+	HiLink javaScriptString                 String
+  HiLink javascriptTemplate               String
+  HiLink javascriptTemplateSubstitution   Label
+	HiLink javaScriptRegexpString           String
+  HiLink javascriptTemplateSB             javascriptTemplateSubstitution
 
-  delcommand HiLink
+	HiLink javaScriptNumber                 Number
+	HiLink javaScriptFloat                  Number
+
+	HiLink javaScriptCharacter              Character
+	HiLink javaScriptPrototype              Type
+	HiLink javaScriptConditional            Conditional
+	HiLink javaScriptBranch                 Conditional
+	HiLink javaScriptIdentifier             Identifier
+	HiLink javaScriptRepeat                 Repeat
+	HiLink javaScriptStatement              Statement
+	HiLink javaScriptMessage                Keyword
+	HiLink javaScriptReserved               Keyword
+	HiLink javaScriptOperator               Operator
+	HiLink javaScriptNull                   Type
+	HiLink javaScriptBoolean                Boolean
+	HiLink javaScriptLabel                  Label
+	HiLink javaScriptSpecial                Special
+	HiLink javaScriptSource                 Special
+	HiLink javaScriptGlobalObjects          Special
+	HiLink javaScriptExceptions             Special
+  HiLink javascriptDollar                 Special
+
+	HiLink javaScriptDeprecated             Exception
+	HiLink javaScriptError                  Error
+	HiLink javaScriptParensError            Error
+	HiLink javaScriptParensErrA             Error
+	HiLink javaScriptParensErrB             Error
+	HiLink javaScriptParensErrC             Error
+	HiLink javaScriptDomErrNo               Error
+
+	HiLink javaScriptDomNodeConsts          Constant
+	HiLink javaScriptDomElemAttrs           Label
+	HiLink javaScriptDomElemFuncs           Type
+
+	HiLink javaScriptWebAPI                 Type
+
+	HiLink javaScriptHtmlElemAttrs          Label
+	HiLink javaScriptHtmlElemFuncs          Type
+
+	HiLink javaScriptCssStyles              Type
+
+	HiLink javaScriptBrowserObjects         Constant
+
+	HiLink javaScriptDOMObjects             Constant
+	HiLink javaScriptDOMMethods             Type
+	HiLink javaScriptDOMProperties          Label
+
+	HiLink javaScriptAjaxObjects            Constant
+	HiLink javaScriptAjaxMethods            Type
+	HiLink javaScriptAjaxProperties         Label
+
+	HiLink javaScriptFuncKeyword            Function
+	HiLink javaScriptFuncDef                PreProc
+	HiLink javaScriptFuncExp                Title
+	HiLink javaScriptFuncArg               	Special
+	HiLink javaScriptFuncComma              Operator
+	HiLink javaScriptFuncEq                 Operator
+
+	HiLink javaScriptHtmlEvents             Constant
+	HiLink javaScriptHtmlElemProperties     Label
+
+	HiLink javaScriptEventListenerKeywords  Type
+
+	HiLink javaScriptPropietaryObjects      Constant
+
+	delcommand HiLink
 endif
 
 " Define the htmlJavaScript for HTML syntax html.vim
-"syntax clear htmlJavaScript
-"syntax clear javaScriptExpression
+" syntax clear htmlJavaScript
+" syntax clear javaScriptExpression
 syntax cluster  htmlJavaScript contains=@javaScriptAll,javaScriptBracket,javaScriptParen,javaScriptBlock,javaScriptParenError
 syntax cluster  javaScriptExpression contains=@javaScriptAll,javaScriptBracket,javaScriptParen,javaScriptBlock,javaScriptParenError,@htmlPreproc
 
 let b:current_syntax = "javascript"
 if main_syntax == 'javascript'
-  unlet main_syntax
+	unlet main_syntax
 endif
-
-" vim: ts=4

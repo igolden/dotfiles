@@ -1,30 +1,36 @@
-" Vim Blues - Full Colour and 256 Colour
-" http://iangolden.com
+" Tomorrow Night - Full Colour and 256 Colour
+" http://chriskempson.com
 "
 " Hex colour conversion functions borrowed from the theme "Desert256""
 
 " Default GUI Colours
-let s:foreground = "ffffff"
-let s:background = "002299"
-let s:selection = "003f8e"
-let s:number_color = "ffffff"
-let s:darkblue = "001851"
-let s:comment = "c1c6ab"
-let s:red = "ff9da4"
-let s:orange = "ffc58f"
-let s:yellow = "ffeead"
-let s:green = "d1f1a9"
-let s:aqua = "99ffff"
-let s:blue = "bbdaff"
-let s:purple = "ebbbff"
-let s:window = "ffffff"
-let s:cursor = "03095d"
+let s:foreground = "c5c8c6"
+let s:background = "1d1f21"
+let s:selection = "373b41"
+let s:line = "282a2e"
+let s:comment = "969896"
+let s:red = "cc6666"
+let s:orange = "de935f"
+let s:yellow = "f0c674"
+let s:green = "b5bd68"
+let s:aqua = "8abeb7"
+let s:blue = "81a2be"
+let s:purple = "b294bb"
+let s:window = "4d5057"
+
+" Console 256 Colours
+if !has("gui_running")
+	let s:background = "303030"
+	let s:window = "5e5e5e"
+	let s:line = "3a3a3a"
+	let s:selection = "585858"
+end
 
 set background=dark
 hi clear
 syntax reset
 
-let g:colors_name = "codeblue"
+let g:colors_name = "Tomorrow-Night"
 
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	" Returns an approximate grey index for the given grey level
@@ -236,15 +242,15 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
 	" Vim Highlighting
 	call <SID>X("Normal", s:foreground, s:background, "")
-	call <SID>X("LineNr", s:yellow, s:darkblue, "")
+	call <SID>X("LineNr", s:selection, "", "")
 	call <SID>X("NonText", s:selection, "", "")
 	call <SID>X("SpecialKey", s:selection, "", "")
 	call <SID>X("Search", s:background, s:yellow, "")
 	call <SID>X("TabLine", s:foreground, s:background, "reverse")
-	call <SID>X("StatusLine", s:window, s:background, "reverse")
-	call <SID>X("StatusLineNC", s:window, s:background, "reverse")
-	call <SID>X("VertSplit", s:darkblue, s:darkblue, "none")
-	call <SID>X("Visual", "", s:darkblue, "")
+	call <SID>X("StatusLine", s:window, s:yellow, "reverse")
+	call <SID>X("StatusLineNC", s:window, s:foreground, "reverse")
+	call <SID>X("VertSplit", s:window, s:window, "none")
+	call <SID>X("Visual", "", s:selection, "")
 	call <SID>X("Directory", s:blue, "", "")
 	call <SID>X("ModeMsg", s:green, "", "")
 	call <SID>X("MoreMsg", s:green, "", "")
@@ -254,14 +260,14 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("Folded", s:comment, s:background, "")
 	call <SID>X("FoldColumn", "", s:background, "")
 	if version >= 700
-		call <SID>X("CursorLine", "", s:cursor, "none")
-		call <SID>X("CursorColumn", "", s:cursor, "none")
+		call <SID>X("CursorLine", "", s:line, "none")
+		call <SID>X("CursorColumn", "", s:line, "none")
 		call <SID>X("PMenu", s:foreground, s:selection, "none")
 		call <SID>X("PMenuSel", s:foreground, s:selection, "reverse")
 		call <SID>X("SignColumn", "", s:background, "none")
 	end
 	if version >= 703
-		call <SID>X("ColorColumn", "", s:darkblue, "none")
+		call <SID>X("ColorColumn", "", s:line, "none")
 	end
 
 	" Standard Highlighting
@@ -349,8 +355,20 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("htmlScriptTag", s:red, "", "")
 
 	" Diff Highlighting
+  let s:diffbackground = "494e56"
+
 	call <SID>X("diffAdded", s:green, "", "")
 	call <SID>X("diffRemoved", s:red, "", "")
+  call <SID>X("DiffAdd", s:green, s:diffbackground, "")
+  call <SID>X("DiffDelete", s:red, s:diffbackground, "")
+  call <SID>X("DiffChange", s:yellow, s:diffbackground, "")
+  call <SID>X("DiffText", s:diffbackground, s:orange, "")
+
+    " ShowMarks Highlighting
+    call <SID>X("ShowMarksHLl", s:orange, s:background, "none")
+    call <SID>X("ShowMarksHLo", s:purple, s:background, "none")
+    call <SID>X("ShowMarksHLu", s:yellow, s:background, "none")
+    call <SID>X("ShowMarksHLm", s:aqua, s:background, "none")
 
 	" Delete Functions
 	delf <SID>X
