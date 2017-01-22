@@ -54,11 +54,16 @@ export default function ${1:FunctionName} (state = initialState, action) {
 }
 endsnippet
 
-snippet imcon
+snippet imco
 import { connect } from 'react-redux'
 $0
 endsnippet
-
+snippet exdeco
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)($1)
+endsnippet
 snippet prot
 static propTypes = {
 	$0
@@ -73,7 +78,7 @@ function mapStateToProps ({${1:reducerName}}) {
 }
 endsnippet
 
-snippet mapdis
+snippet mapd
 function mapDispatchToProps (dispatch) {
 	return {
 		$1	
@@ -81,16 +86,15 @@ function mapDispatchToProps (dispatch) {
 }
 endsnippet
 
-snippet expcon
+snippet excon
 export default connect(
-	mapStateToProps
-)(
-	${1:FileName}
-)
+	mapStateToProps,
+	mapDispatchToProps
+)(${1:FileName})
 endsnippet
 
 snippet imf
-import {$1} from '$2'
+import { $1 } from '$2'
 endsnippet
 
 snippet imc
@@ -113,7 +117,7 @@ snippet sty
 style={{$0}}
 endsnippet
 
-snippet cns
+snippet con
 constructor(props) {
 	super(props);
 	this.state = {$0};
@@ -131,3 +135,115 @@ export default class $1 extends Component {
   }
 endsnippet
 
+snippet ()
+${1:nameFunction} = () => {
+	
+}
+endsnippet
+
+snippet "u
+"use strict";
+endsnippet
+
+snippet f
+function $1() {
+}
+endsnippet
+
+snippet xf
+export function $1() {
+}
+endsnippet
+
+snippet xdf
+export default function $1() {
+}
+endsnippet
+
+snippet conp
+console.log(props)
+endsnippet
+snippet clo
+console.log("$1")
+endsnippet
+
+snippet view
+<View style={styles.$1}></View>
+endsnippet
+
+snippet ///
+/**
+ * $1
+ * 
+ * @flow
+ */
+endsnippet
+
+snippet /
+//////////////////////////////////////////
+endsnippet
+
+snippet //
+//////////////////////////////////////////
+//	$1
+//////////////////////////////////////////
+endsnippet
+
+snippet flow
+/* @flow */
+endsnippet
+
+snippet acc
+const $1 = '$1'
+
+export function $2() {
+	return {
+		type: '$1'
+		}
+}
+	case $1 :
+		return {
+			...state,
+		}
+endsnippet
+
+snippet fetch
+export function fetch$1() {
+  return dispatch => { // return redux-thunk
+    dispatch(request$1()) // set state to fetching
+    return fetch('<API_ROOT>', {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          return null
+        }
+        })
+      .then((data) => dispatch(receive$1(data)))
+      .catch((err) => console.error(err))
+  }
+}
+endsnippet
+
+snippet if
+if ($1) {
+}
+endsnippet
+
+snippet ife
+if ($1) {
+} else {
+}
+endsnippet
+
+snippet ifei
+if ($1) {
+} else if ($2) {
+}
+endsnippet

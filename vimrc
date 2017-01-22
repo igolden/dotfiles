@@ -83,6 +83,11 @@ map <leader>s :!bundle exec rake test<CR>
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 :hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 
+" Set ultisnips triggers
+let g:UltiSnipsExpandTrigger="<tab>"                                            
+let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"                                    
+
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
