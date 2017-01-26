@@ -1,4 +1,9 @@
 snippet rnccf
+/********************************************************
+ * ${1:What is this component? What props does it take?} 
+${2: *
+ * @flow}
+ ********************************************************/
 import React, { PropTypes } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
@@ -25,15 +30,22 @@ endsnippet
 
 
 snippet rnccs
+/********************************************************
+ * ${1:What is this component? What props does it take?} 
+${2: *
+ * @flow}
+ ********************************************************/
 import React, { PropTypes, Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 export default class ${1:ClassName} extends Component {
+  constructor(${2:props}) {
+		super(props)
+	}
   static propTypes = {}
-  state = {}
   render () {
     return (
-      ${0:<View>
+      ${0:<View style={styles.container}>
         <Text>
           $1
         </Text>
@@ -41,12 +53,78 @@ export default class ${1:ClassName} extends Component {
     )
   }
 }
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center"
+	}
+})
+endsnippet
+
+snippet rccf
+/********************************************************
+ * ${1:What is this component? What props does it take?} 
+${2: *
+ * @flow}
+ ********************************************************/
+import React, { PropTypes } from 'react'
+
+
+export default function ${1:FunctionName} (props) {
+  return (
+    <div className="$2">
+       $1
+    </div>
+  )
+}
+
+$1.propTypes = {
+
+}
+
+endsnippet
+
+
+snippet rccs
+/********************************************************
+ * ${1:What is this component? What props does it take?} 
+${2: *
+ * @flow}
+ ********************************************************/
+
+import React, { PropTypes, Component } from 'react'
+
+export default class ${3:ClassName} extends Component {
+  constructor(${4:props}) {
+		super(props)
+		this.state = {
+			// set initialState
+			// local Class state only
+		}
+	}
+	static propTypes = {
+		// Document all properties
+	}
+  render () {
+    return (
+      ${5:<div className="$6">
+          $3
+      </div>}
+    )
+  }
+}
 endsnippet
 
 snippet duck
+/********************************************************
+ * ${1:What is this reducer? What does it do?} 
+${2: *
+ * @flow}
+ ********************************************************/
 const initialState = {}
 
-export default function ${1:FunctionName} (state = initialState, action) {
+export default function ${3:FunctionName} (state = initialState, action) {
   switch (action.type) {
     default :
       return state
@@ -71,9 +149,10 @@ static propTypes = {
 endsnippet
 
 snippet maps
-function mapStateToProps ({${1:reducerName}}) {
+function mapStateToProps ({${1:reducerName}}, {${2:navigator}}) {
 	return {
-		$1
+		$1,
+		$2
 	}
 }
 endsnippet
@@ -81,7 +160,7 @@ endsnippet
 snippet mapd
 function mapDispatchToProps (dispatch) {
 	return {
-		$1	
+		${1:propName}: ($3) => dispatch(${2:someFunction}($3)),
 	}
 }
 endsnippet
@@ -97,8 +176,16 @@ snippet imf
 import { $1 } from '$2'
 endsnippet
 
+snippet imdu
+import { $1 } from '~/redux/modules/$2'
+endsnippet
+
 snippet imc
 import $1 from '$2'
+endsnippet
+
+snippet imcon
+import { connect } from 'react-redux'
 endsnippet
 
 snippet navc
@@ -135,10 +222,14 @@ export default class $1 extends Component {
   }
 endsnippet
 
-snippet ()
-${1:nameFunction} = () => {
+snippet ==>
+${1:nameFunction} = ($2) => {
 	
 }
+endsnippet
+
+snippet =>
+($1) => $2
 endsnippet
 
 snippet "u
@@ -151,7 +242,8 @@ function $1() {
 endsnippet
 
 snippet xf
-export function $1() {
+export function $1($2) {
+	$0
 }
 endsnippet
 
@@ -163,12 +255,15 @@ endsnippet
 snippet conp
 console.log(props)
 endsnippet
+
 snippet clo
-console.log("$1")
+console.log($1)
 endsnippet
 
-snippet view
-<View style={styles.$1}></View>
+snippet =clo
+console.log("============================================")
+console.log("=", $1)
+console.log("============================================")
 endsnippet
 
 snippet ///
@@ -196,28 +291,38 @@ endsnippet
 snippet acc
 const $1 = '$1'
 
-export function $2() {
+export function ${2:actionCreator}($3) {
 	return {
-		type: '$1'
+		type: '$1',
+		${4:data: {}}
 		}
 }
 	case $1 :
 		return {
-			...state,
-		}
+		...state,
+	}
 endsnippet
 
-snippet fetch
-export function fetch$1() {
+snippet ()d
+($2) => dispatch(${1:someAction}($2))
+endsnippet
+
+snippet fthunk
+export function ${1:fetchPosts}($2) {
   return dispatch => { // return redux-thunk
-    dispatch(request$1()) // set state to fetching
-    return fetch('<API_ROOT>', {
-      method: "GET",
+    dispatch(${3:requestPosts}()) // set state to fetching
+    return fetch(${4:API_ROOT}, {
+      method: "${5:GET}",
       headers: {
+        "Content-Type": "application/json",
         "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    })
+      },
+			${6:body: {
+					data: {
+						$0
+					}
+				}
+		}})
       .then((response) => {
         if (response.ok) {
           return response.json()
@@ -225,7 +330,16 @@ export function fetch$1() {
           return null
         }
         })
-      .then((data) => dispatch(receive$1(data)))
+      .then((data) => dispatch(${7:receivePosts}(data)))
+      .catch((err) => console.error(err))
+  }
+}
+endsnippet
+snippet thunk
+export function ${1:fetchPosts}() {
+  return dispatch => { // return redux-thunk
+    return dispatch(${2:requestPosts}())
+      .then((data) => dispatch(${6:receivePosts}(data)))
       .catch((err) => console.error(err))
   }
 }
@@ -246,4 +360,160 @@ snippet ifei
 if ($1) {
 } else if ($2) {
 }
+endsnippet
+
+snippet cdm
+componentDidMount() {
+	$2
+}
+endsnippet
+snippet cwm
+componentWillMount() {
+	$2
+}
+endsnippet
+snippet cdu
+componentDidUpdate() {
+	$2
+}
+endsnippet
+snippet cwu
+componentWillUpdate() {
+	$2
+}
+endsnippet
+
+snippet flex1
+$1: {
+	flex: 1,
+	justifyContent: "center",
+	alignItems: "center"
+}
+endsnippet
+
+snippet style
+style={styles.$1}
+endsnippet
+
+snippet exp
+export $1 from './$1/$1'
+endsnippet
+
+snippet dimensions
+import { dimensions, offsetWidth, offsetHeight } from '~/styles'
+endsnippet
+
+snippet top
+<TouchableOpacity onPress={($1) => ${2:console.log("onPress")}}>
+	$3
+</TouchableOpacity>
+endsnippet
+
+snippet textinput
+<TextInput style={styles.$1}
+	onChangeText={($2) => this.setState({$2})}
+	value={this.state.$2} />
+endsnippet
+
+snippet state
+this.state = {
+	$1: $2
+}
+endsnippet
+snippet text
+<Text style={styles.$1}>$2</Text>
+$0
+endsnippet
+
+snippet view
+<View style={styles.$1}>${2:
+} $0
+</View>
+endsnippet
+
+snippet op
+onPress={($1) => ${2:console.log("onPress")}}
+endsnippet
+
+snippet api_root
+import { API_ROOT, API_VERSION } from '~/config/api'
+endsnippet
+
+snippet timeout
+setTimeout(() => console.log(), 15)
+endsnippet
+
+snippet render
+render() {
+	return ($0)
+}
+endsnippet
+
+snippet rcc
+/********************************************************
+ * ${1:What is this Container? What does it connect?} 
+${2: *
+ * @flow}
+ ********************************************************/
+
+import { connect } from 'react-redux'									// import connect
+import { ${3:asyncAction} } from '../modules/$4'		  // import action creators
+import ${5:ComponentToConnect} from '../components/$5'						// import component to connect
+
+function mapStateToProps ({$4}, {...props}) {
+  return {
+    $4,
+		...props
+  }
+}
+function mapDispatchToProps (dispatch) {
+  return {
+    fetch$5: () => dispatch(fetch$5()),
+  }
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)($5)
+endsnippet
+
+snippet route
+import { injectReducer } from '~/store/reducers'
+
+export default (store) => ({
+  path : '$1',
+
+  getChildRoutes(partialNextState, cb) {
+    require.ensure([], (require) => {
+      cb(null, [
+        require('$2'),
+      ])
+    })
+  },
+
+  getComponent (nextState, cb) {
+    require.ensure([], (require) => {
+      const Counter = require('./containers/${3:container}').default
+      const reducer = require('./modules/${4:reducer}').default
+      injectReducer(store, { key: '$4', reducer })
+      cb(null, Counter)
+    }, '$5')
+  }
+})
+
+endsnippet
+snippet prop
+${1:propName}={ ${2:value} }
+endsnippet
+
+snippet disp
+dispatch(${1:actionCreator}($2))
+endsnippet
+
+snippet then
+.then( ($1) => $2 )
+endsnippet
+
+snippet disc
+${1:propName}: ($3) => dispatch(${2:actionCreator}($3)),
 endsnippet

@@ -15,7 +15,7 @@ ENV['$1']
 endsnippet
 
 snippet class
-class $1 < $2
+class ${1:ClassName} < ${2:ApplicationController}
 end
 endsnippet
 
@@ -26,4 +26,44 @@ snippet ###
 endsnippet
 snippet ####
 ####################################################
+endsnippet
+
+snippet sparams
+def ${1:resource}_params
+	params.require($2).permit($3)
+end
+endsnippet
+
+snippet devise_for
+devise_for :${1:users}, :controllers => { :${2:registrations} => "${3:users/registrations}"}
+endsnippet
+
+snippet constraints
+  constraints (-> (r) { r.path_info =~ /${1:v1}/ }) do 
+    namespace :${2:v1} do
+			$0
+    end
+  end
+
+endsnippet
+
+snippet get
+get "$1", controller: "$2", action: "$3", as: "$4"
+endsnippet
+snippet post
+post "$1", controller: "$2", action: "$3", as: "$4"
+endsnippet
+snippet put
+put "$1", controller: "$2", action: "$3", as: "$4"
+endsnippet
+
+snippet module
+module $1
+	${2:class $3 < $4
+	end}
+end
+endsnippet
+
+snippet par
+params['$1']
 endsnippet

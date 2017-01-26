@@ -178,6 +178,11 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
+" Align via equals and arrows
+map <leader>. :Tab /=><cr>
+map <leader>m :Tab /=<cr>
+
+
 
 " typos
 map :W :w
