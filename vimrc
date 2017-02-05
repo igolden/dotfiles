@@ -179,8 +179,9 @@ function! <SID>SynStack()
 endfunc
 
 " Align via equals and arrows
-map <leader>. :Tab /=><cr>
-map <leader>m :Tab /=<cr>
+map <leader>m :Tab /=><cr>
+map <leader>, :Tab /\/\/<cr>
+map <leader>. :Tab /=<cr>
 
 
 

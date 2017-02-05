@@ -67,3 +67,40 @@ endsnippet
 snippet par
 params['$1']
 endsnippet
+
+snippet ===
+puts "============================================================"
+puts "== $1"
+puts "============================================================"
+endsnippet
+
+snippet test
+describe ${1:Model} do 
+	before do
+		@$1.new
+	end
+	describe "$2" do 
+		it "$3"
+			@$1
+		end
+	end
+end
+endsnippet
+
+snippet describe
+describe "$1" do
+	it "$2" do
+		$0
+	end
+end
+endsnippet
+
+snippet htdf
+# ${1:function}: ${2:Variable} -> ${3:Primitive}
+# consumes: ${4:what are the inputs?}
+# produces: ${5:what does the function return?}
+# assertions: ${6:what can we asset as true?}
+
+# ${7:stub} # this is the stub
+
+endsnippet

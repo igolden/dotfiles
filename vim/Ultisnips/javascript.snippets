@@ -136,7 +136,7 @@ snippet imco
 import { connect } from 'react-redux'
 $0
 endsnippet
-snippet exdeco
+snippet expcon
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
@@ -224,7 +224,7 @@ endsnippet
 
 snippet ==>
 ${1:nameFunction} = ($2) => {
-	
+	$0
 }
 endsnippet
 
@@ -279,9 +279,9 @@ snippet /
 endsnippet
 
 snippet //
-//////////////////////////////////////////
-//	$1
-//////////////////////////////////////////
+/********************************************************
+ * $1
+ ********************************************************/
 endsnippet
 
 snippet flow
@@ -300,6 +300,7 @@ export function ${2:actionCreator}($3) {
 	case $1 :
 		return {
 		...state,
+		${5:isFetching: true,}
 	}
 endsnippet
 
@@ -434,6 +435,14 @@ endsnippet
 snippet op
 onPress={($1) => ${2:console.log("onPress")}}
 endsnippet
+snippet oc
+onClick={($1) => ${2:console.log("onClick")}}
+endsnippet
+
+snippet btn
+<button onClick={($1) => ${2:console.log("button clicked")}} className="${3:btn btn-primary}">$4</button>
+endsnippet
+
 
 snippet api_root
 import { API_ROOT, API_VERSION } from '~/config/api'
@@ -516,4 +525,39 @@ endsnippet
 
 snippet disc
 ${1:propName}: ($3) => dispatch(${2:actionCreator}($3)),
+endsnippet
+
+snippet switch
+switch ($1) {
+	case $2 :
+		return {
+			$3
+		}
+
+	case $4 :
+		return {
+			$5
+		}
+	default :
+		return {
+			$6
+		}
+}
+endsnippet
+
+snippet cwrp
+componentWillReceiveProps () {
+	$0
+}
+endsnippet
+snippet schema
+import { $1 } from '~/db/schema'
+endsnippet
+
+snippet const
+const $1 = $0
+endsnippet
+
+snippet image
+<Image source={require('../../assets/$1')} style={styles.$2} />$0
 endsnippet

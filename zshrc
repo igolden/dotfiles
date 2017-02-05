@@ -22,6 +22,8 @@ alias vupp="vagrant up --provision"
 alias vs="vagrant ssh"
 alias vp="vagrant provision"
 alias rn="react-native"
+alias redis_start="redis-server /usr/local/etc/redis.conf"
+alias redis_stop="redis-cli shutdown"
 # md5sum
 alias md5='md5 -r'
 alias md5sum='md5 -r'
