@@ -561,3 +561,24 @@ endsnippet
 snippet image
 <Image source={require('../../assets/$1')} style={styles.$2} />$0
 endsnippet
+
+snippet up
+'use strict';
+
+// Build constants
+$4
+
+class ${1:ClassName} {
+	constructor($2) {
+		$3
+	}
+	run() {
+
+	}
+}
+
+module.exports = $1
+endsnippet
+
+
+

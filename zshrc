@@ -1,8 +1,6 @@
 setopt promptsubst
 setopt EXTENDED_GLOB
-autoload -U promptinit
-promptinit
-prompt igolden
+
 
 export PATH=/opt/local/bin:/opt/local/sbin:$HOME/local/bin:$PATH
 export PATH=$PATH:/usr/local/git/bin/
@@ -125,11 +123,9 @@ antigen-apply
 
 #chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.3.0
+chruby 2.3.1
 #Hub Alias
 eval "$(hub alias -s)"
 alias todo="bundle exec todo"
 
-
-
-[[ -f ~/.localrc ]] && . ~/.localrc
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
