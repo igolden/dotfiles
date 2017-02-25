@@ -1,0 +1,129 @@
+snippet psv
+public static void $1($2)
+{
+	$0
+}
+endsnippet
+
+snippet whi
+while ($1)
+{
+	$0
+}
+endsnippet
+
+snippet if
+if ($1) 
+{
+	$0
+}
+endsnippet
+
+# constructor
+snippet con
+public $1($2)
+{
+	$0
+}
+endsnippet
+
+# public bool function
+snippet pubo
+public boolean $1($2)
+{
+	$3
+	return $0
+}
+endsnippet
+
+# private bool function
+snippet prbo
+private boolean $1($2)
+{
+	$3
+	return $0
+}
+endsnippet
+
+# public int function
+snippet pui
+public int $1($2)
+{
+	$3
+	return $0
+}
+endsnippet
+
+# private int function
+snippet pri
+private int $1($2)
+{
+	$3
+	return $0
+}
+endsnippet
+
+# public void function
+snippet puv
+public void $1($2)
+{
+	$0
+}
+endsnippet
+
+# private void function
+snippet pri
+private void $1($2)
+{
+	$0
+}
+endsnippet
+
+snippet for
+for ($1)
+	$0
+endsnippet
+
+snippet class
+public class $1
+{
+	// constants
+	$2
+
+	// constructor
+	public ${3:ConstructorName}($4)
+	{
+		$5	
+	}
+
+	// methods
+	${6:public void method()
+		{
+
+		}}
+}
+endsnippet
+
+# while standard
+snippet while
+while ($1)
+{
+	$0
+}
+endsnippet
+
+# while shorthand
+snippet whiles
+while ($1) $0
+endsnippet
+
+# if shorthand
+snippet ifs
+if ($1) $0;
+endsnippet
+
+# if else shorthand
+snippet ifes
+if ($1) { $2 }
+else		{ $3 };
+endsnippet

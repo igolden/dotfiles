@@ -30,7 +30,7 @@ endsnippet
 
 snippet sparams
 def ${1:resource}_params
-	params.require($2).permit($3)
+	params.require(:$1).permit($2)
 end
 endsnippet
 

@@ -123,7 +123,7 @@ antigen-apply
 
 #chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.3.1
+chruby 2.4.0
 #Hub Alias
 eval "$(hub alias -s)"
 alias todo="bundle exec todo"
