@@ -62,6 +62,9 @@ alias push="git push origin HEAD"
 alias pr="git pull-request"
 alias tree='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset'\'' --abbrev-commit --date=relative'
 
+# Bash wrappers
+alias count='tee >(wc -l)'
+
 # Jekyll Commands
 alias js='jekyll serve'
 alias jb='jekyll build'
