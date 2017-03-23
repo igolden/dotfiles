@@ -232,12 +232,13 @@ snippet =>
 ($1) => $2
 endsnippet
 
-snippet "u
+snippet strict
 "use strict";
 endsnippet
 
 snippet f
 function $1() {
+	$0
 }
 endsnippet
 
@@ -581,4 +582,19 @@ module.exports = $1
 endsnippet
 
 
+snippet casperthen
+casper.then(function() {
+	$0
+});
+endsnippet
 
+snippet caspercapture
+casper.then(function() {
+		this.capture("$1", {
+		top: $2,
+		left: $3,
+		width: $4,
+		height: $5
+				});
+});
+endsnippet

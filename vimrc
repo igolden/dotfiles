@@ -49,6 +49,9 @@ let g:UltiSnipsEditSplit="vertical"
 
 let mapleader=","
 
+" Temporary Commands
+map <leader>d :!phantomjs build/ww.js
+
 " Git
 map <leader>` :!git diff<CR>
 map <leader>1 :!git status<CR>
@@ -76,8 +79,9 @@ map <leader>v ggVG=
 
 " rails
 map <leader>b :!bundle install --path .bundle/gems --binstubs .bundle/bin<CR>
-map <leader>d :!rake db:migrate<CR>
-map <leader>s :!bundle exec rake test<CR>
+"map <leader>d :!rake db:migrate<CR>
+map <leader>r :!bundle exec rake test<CR>
+map <leader>e :!bundle exec rails test %<CR>
 
 
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)

@@ -1,0 +1,221 @@
+snippet gtp
+$0<?php get_template_part('$1'${2:, ''}); ?>
+endsnippet
+
+snippet dir
+$0<?php echo get_template_directory_uri(); ?>
+endsnippet
+snippet src="dir
+$0<?php echo get_template_directory_uri(); ?>
+endsnippet
+snippet src="/img
+src="<?php echo get_template_directory_uri(); ?>/assets
+endsnippet
+
+snippet template
+<?php
+/*
+ * Template Name: $1
+ */
+get_header(); ?>
+endsnippet
+
+snippet img
+<img src="<?php echo get_template_directory_uri(); ?>/assets/$1" alt="${2:image}">
+endsnippet
+
+snippet foot
+<?php get_footer(); ?>
+endsnippet
+
+
+###############################################################################################################################################################################################################################################################       HTML         #################################################################################################################################################################################################################################################################
+
+
+snippet html
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/app.js"></script>
+
+    </head>
+    <body>
+
+    </body>
+</html>
+endsnippet
+
+snippet div
+<div class="$1">$0</div>
+endsnippet
+
+snippet //
+<!-- $1 -->
+endsnippet
+
+snippet ul
+<ul class="$1">
+	<li>$2</li>
+</ul>
+endsnippet
+
+snippet menu
+<ul class="$1">
+  <li><a href="${2:#}">$3</a></li>
+</ul>
+endsnippet
+
+snippet conrow
+<div class="container">
+  <div class="row">$0</div>
+</div>
+endsnippet
+
+snippet cm2
+<div class="col-md-2">$0</div>
+endsnippet
+snippet cm3
+<div class="col-md-3">$0</div>
+endsnippet
+snippet cm4
+<div class="col-md-4">$0</div>
+endsnippet
+snippet cm5
+<div class="col-md-5">$0</div>
+endsnippet
+snippet cm6
+<div class="col-md-6">$0</div>
+endsnippet
+snippet cm7
+<div class="col-md-7">$0</div>
+endsnippet
+snippet cm8
+<div class="col-md-8">$0</div>
+endsnippet
+snippet cm9
+<div class="col-md-9">$0</div>
+endsnippet
+snippet cm10
+<div class="col-md-10">$0</div>
+endsnippet
+snippet cm12
+<div class="col-md-12">$0</div>
+endsnippet
+
+snippet row
+<div class="row">$0</div>
+endsnippet
+
+snippet include
+{% include $1 %}
+endsnippet
+
+snippet hw
+Hello World!
+endsnippet
+
+snippet col
+<div class="col">$0</div>
+endsnippet
+
+snippet p
+<p class="$1">$0</p>
+endsnippet
+
+snippet table
+<table>
+	<thead>
+		<th>$1</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td>$2</td>
+		</tr>
+	</tbody>
+</table>
+
+endsnippet
+
+snippet tr
+<tr>$0</tr>
+endsnippet
+snippet td
+<td>$0</td>
+endsnippet
+
+snippet <!-
+<!--
+	$1
+-->
+endsnippet
+snippet bg
+<div class="button-group">
+	<a href="${1:#}" class="btn ${2:primary}">$0</a>
+</div>
+endsnippet
+
+snippet <a
+<a href="$1" ${2:class="btn primary"}>$0</a>
+endsnippet
+snippet cl
+class="$1"
+endsnippet
+
+snippet <!
+<!-- $1 -->
+endsnippet
+
+snippet h1
+<h1>$1</h1>
+endsnippet
+snippet h2
+<h2>$1</h2>
+endsnippet
+snippet h3
+<h3>$1</h3>
+endsnippet
+snippet h4
+<h4>$1</h4>
+endsnippet
+snippet h5
+<h5>$1</h5>
+endsnippet
+
+snippet repeater
+<?php
+
+// check if the repeater field has rows of data
+if( have_rows('$1') ):
+
+ 	// loop through the rows of data
+    while ( have_rows('$1') ) : the_row();
+
+        // display a sub field value
+        the_sub_field('$2');
+
+    endwhile;
+
+else :
+
+    // no rows found
+
+endif;
+
+?>
+
+endsnippet
+
+snippet echo
+<?php echo "$0" ?>
+endsnippet

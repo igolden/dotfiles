@@ -74,7 +74,7 @@ puts "== $1"
 puts "============================================================"
 endsnippet
 
-snippet test
+snippet newtest
 describe ${1:Model} do 
 	before do
 		@$1.new
@@ -109,4 +109,30 @@ snippet init
 def initialize
 	$0
 end
+endsnippet
+
+snippet file
+File.open("", "w+") do |f|
+	$0
+end
+endsnippet
+
+snippet each
+$1.each do |$2|
+	$0
+end
+endsnippet
+
+snippet test
+test "$1" do
+	$0
+end
+endsnippet
+snippet setup
+def setup
+	$0
+end
+endsnippet
+snippet transactional
+self.use_transactional_tests = true
 endsnippet
