@@ -1,0 +1,103 @@
+imap kj <Esc>
+" Move around splits with <c-hjkl>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+filetype plugin indent on
+
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+:set t_Co=256 
+
+set nocompatible
+set hidden
+set history=10000
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set autoindent
+set laststatus=2
+set showmatch
+set incsearch
+set hlsearch
+set ignorecase smartcase
+set cursorline
+set cmdheight=2
+set switchbuf=useopen
+set number
+set numberwidth=5
+set showtabline=1
+set winwidth=80
+set shell=bash
+set t_ti= t_te=
+set scrolloff=3
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set showcmd " display incomplete commands
+syntax on
+set splitbelow
+set splitright
+set wildmode=longest,list
+set wildmenu
+set cuc
+
+let mapleader=","
+
+" Temporary Commands
+map <leader>d :!phantomjs build/ww.js
+map <leader>f ggVG=
+
+
+
+:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+:hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
+
+" Set ultisnips triggers
+let g:UltiSnipsExpandTrigger="<tab>"                                            
+let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"                                    
+
+nnoremap <c-n> :call NumberToggle()<cr>
+" Clear the search buffer when hitting return
+:nnoremap <CR> :nohlsearch<cr>
+nnoremap <leader><leader> <c-^>
+" Map kj to Esc
+imap kj <Esc>
+" arrow keys
+map <Left> :echo "No!"<cr>
+map <Right> :echo "No!"<cr>
+map <Up> :echo "No!"<cr>
+map <Down> :echo "No!"<cr>
+
+cnoremap %% <C-R>=expand('%:h').'/'<cr>  
+" open files current dir
+
+
+"folding settings
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         "this is just what i use
+set foldminlines=0
+
+" Set encoding
+set encoding=utf-8
+
+" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
+
+" add json syntax highlighting
+au BufNewFile,BufRead *.json set ft=javascript
+
+" Align via equals and arrows
+map <leader>m :Tab /=><cr>
+map <leader>, :Tab /\/\/<cr>
+map <leader>. :Tab /=<cr>
+
+
+
