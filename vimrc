@@ -49,8 +49,6 @@ let g:UltiSnipsEditSplit="vertical"
 
 let mapleader=","
 
-" Temporary Commands
-map <leader>d :!phantomjs build/ww.js
 
 " Git
 map <leader>` :!git diff<CR>
@@ -78,10 +76,7 @@ map <leader>c :NERDComToggleComment<CR>
 map <leader>v ggVG=
 
 " rails
-map <leader>b :!bundle install --path .bundle/gems --binstubs .bundle/bin<CR>
-"map <leader>d :!rake db:migrate<CR>
 map <leader>r :!bundle exec rake test<CR>
-map <leader>e :!bundle exec rails test %<CR>
 
 
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
@@ -184,7 +179,6 @@ endfunc
 
 " Align via equals and arrows
 map <leader>m :Tab /=><cr>
-map <leader>, :Tab /\/\/<cr>
 map <leader>. :Tab /=<cr>
 
 
@@ -202,4 +196,6 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-
+" Macros
+map <leader>, @w<cr>
+map <leader>e @e<cr>

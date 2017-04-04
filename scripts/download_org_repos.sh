@@ -1,0 +1,1 @@
+curl -u igolden -s https://api.github.com/orgs/sojourndestinations/repos\?per_page\=200 | ruby -rubygems -e 'require "json"; JSON.load(STDIN.read).each { |repo| p repo; %x[git clone #{repo["ssh_url"]} ]}'

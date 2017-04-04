@@ -228,7 +228,7 @@ ${1:nameFunction} = ($2) => {
 }
 endsnippet
 
-snippet =>
+snippet ()
 ($1) => $2
 endsnippet
 
@@ -309,7 +309,7 @@ snippet ()d
 ($2) => dispatch(${1:someAction}($2))
 endsnippet
 
-snippet fthunk
+snippet fetch
 export function ${1:fetchPosts}($2) {
   return dispatch => { // return redux-thunk
     dispatch(${3:requestPosts}()) // set state to fetching
@@ -597,4 +597,10 @@ casper.then(function() {
 		height: $5
 				});
 });
+endsnippet
+
+snippet /*
+/**
+ * $1
+ */
 endsnippet

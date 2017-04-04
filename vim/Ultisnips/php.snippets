@@ -193,29 +193,38 @@ snippet h5
 endsnippet
 
 snippet repeater
-<?php
+<?php if( have_rows('$1') ):
+	while ( have_rows('$1') ) : the_row(); ?>
 
-// check if the repeater field has rows of data
-if( have_rows('$1') ):
+<?php echo the_sub_field('$0'); ?>
 
- 	// loop through the rows of data
-    while ( have_rows('$1') ) : the_row();
-
-        // display a sub field value
-        the_sub_field('$2');
-
-    endwhile;
-
-else :
-
-    // no rows found
-
-endif;
-
-?>
-
+<?php endwhile;   
+			else : // conditional 
+			endif; ?>
 endsnippet
 
 snippet echo
 <?php echo "$0" ?>
+endsnippet
+
+snippet loop
+<?php $loop = new WP_Query( array( 'post_type' => 'yourposttypehere', 'posts_per_page' => -1 ) ); ?>
+<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+The stuff you want to loop goes in here
+<?php endwhile; wp_reset_query(); ?>
+endsnippet
+
+snippet enqueue
+$handle = '${1:app}';
+$src = get_template_directory_uri() . '${2:/assets/app.js}';
+$deps = array($3);
+$ver = ${4:false};
+$in_footer = ${5:true};
+wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );
+endsnippet
+
+snippet avatar
+<?php $current_user = wp_get_current_user();
+      $email = $current_user->user_email;
+      echo get_avatar($email, 64)?>
 endsnippet

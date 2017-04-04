@@ -130,5 +130,6 @@ chruby 2.4.0
 #Hub Alias
 eval "$(hub alias -s)"
 alias todo="bundle exec todo"
+alias myip="curl ipecho.net/plain; echo"
 
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
