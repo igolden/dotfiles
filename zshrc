@@ -132,4 +132,7 @@ eval "$(hub alias -s)"
 alias todo="bundle exec todo"
 alias myip="curl ipecho.net/plain; echo"
 
+alias stop_docker="docker stop $(docker ps -a -q)" 
+alias kill_docker="docker rm $(docker ps -a -q)"
+
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

@@ -604,3 +604,26 @@ snippet /*
  * $1
  */
 endsnippet
+
+#######
+# JAKEFILE SNIPPETS
+#######
+
+
+snippet ns
+namespace('$1', function() {
+	$2
+})
+endsnippet
+
+snippet task
+desc('$1')
+task('$2', function($3) {
+	$0
+})
+endsnippet
+
+
+
+
+
