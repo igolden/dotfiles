@@ -144,3 +144,15 @@ snippet //
 #
 ##############
 endsnippet
+
+snippet gemfile
+source 'https://rubygems.org'
+
+gem '$0'
+endsnippet
+
+snippet csv
+CSV.open("${1:path/to/file.csv}", "${2:w+}") do |csv|
+  csv << [${3:"header1", "header2", "header3", "header4"}]
+end
+endsnippet

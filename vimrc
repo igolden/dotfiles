@@ -192,6 +192,7 @@ set wildignore+=vendor/**,*node_modules*
 
 " Nerdtree
 map <leader>t :NERDTreeToggle<CR>
+"map <leader>t :Explore<cr>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -199,3 +200,18 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 " Macros
 map <leader>, @w<cr>
 map <leader>e @e<cr>
+
+let g:nerdtree_tabs_open_on_gui_startup=0
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function Hello() 
+  let msg = system('~/.test_vim_script')
+  echom msg
+endfunction
+
+function GetHighlighted() 
+  let vall = execute(. a:group)
+  echom vall
+endfunction

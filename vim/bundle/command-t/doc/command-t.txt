@@ -72,7 +72,7 @@ was first released, did not support Ruby in the system Vim, but the current
 version of OS X at the time of writing, Mavericks, does). All recent versions
 of MacVim come with Ruby support; it is available from:
 
-  http://github.com/b4winckler/macvim/downloads
+  http://macvim-dev.github.io/macvim/
 
 For Windows users, the Vim 7.2 executable available from www.vim.org does
 include Ruby support, and is recommended over version 7.3 (which links against
@@ -1421,17 +1421,17 @@ order, via `git shortlog -s | cut -f 2-3 | column -c 72`):
   Jeff Kreeftmeijer               Seth Fowler
   Jerome Castaneda                Sherzod Gapirov
   Joe Lencioni                    Shlomi Fish
-  KJ Tsanaktsidis                 Steven Moazami
-  Kevin Webster                   Sung Pae
-  Kien Nguyen Duc                 Thomas Pelletier
-  Lucas de Vries                  Ton van den Heuvel
-  Marcus Brito                    Victor Hugo Borja
-  Marian Schubert                 Vlad Seghete
-  Matthew Todd                    Vít Ondruch
-  Mike Lundy                      Woody Peterson
-  Nadav Samet                     Yan Pritzker
-  Nate Kane                       Zak Johnson
-  Nicholas T.
+  KJ Tsanaktsidis                 Stephen Gelman
+  Kevin Webster                   Steven Moazami
+  Kien Nguyen Duc                 Sung Pae
+  Lucas de Vries                  Thomas Pelletier
+  Marcus Brito                    Ton van den Heuvel
+  Marian Schubert                 Victor Hugo Borja
+  Matthew Todd                    Vlad Seghete
+  Mike Lundy                      Vít Ondruch
+  Nadav Samet                     Woody Peterson
+  Nate Kane                       Yan Pritzker
+  Nicholas T.                     Zak Johnson
 
 Additionally, Hanson Wang, Jacek Wysocki and Yiding Jia wrote patches which
 were not directly included but which served as a model for changes that did
