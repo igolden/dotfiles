@@ -76,7 +76,7 @@ map <leader>c :NERDComToggleComment<CR>
 map <leader>v ggVG=
 
 " rails
-map <leader>r :!bundle exec rake test<CR>
+map <leader>r :!bundle exec rake<CR>
 
 
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)

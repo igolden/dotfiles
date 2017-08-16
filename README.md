@@ -24,4 +24,5 @@ Run `rake install` to create the symlinks needed to setup your environment.
 * Spec Snippets
 * Begin/Rescue snippets
 * Special Operators
+* React Native Proptypes
 

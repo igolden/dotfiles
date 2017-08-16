@@ -184,6 +184,11 @@ export PATH="/usr/local/opt/opencv3/bin:$PATH"
 
 alias hn="links 'news.ycombinator.com'"
 alias gpg='gpg2'
+alias rtodo='grep -rn "# TODO"'
+alias jtodo='grep -rn "// TODO"'
+
+# sec
+alias cookies='open chrome://settings/cookies'
 
 # added by travis gem
 [ -f /Users/igolden/.travis/travis.sh ] && source /Users/igolden/.travis/travis.sh

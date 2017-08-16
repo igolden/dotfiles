@@ -4,6 +4,12 @@ def $1($2)
 end
 endsnippet
 
+snippet #*
+#==
+# $0
+#==
+endsnippet
+
 snippet mailer
 class ${1:YourName}Mailer < ApplicationMailer
 	$0
@@ -47,13 +53,13 @@ snippet constraints
 
 endsnippet
 
-snippet get
+snippet gro
 get "$1", controller: "$2", action: "$3", as: "$4"
 endsnippet
-snippet post
+snippet pro
 post "$1", controller: "$2", action: "$3", as: "$4"
 endsnippet
-snippet put
+snippet puro
 put "$1", controller: "$2", action: "$3", as: "$4"
 endsnippet
 
@@ -87,13 +93,6 @@ describe ${1:Model} do
 end
 endsnippet
 
-snippet describe
-describe "$1" do
-	it "$2" do
-		$0
-	end
-end
-endsnippet
 
 snippet htdf
 # ${1:function}: ${2:Variable} -> ${3:Primitive}
@@ -155,4 +154,177 @@ snippet csv
 CSV.open("${1:path/to/file.csv}", "${2:w+}") do |csv|
   csv << [${3:"header1", "header2", "header3", "header4"}]
 end
+endsnippet
+
+# TESTS
+
+snippet minitest
+require 'minitest/autorun'
+
+class ${1:TestCase} < MiniTest::Test 
+	def setup
+		$2
+	end
+end
+endsnippet
+
+snippet spec
+context "$1" do
+	str = "hello_world"
+	it { expect(str).to start_with "hello_"}
+end
+endsnippet
+
+snippet it
+it "$1" do
+	expect().to be true
+end
+endsnippet
+snippet itt
+it "$1" do
+	expect($0).to be true
+end
+endsnippet
+
+snippet itf
+it "$1" do
+	expect($0).to be false
+end
+endsnippet
+
+snippet iti
+it "$1" do
+	expect($2).to include($0)
+end
+endsnippet
+
+snippet itin
+it "$1" do
+	expect($2).to be_instance_of($0)
+end
+endsnippet
+
+snippet nspec
+require 'rspec/autorun'
+require_relative "../lib/*.rb"
+
+describe "$1" do
+  it "$2" do
+    $0
+  end
+end
+endsnippet
+
+snippet before
+before do 
+	$0
+end
+endsnippet
+
+snippet expect
+expect($1).to $0
+endsnippet
+
+snippet rakespec
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+rescue LoadError
+end
+endsnippet
+
+snippet con
+context "$1" do 
+	it "" do
+	end
+end
+endsnippet
+snippet context
+context "" do
+end
+endsnippet
+
+snippet RSpec.describe
+RSpec.describe "$1" do 
+	context "$2" do
+		it "$3" do 
+			$0
+		end
+	end
+end
+endsnippet
+
+snippet describe
+describe "$1"${2:, :type => :feature} do
+	it "$3" do
+		$0
+	end
+end
+endsnippet
+
+snippet feature
+describe "$1", :type => :feature do
+	before do 
+		$2
+	end
+	context "$3" do
+		it "$4" do
+			$0
+		end
+	end
+end
+endsnippet
+
+snippet scenario
+scenario "$1" do
+	$0
+end
+endsnippet
+
+snippet request
+describe "$1", :type => :request do
+  fixtures ${2::users}
+  before do
+		$3
+  end
+  context "$4" do
+    it "$5" do
+        $0
+    end
+  end
+end
+endsnippet
+snippet mspec
+describe "$1" do
+  ${2:fixtures :users}
+  before do 
+    $3
+  end
+  context "$4" do
+    it "$5" do
+		$0
+    end
+  end
+end
+endsnippet
+
+
+snippet respond_to
+respond_to do |format|
+	format.html { head :not_found}
+	format.json { head :not_found }
+	format.xml  { head :not_found }
+	format.any  { head :not_found }
+end
+endsnippet
+
+snippet get
+get "$1"${2:, params: \{\}, headers: \{\}}
+endsnippet
+snippet post
+post "$1"${2:, params: \{\}, headers: \{\}}
+endsnippet
+
+snippet bp
+binding.pry
 endsnippet
