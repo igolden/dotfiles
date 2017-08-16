@@ -26,3 +26,13 @@ Run `rake install` to create the symlinks needed to setup your environment.
 * Special Operators
 * React Native Proptypes
 
+---
+
+### TODO
+
+* move files in root into specific folders
+* remove the scripts folder
+* add igolden-clis repo
+* create new install shell script
+* shore up all of the zshrc stuff
+
