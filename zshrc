@@ -133,7 +133,7 @@ if [ -f ~/.git-completion.zsh ]; then
   . ~/.git-completion.zsh
 fi
 
-source "$HOME/dotfiles/.antigen/antigen.zsh"
+source "$HOME/dotfiles/antigen/antigen.zsh"
 antigen bundle robbyrussell/oh-my-zsh lib/
 antigen bundle git
 antigen-theme https://gist.github.com/b13f9353014327743137 igolden
