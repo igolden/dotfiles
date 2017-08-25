@@ -137,11 +137,10 @@ source "$HOME/dotfiles/antigen/antigen.zsh"
 antigen bundle robbyrussell/oh-my-zsh lib/
 antigen bundle git
 antigen-theme https://gist.github.com/b13f9353014327743137 igolden
-antigen-apply
 
 #chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.4.0
+chruby 2.4.1
 #Hub Alias
 eval "$(hub alias -s)"
 alias todo="bundle exec todo"
