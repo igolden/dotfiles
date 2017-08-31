@@ -12,19 +12,11 @@ function zsh_config {
   loop_and_conditionally_overwrite zsh
 }
 
-##
-# Loops and conditionally overwrite the asset
-#
-# @param path {String} -- dirname
-function loop_and_conditionally_overwrite {
-  for f in `ls $DOTFILES/$1`; do
-    if [ -e "$HOME/.$f" ]; then
-      ask_yes_or_no $f $1
-    else
-      cp $DOTFILES/$1/$f $HOME/.$f
-    fi
-  done
+function vim_config {
+  loop_and_conditionally_overwrite vim
 }
+
 
 git_config
 zsh_config
+vim_config

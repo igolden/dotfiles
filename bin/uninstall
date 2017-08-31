@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+function uninstall_zsh { 
+rm $HOME/.zshrc
+rm $HOME/.zshenv
+rm $HOME/.zsh_functions
+rm $HOME/.zsh_aliases
+rm $HOME/.zprofile
+rm $HOME/.zlogin
+}
+function uninstall_git {
+  rm $HOME/.gitconfig
+  rm $HOME/.githelpers
+}
+
+function uninstall {
+  uninstall_zsh
+  uninstall_git
+}
+
+uninstall
