@@ -4,14 +4,27 @@ DOTFILES=$HOME/dotfiles
 
 source ./bin/helpers
 
-function install_git {
-  for f in `ls $DOTFILES/git`; do
+function git_config {
+  loop_and_conditionally_overwrite git
+}
+
+function zsh_config {
+  loop_and_conditionally_overwrite zsh
+}
+
+##
+# Loops and conditionally overwrite the asset
+#
+# @param path {String} -- dirname
+function loop_and_conditionally_overwrite {
+  for f in `ls $DOTFILES/$1`; do
     if [ -e "$HOME/.$f" ]; then
       ask_yes_or_no $f
     else
-      cp $DOTFILES/git/$f $HOME/.$f
+      cp $DOTFILES/$1/$f $HOME/.$f
     fi
   done
 }
 
-install_git
+git_config
+zsh_config
