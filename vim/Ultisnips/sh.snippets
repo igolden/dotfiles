@@ -1,3 +1,23 @@
 snippet counter
 for ((i = 1; i <= n; i++))
 endsnippet
+
+snippet usage
+if [ "$#" == "0" ]; then
+echo "Usage: \nloopdir <dir> <commands>"
+exit 1
+endsnippet
+
+snippet if
+if [ $1 ]; then
+	$0
+fi
+endsnippet
+
+snippet while
+while (( "$#" )); do
+echo $#
+shift
+done
+endsnippet
+

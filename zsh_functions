@@ -13,6 +13,10 @@ function kill_docker {
   docker rmi $(docker images);
 }
 
+function loopdir {
+  # REDO
+}
+
 function dcr {
   image=$1
   shift
@@ -38,8 +42,7 @@ end tell
     end tell
   end tell"
 }
-# up ..
-function up {
+ function up {
   if [[ "$#" < 1 ]] ; then
     cd ..
   else
