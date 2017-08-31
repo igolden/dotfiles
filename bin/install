@@ -19,7 +19,7 @@ function zsh_config {
 function loop_and_conditionally_overwrite {
   for f in `ls $DOTFILES/$1`; do
     if [ -e "$HOME/.$f" ]; then
-      ask_yes_or_no $f
+      ask_yes_or_no $f $1
     else
       cp $DOTFILES/$1/$f $HOME/.$f
     fi
