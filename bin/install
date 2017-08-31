@@ -1,0 +1,17 @@
+#!/bin/bash
+
+DOTFILES=$HOME/dotfiles
+
+source ./bin/helpers
+
+function install_git {
+  for f in `ls $DOTFILES/git`; do
+    if [ -e "$HOME/.$f" ]; then
+      ask_yes_or_no $f
+    else
+      cp $DOTFILES/git/$f $HOME/.$f
+    fi
+  done
+}
+
+install_git

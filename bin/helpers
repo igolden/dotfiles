@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+function ask_yes_or_no() {
+    read -p ".$1 exists. Overwrite? ([y]es or [N]o): "
+    case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
+        y|yes) echo 'OK, overwriting...' && overwrite $HOME/.$1 $DOTFILES/git/$1 ;;
+        *)   echo 'OK, skipping...'   ;;
+    esac
+}
+
+## $1 : Destination path
+## $2 : Resource path 
+function overwrite {
+  rm $1
+  cp $2 $1
+}
