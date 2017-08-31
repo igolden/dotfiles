@@ -1,0 +1,17 @@
+snippet setup
+from setuptools import setup
+
+setup(
+  name="hello"
+  verstion="0.0.0"
+  py_modules=["hello"]
+  install_requires=[
+  "Click",
+]
+
+  entry_points='''
+        [console_scripts]
+        myhello=hello:cli
+    ''',
+)
+endsnippet
