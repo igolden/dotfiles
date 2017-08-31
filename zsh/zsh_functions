@@ -31,6 +31,18 @@ function bin() {
   ./bin/$1
 }
 
+# downloads all repos for an org
+function git_download_all_repos {
+curl -u igolden -s https://api.github.com/orgs/sojourndestinations/repos\?per_page\=200 | ruby -rubygems -e 'require "json"; JSON.load(STDIN.read).each { |repo| p repo; %x[git clone #{repo["ssh_url"]} ]}'
+}
+
+# installs npm in all directories
+function install_npm_in_all_dirs {
+  find . -type d -maxdepth 1 \
+    -exec bash -c "cd '{}' && if [ \$PWD'/package.json'  ]; then \
+    echo 'Installing node_modules in ' \$PWD; npm install; fi" \;
+}
+
 function adjust_background() {
   osascript -e "tell application \"iTerm\"
   set current_terminal to (current terminal)
