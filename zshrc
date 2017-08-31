@@ -20,7 +20,8 @@ export ANDROID_HOME=/Users/igolden/Library/Android/sdk
 export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PATH="/usr/local/opt/opencv3/bin:$PATH"
 
-source '.zsh_aliases'
+source "$HOME/.zsh_aliases"
+source "$HOME/.zsh_functions"
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-color'
