@@ -1,27 +1,46 @@
 igolden dotfiles
 ===
 
-* .zshrc
-* .zsh-aliases
-* .zsh-func
-* .vimrc
-* .vim/bundle
-* .vim/snippets
-* .gitconfig
+My freshly polish dotfiles for 2017.
 
 
+### Usage
+
+```
+git clone igolden/dotfiles ~/dotfiles
+cd ~/dotfiles
+bin/help
+```
 
 
+### Commands
 
-### Install
+Commands
 
-Run `rake install` to create the symlinks needed to setup your environment.
 
-### Snippets to add
+```bash
 
-* Rakefile snippets
-* Minitest Snippets
-* Spec Snippets
-* Begin/Rescue snippets
-* Special Operators
+bin/help - help screen
 
+bin/dependencies - view system status
+
+bin/install - install dotfiles
+
+bin/uninstall - uninstall dotfiles
+
+```
+
+### Snippets
+
+...
+
+
+### Aliases
+
+...
+
+
+### Functions
+
+
+### Scripts

@@ -12,11 +12,9 @@ function zsh_config {
   loop_and_conditionally_overwrite zsh
 }
 
+
 function vim_config {
-  loop_and_conditionally_overwrite vim
 }
 
-
-git_config
-zsh_config
+#git_config #zsh_config
 vim_config

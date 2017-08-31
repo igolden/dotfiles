@@ -21,6 +21,12 @@ function overwrite {
 
 
 ##
+# Reset current path to $HOME
+function go_home {
+  cd $HOME
+}
+
+##
 # Assembles a couple functions to conditionally
 # overwrite a file
 function loop_and_conditionally_overwrite {

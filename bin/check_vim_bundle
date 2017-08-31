@@ -1,0 +1,21 @@
+#!/bin/bash
+
+function bundle_exists {
+  if [ -e $1 ]; then
+    echo TRUE
+  else
+    echo FALSE
+  fi   
+}
+
+function clone_vim_bundles {
+  for i in `cat vim/bundle.lock`; do
+    cd $DOTFILES/vim/bundle
+    git clone git@github.com:$i 
+  done
+}
+
+function build_command_t {
+  ## cd $command_t_path
+  ## cd ./ruby/commant-t/ruby-extconf
+}
