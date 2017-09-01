@@ -7,7 +7,10 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 :set t_Co=256 
 :color railscasts
 
-set nocompatible
+let g:calendar_google_calendar = 1
+
+
+set nocompatible 
 set hidden
 set history=10000
 set expandtab
@@ -17,7 +20,7 @@ set softtabstop=2
 set autoindent
 set laststatus=2
 set showmatch
-set incsearch
+set incsearch 
 set hlsearch
 set ignorecase smartcase
 set cursorline
@@ -47,7 +50,17 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
+
 let mapleader=","
+
+map <leader>; :Tabularize /=<cr>
+map <leader>;> :Tabularize /=><cr>
+map <leader>;, :Tabularize /,<cr>
+map <leader>;) :Tabularize /)<cr>
+map <leader>;: :Tabularize /:<cr>
+map <leader>;. :Tabularize /.<cr>
+
+
 
 
 " Git
@@ -65,11 +78,6 @@ map <leader>0 :!git stash pop<CR>
 map <leader>- :!git stash<CR>
 map <leader>= :!git push origin HEAD<CR>
 
-" Fixme / Notes
-map <leader>; :!gulp notes<CR>
-map <leader>[ :!gulp notes \| grep TODO<CR>
-map <leader>] :!gulp notes \| grep FIXME<CR>
-map <leader>\ :!gulp notes \| grep OPTIMIZE<CR>
 
 
 map <leader>c :NERDComToggleComment<CR>
@@ -81,6 +89,14 @@ map <leader>r :!bundle exec rake test<CR>
 
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 :hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " Set ultisnips triggers
 let g:UltiSnipsExpandTrigger="<tab>"                                            
@@ -177,18 +193,56 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-" Align via equals and arrows
-map <leader>m :Tab /=><cr>
-map <leader>. :Tab /=<cr>
 
+" MRU
+""""""""""""""""""""""""""""""
+let MRU_Max_Entries = 400
+map <leader>f :call ToggleMRU()<CR>
+map <leader>ls :MRU spec<CR>
+map <leader>lc :MRU controller<CR>
+map <leader>lm :MRU controller<CR>
+map <leader>lm :MRU controller<CR>
+let g:mru_is_open = 0
+
+function! ToggleMRU() 
+  if g:mru_is_open
+    :execute "close"
+    let g:mru_is_open = 0
+  else
+    let g:mru_is_open = 1
+    :execute "MRU"
+  endif
+endfunction
 
 
 " typos
 map :W :w
+map :WQa :wqa
+map :Wqa :wqa
+map :Q :q
+map :Qa :qa
+
+map <space> :call commandt#FileFinder('.')<cr>
+
+let g:quickfix_is_open = 0
+
+function! QuickfixToggle()
+    if g:quickfix_is_open
+        call commandt#private#Delete()
+        let g:quickfix_is_open = 0
+    else
+        call 
+        let g:quickfix_is_open = 1
+    endif
+endfunction
+
+let g:CommandTFileScanner="find"
+
 imap <c-l> <space>=><space>
 
 " Command T ignore
 set wildignore+=vendor/**,*node_modules*
+"command for :source ~/.vimrc
 
 " Nerdtree
 map <leader>t :NERDTreeToggle<CR>
@@ -202,16 +256,6 @@ map <leader>, @w<cr>
 map <leader>e @e<cr>
 
 let g:nerdtree_tabs_open_on_gui_startup=0
-
+let g:CommandTCancelMap     = ['<ESC>', '<C-c>', '<space>']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function Hello() 
-  let msg = system('~/.test_vim_script')
-  echom msg
-endfunction
-
-function GetHighlighted() 
-  let vall = execute(. a:group)
-  echom vall
-endfunction

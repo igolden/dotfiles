@@ -1,2 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
+USAGE = %Q{ 
+  Usage:
+
+  bin/help        shows this screen
+  bin/install     starts install process 
+  bin/uninstall   removes all symlinks from home dir 
+  bin/help        shows this screen
+} 

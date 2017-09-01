@@ -13,8 +13,10 @@ function zsh_config {
 }
 
 
-function vim_config {
-}
+#function vim_config {
+  ## check vim bundle
+#}
 
-#git_config #zsh_config
-vim_config
+git_config 
+zsh_config
+#vim_config

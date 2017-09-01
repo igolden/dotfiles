@@ -2,7 +2,7 @@
 
 ##
 # Conditionally creates a symlink based on user input
-function ask_yes_or_no() {
+function ask_yes_or_no {
     echo $HOME/.$1
     echo $DOTFILES/$2/$1
     read -p ".$1 exists. Overwrite? ([y]es or [N]o): "
@@ -11,6 +11,22 @@ function ask_yes_or_no() {
         *)   echo 'OK, skipping...'   ;;
     esac
 }
+
+##
+# Confirm 
+function confirm {
+    read -p "Are you sure?"
+    case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
+        y|yes)  ;;
+        *)   echo 'OK, skipping...'   ;;
+    esac
+    read -p "REALLY SURE? This will destroy ALL brew packages."
+    case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
+        y|yes) echo 'OK, starting...' &&  ;;
+        *)   echo 'OK, skipping...'   ;;
+    esac
+}
+
 
 ## $1 : Destination path
 ## $2 : Resource path 

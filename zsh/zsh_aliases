@@ -15,6 +15,9 @@ alias md5='md5 -r'
 alias md5sum='md5 -r'
 alias rncc='watchman watch-del-all && rm -rf node_modules && yarn && yarn start -- --reset-cache'
 
+
+alias pbfile="cat $1 | pbcopy"
+
 alias ivm='vim'
 alias ivn='vim'
 alias iv='vim'

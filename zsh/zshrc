@@ -153,7 +153,7 @@ alias kill_docker="docker rm $(docker ps -a -q)"
 # macdown
 alias md="/Applications/MacDown.app/Contents/SharedSupport/bin/macdown"
 
-alias grep="/usr/local/Cellar/grep/3.0/bin/ggrep --color"
+alias grep="grep --color"
 
 alias nis="npm install --save"
 alias nisd="npm install --save-dev"
@@ -169,6 +169,8 @@ alias dcu='docker-compose up'
 alias dynamo='java -Djava.library.path=/Users/igolden/source/dynamodb/DynamoDBLocal_lib -jar /Users/igolden/source/dynamodb/DynamoDBLocal.jar -sharedDb -inMemory'
 
 alias pamm='git push origin HEAD && git co master && git merge - && git push origin master'
+
+alias pbfile="cat $1 | pbcopy"
 
 function commit {
   git aa && git commit -m "$1"
