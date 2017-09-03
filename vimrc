@@ -282,6 +282,9 @@ endfunction
 
 nnoremap <C-f> :UltiSnipsEdit<cr>
 
+set nuw=2
+
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""

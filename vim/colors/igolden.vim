@@ -1,71 +1,114 @@
-" Vim color scheme
-"
-" Name:         igolden.vim
-" Maintainer:   Ian Golden <ian@iangolden.com>
-" Last Change:  17 May 2017
-" License:      MIT <?>
-" Version:      0.1
-
 set background=dark
 hi clear
+
 if exists("syntax_on")
   syntax reset
 endif
 
-let g:colors_name = "igolden"
+let g:colors_name="igolden"
 
-hi link htmlTag                     xmlTag
-hi link htmlTagName                 xmlTagName
-hi link htmlEndTag                  xmlEndTag
+" 187 -> yello
+" 194 ->  HoneyDew (light melon green)
+" 109 -> light blue
 
-highlight Normal                    guifg=#E6E1DC guibg=#000000 ctermbg=236 
-highlight NonText                   ctermfg=238
-highlight Cursor                    guifg=#000000 ctermfg=0 guibg=#FFFFFF ctermbg=15	
-highlight CursorLine                guibg=#000000 ctermbg=233 cterm=NONE
+hi Normal           cterm=NONE      ctermfg=254         ctermbg=234
+hi Visual           cterm=bold      ctermfg=0         ctermbg=191
+hi Comment          cterm=NONE      ctermfg=194        ctermbg=234
+hi Todo              cterm=NONE      ctermfg=191         ctermbg=234
+hi Operator          cterm=NONE      ctermfg=231         ctermbg=234
+hi Identifier        cterm=NONE      ctermfg=107        ctermbg=234
+hi Statement         cterm=NONE      ctermfg=109         ctermbg=234
+hi Type              cterm=NONE      ctermfg=48        ctermbg=234
+hi Constant          cterm=NONE      ctermfg=109         ctermbg=234
+hi Conditional       cterm=NONE      ctermfg=65         ctermbg=234
+hi Delimiter         cterm=NONE      ctermfg=65         ctermbg=234
+hi Define            cterm=NONE      ctermfg=172        ctermbg=234
+hi PreProc           cterm=NONE      ctermfg=65         ctermbg=234
+hi Special           cterm=NONE      ctermfg=197         ctermbg=234
+hi Keyword           cterm=NONE      ctermfg=50         ctermbg=234
+hi Directory         cterm=NONE      ctermfg=45         ctermbg=234
+hi LineNr           cterm=NONE      ctermfg=194          ctermbg=234
+hi Cursor           cterm=NONE      ctermfg=123         ctermbg=0
+hi CursorLine       cterm=bold      ctermfg=11       ctermbg=0
+hi CursorLineNr     cterm=NONE      ctermfg=231         ctermbg=66
+hi Function         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi Character         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi String         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi Boolean         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi Float         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi Label         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi Repeat         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi Exception         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi Include         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi TypeDef         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi Macro         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi PreCondit         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi StorageClass         cterm=NONE      ctermfg=221         ctermbg=NONE
+hi Structure         cterm=NONE      ctermfg=221         ctermbg=NONE
+hi Tag         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi TypeDef         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi SpecialChar         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi SpecialComment         cterm=NONE      ctermfg=74         ctermbg=NONE
+hi Debug         cterm=NONE      ctermfg=74         ctermbg=NONE
 
-highlight Comment                   guifg=#BC9458 ctermfg=180 gui=italic
-highlight Constant                  guifg=#6D9CBE ctermfg=73
-highlight Define                    guifg=#CC7833 ctermfg=173
-highlight Error                     guifg=#FFC66D ctermfg=221 guibg=#990000 ctermbg=88
-highlight Function                  guifg=#FFC66D ctermfg=221 gui=NONE cterm=NONE
-highlight Identifier                guifg=#6D9CBE ctermfg=73 gui=NONE cterm=NONE
-highlight Include                   guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
-highlight PreCondit                 guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
-highlight Keyword                   guifg=#CC7833 ctermfg=173 cterm=NONE
-highlight LineNr                    guifg=#2B2B2B ctermfg=237 ctermbg=247 guibg=#C0C0FF
-highlight Number                    guifg=#A5C261 ctermfg=107
-highlight PreProc                   guifg=#E6E1DC ctermfg=103
-highlight Search                    guifg=NONE ctermfg=NONE guibg=#2b2b2b ctermbg=235 gui=italic cterm=underline
-highlight Statement                 guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
-highlight String                    guifg=#A5C261 ctermfg=107
-highlight Title                     guifg=#FFFFFF ctermfg=15
-highlight Type                      guifg=#DA4939 ctermfg=167 gui=NONE cterm=NONE
-highlight Visual                    guibg=#000000 ctermbg=101
 
-highlight DiffAdd                   guifg=#E6E1DC ctermfg=7 guibg=#519F50 ctermbg=71
-highlight DiffDelete                guifg=#E6E1DC ctermfg=7 guibg=#660000 ctermbg=52
-highlight Special                   guifg=#DA4939 ctermfg=167 
+hi TabLine          cterm=NONE      ctermfg=231         ctermbg=231
+hi TabLineFill      cterm=NONE      ctermfg=231        ctermbg=231
+hi TabLineSel       cterm=NONE      ctermfg=231         ctermbg=231
 
-highlight pythonBuiltin             guifg=#6D9CBE ctermfg=73 gui=NONE cterm=NONE
-highlight rubyBlockParameter        guifg=#FFFFFF ctermfg=15
-highlight rubyClass                 guifg=#FFFFFF ctermfg=15
-highlight rubyConstant              guifg=#DA4939 ctermfg=167
-highlight rubyInstanceVariable      guifg=#D0D0FF ctermfg=189
-highlight rubyInterpolation         guifg=#519F50 ctermfg=107
-highlight rubyLocalVariableOrMethod guifg=#D0D0FF ctermfg=189
-highlight rubyPredefinedConstant    guifg=#DA4939 ctermfg=167
-highlight rubyPseudoVariable        guifg=#FFC66D ctermfg=221
-highlight rubyStringDelimiter       guifg=#A5C261 ctermfg=143
+" Msg
+hi Error            cterm=bold      ctermfg=231         ctermbg=52
+hi ErrorMsg         cterm=bold      ctermfg=231         ctermbg=52
+hi WarningMsg       cterm=NONE      ctermfg=231         ctermbg=NONE
 
-highlight xmlTag                    guifg=#E8BF6A ctermfg=179
-highlight xmlTagName                guifg=#E8BF6A ctermfg=179
-highlight xmlEndTag                 guifg=#E8BF6A ctermfg=179
+hi StatusLine       cterm=NONE      ctermfg=248        ctermbg=0
+hi StatusLineNC     cterm=NONE      ctermfg=231         ctermbg=0
 
-highlight mailSubject               guifg=#A5C261 ctermfg=107
-highlight mailHeaderKey             guifg=#FFC66D ctermfg=221
-highlight mailEmail                 guifg=#A5C261 ctermfg=107 gui=italic cterm=underline
+hi VertSplit        cterm=NONE      ctermfg=238         ctermbg=0
 
-highlight SpellBad                  guifg=#D70000 ctermfg=160 ctermbg=NONE cterm=underline
-highlight SpellRare                 guifg=#D75F87 ctermfg=168 guibg=NONE ctermbg=NONE gui=underline cterm=underline
-highlight SpellCap                  guifg=#D0D0FF ctermfg=189 guibg=NONE ctermbg=NONE gui=underline cterm=underline
-highlight MatchParen                guifg=#FFFFFF ctermfg=15 guibg=#005f5f ctermbg=23
+
+" UI
+hi Pmenu            cterm=NONE      ctermfg=231         ctermbg=0
+hi PmenuSel         cterm=NONE      ctermfg=231         ctermbg=0
+hi PmenuSbar        cterm=NONE      ctermfg=231         ctermbg=0
+hi PmenuThumb       cterm=NONE      ctermfg=231         ctermbg=0
+
+
+"hi Include          cterm=bold      ctermfg=0          ctermbg=191
+"hi Conditional      cterm=bold      ctermfg=0         ctermbg=191
+"hi Boolean          cterm=bold      ctermfg=0          ctermbg=NONE
+"hi Define           cterm=NONE      ctermfg=65          ctermbg=NONE
+"hi Type             cterm=NONE      ctermfg=65          ctermbg=NONE
+"hi TypeDef          cterm=NONE      ctermfg=65          ctermbg=NONE
+"hi ColorColumn      cterm=NONE      ctermfg=231        ctermbg=242
+
+"hi Character        cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi Constant         cterm=NONE      ctermfg=231          ctermbg=NONE
+"hi Delimiter        cterm=bold      ctermfg=231          ctermbg=NONE
+"hi DiffAdd          cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi DiffChange       cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi DiffDelete       cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi DiffText         cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi Directory        cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi FoldColumn       cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi Folded           cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi Identifier       cterm=bold      ctermfg=231          ctermbg=NONE
+"hi IncSearch        cterm=NONE      ctermfg=231         ctermbg=217
+"hi Macro            cterm=NONE      ctermfg=231          ctermbg=NONE
+"hi NonText          cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi Operator         cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi PreProc          cterm=NONE      ctermfg=231          ctermbg=NONE
+"hi Search           cterm=NONE      ctermfg=0         ctermbg=109
+"hi Special          cterm=NONE      ctermfg=231          ctermbg=NONE
+"hi SpecialKey       cterm=NONE      ctermfg=231          ctermbg=NONE
+"hi SpellBad         cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi SpellCap         cterm=NONE      ctermfg=231          ctermbg=NONE
+"hi SpellLocal       cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi SpellRare        cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi Statement        cterm=NONE      ctermfg=231         ctermbg=NONE
+"hi String           cterm=NONE      ctermfg=231          ctermbg=NONE
+"hi Tag              cterm=NONE      ctermfg=231          ctermbg=NONE
+"hi Todo             cterm=NONE      ctermfg=231         ctermbg=66
+"hi Underlined       cterm=underline ctermfg=231        ctermbg=NONE
+"hi WildMenu         cterm=NONE      ctermfg=231          ctermbg=NONE
+
