@@ -132,6 +132,12 @@ alias -- -="cd -"
 alias lcat="cat $1 | less"
 alias nuke='kill -9 %%'
 
+function rubo {
+  echo "Fetching..."
+  wget https://gist.githubusercontent.com/igolden/504866fd5e84c68803a5bacc5e8ecc5a/raw/8d143437438844c5e0d9dab0954060e1ac969d2a/.rubocop.yml &> /dev/null
+  echo "Downloading .rubocop.yml"
+}
+
 
 # PKG INSTALLER
 

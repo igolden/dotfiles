@@ -1,0 +1,19 @@
+snippet let
+let ${1:g:YourVarHere}="$0"
+endsnippet
+
+snippet leader
+let mapleader="$0"
+endsnippet
+
+snippet set
+set $0
+endsnippet
+
+snippet func
+function ${1:NameYourFunction}()
+	if !exists($2)
+		$0
+	endif
+endfunction
+endsnippet

@@ -40,6 +40,8 @@ alias mcim='vim'
 alias mim='vim'
 alias fim='vim'
 
+source ~/.zsh_aliases
+
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-color'
@@ -136,7 +138,8 @@ fi
 source "$HOME/dotfiles/antigen/antigen.zsh"
 antigen bundle robbyrussell/oh-my-zsh lib/
 antigen bundle git
-antigen-theme https://gist.github.com/b13f9353014327743137 igolden
+antigen theme https://gist.github.com/b13f9353014327743137 igolden
+antigen apply
 
 #chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
@@ -161,16 +164,14 @@ alias nu="npm upgrade"
 alias nun="npm uninstall"
 alias nug="npm update --global"
 alias nung="npm uninstall --global"
-
 alias dc='docker-compose'
 alias dcc='docker-compose config'
 alias dcu='docker-compose up'
-
 alias dynamo='java -Djava.library.path=/Users/igolden/source/dynamodb/DynamoDBLocal_lib -jar /Users/igolden/source/dynamodb/DynamoDBLocal.jar -sharedDb -inMemory'
-
 alias pamm='git push origin HEAD && git co master && git merge - && git push origin master'
 
-alias pbfile="cat $1 | pbcopy"
+
+function pbfile { cat $1 | pbcopy }
 
 function commit {
   git aa && git commit -m "$1"

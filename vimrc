@@ -48,18 +48,30 @@ set cuc
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical"
-
+let g:UltiSnipsEditSplit="context"
+let g:UltiSnipsSnippetsDir="~/.vim/ultisnips/"
 
 let mapleader=","
 
-map <leader>; :Tabularize /=<cr>
-map <leader>;> :Tabularize /=><cr>
+map <leader>;= :Tabularize /=l1r1<cr>
+map <leader>;> :Tabularize /=>l2r2<cr>
 map <leader>;, :Tabularize /,<cr>
 map <leader>;) :Tabularize /)<cr>
-map <leader>;: :Tabularize /:<cr>
+map <leader>;: :Tabularize /:l4<cr>
 map <leader>;. :Tabularize /.<cr>
+vmap - :Tabularize /
+  
+map <C-v> :e $MYVIMRC<cr>
+map <C-s> :call EditSnippets()<cr>
 
+
+
+
+" ruby runners
+nmap <C-r><space> :!ruby 
+nmap <C-r>r :!ruby %<cr> 
+nmap <C-r>r :!ruby %<cr> 
+nmap <C-r>r :!ruby %<cr> 
 
 
 
@@ -81,7 +93,7 @@ map <leader>= :!git push origin HEAD<CR>
 
 
 map <leader>c :NERDComToggleComment<CR>
-map <leader>v ggVG=
+map <leader>v <Plug>VimroomToggle<CR>
 
 " rails
 map <leader>r :!bundle exec rake test<CR>
@@ -167,7 +179,7 @@ set foldminlines=0
 set encoding=utf-8
 
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Guardfile,config.ru}    set ft=ruby
 
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
@@ -222,6 +234,7 @@ map :Wqa :wqa
 map :Q :q
 map :Qa :qa
 
+map <leader>b :!bundle install<cr>
 map <space> :call commandt#FileFinder('.')<cr>
 
 let g:quickfix_is_open = 0
@@ -247,7 +260,7 @@ set wildignore+=vendor/**,*node_modules*
 " Nerdtree
 map <leader>t :NERDTreeToggle<CR>
 "map <leader>t :Explore<cr>
-autocmd StdinReadPre * let s:std_in=1
+"autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
@@ -256,6 +269,19 @@ map <leader>, @w<cr>
 map <leader>e @e<cr>
 
 let g:nerdtree_tabs_open_on_gui_startup=0
+let NERDTreeShowHidden=1
+
 let g:CommandTCancelMap     = ['<ESC>', '<C-c>', '<space>']
+let g:vimroom_background = 'white'
+
+function! EditSnippets() 
+  if !exists("g:UltiSnipsSnippetsDir")
+    :exec ":o g:UltiSnipsEdit<cr>"
+  endif
+endfunction
+
+nnoremap <C-f> :UltiSnipsEdit<cr>
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
