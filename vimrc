@@ -5,7 +5,7 @@ let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 :set t_Co=256 
-:color railscasts
+:color igolden
 
 let g:calendar_google_calendar = 1
 
@@ -51,18 +51,21 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="context"
 let g:UltiSnipsSnippetsDir="~/.vim/ultisnips/"
 
+let g:jsx_ext_required = 0
+
+
 let mapleader=","
 
-map <leader>;= :Tabularize /=l1r1<cr>
-map <leader>;> :Tabularize /=>l2r2<cr>
-map <leader>;, :Tabularize /,<cr>
-map <leader>;) :Tabularize /)<cr>
-map <leader>;: :Tabularize /:l4<cr>
-map <leader>;. :Tabularize /.<cr>
+nnoremap <leader>;= :Tabularize /=l1r1<cr>
+nnoremap <leader>;> :Tabularize /=>l2r2<cr>
+nnoremap <leader>;, :Tabularize /,<cr>
+nnoremap <leader>;) :Tabularize /)<cr>
+nnoremap <leader>;: :Tabularize /:l4<cr>
+nnoremap <leader>;. :Tabularize /.<cr>
 vmap - :Tabularize /
   
-map <C-v> :e $MYVIMRC<cr>
-map <C-s> :call EditSnippets()<cr>
+nnoremap <C-w> :e $MYVIMRC<cr>
+nnoremap <C-s> :call EditSnippets()<cr>
 
 
 
@@ -76,27 +79,27 @@ nmap <C-r>r :!ruby %<cr>
 
 
 " Git
-map <leader>` :!git diff<CR>
-map <leader>1 :!git status<CR>
-map <leader>2 :!git log <CR>
-map <leader>3 :!git add %<CR>
-map <leader>4 :!git add .<CR>
-map <leader>5 :!git commit<CR>
-map <leader>6 :!git diff origin/master<CR>
-map <leader>7 :!git diff master<CR>
-map <leader>8 :!git checkout master<CR>
-map <leader>9 :!git branch -v<CR>
-map <leader>0 :!git stash pop<CR>
-map <leader>- :!git stash<CR>
-map <leader>= :!git push origin HEAD<CR>
+nnoremap <leader>` :!git diff<CR>
+nnoremap <leader>1 :!git status<CR>
+nnoremap <leader>2 :!git log <CR>
+nnoremap <leader>3 :!git add %<CR>
+nnoremap <leader>4 :!git add .<CR>
+nnoremap <leader>5 :!git commit<CR>
+nnoremap <leader>6 :!git diff origin/master<CR>
+nnoremap <leader>7 :!git diff master<CR>
+nnoremap <leader>8 :!git checkout master<CR>
+nnoremap <leader>9 :!git branch -v<CR>
+nnoremap <leader>0 :!git stash pop<CR>
+nnoremap <leader>- :!git stash<CR>
+nnoremap <leader>= :!git push origin HEAD<CR>
 
 
 
-map <leader>c :NERDComToggleComment<CR>
-map <leader>v <Plug>VimroomToggle<CR>
+nnoremap <leader>c :NERDComToggleComment<CR>
+nnoremap <C-v>v <Plug>VimroomToggle<CR>
 
 " rails
-map <leader>r :!bundle exec rake test<CR>
+nnoremap <leader>r :!bundle exec rake test<CR>
 
 
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
@@ -127,17 +130,17 @@ nnoremap <leader><leader> <c-^>
 " Map kj to Esc
 imap kj <Esc>
 " arrow keys
-map <Left> :echo "No!"<cr>
-map <Right> :echo "No!"<cr>
-map <Up> :echo "No!"<cr>
-map <Down> :echo "No!"<cr>
+nnoremap <Left> :echo "No!"<cr>
+nnoremap <Right> :echo "No!"<cr>
+nnoremap <Up> :echo "No!"<cr>
+nnoremap <Down> :echo "No!"<cr>
 
 cnoremap %% <C-R>=expand('%:h').'/'<cr>  
 " open files current dir
 
 
 " COMMAND T
-map <leader>gr :topleft :split config/routes.rb<cr>
+nnoremap <leader>gr :topleft :split config/routes.rb<cr>
 function! ShowRoutes()
   " Requires 'scratch' plugin
   :topleft 100 :split __Routes__
@@ -154,19 +157,19 @@ function! ShowRoutes()
   " Delete empty trailing line
   :normal dd
 endfunction
-map <leader>gR :call ShowRoutes()<cr>
-map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
-map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
-map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
-map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
-map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
-map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
-map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets/sass<cr>
-map <leader>gf :CommandTFlush<cr>\|:CommandT features<cr>
-map <leader>gg :topleft 100 :split Gemfile<cr>
-map <leader>gt :CommandTFlush<cr>\|:CommandTTag<cr>
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+nnoremap <leader>gR :call ShowRoutes()<cr>
+nnoremap <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+nnoremap <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+nnoremap <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+nnoremap <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+nnoremap <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+nnoremap <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+nnoremap <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets/sass<cr>
+nnoremap <leader>gf :CommandTFlush<cr>\|:CommandT features<cr>
+nnoremap <leader>gg :topleft 100 :split Gemfile<cr>
+nnoremap <leader>gt :CommandTFlush<cr>\|:CommandTTag<cr>
+nnoremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+nnoremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 
 "folding settings
 set foldmethod=indent   "fold based on indent
@@ -209,11 +212,11 @@ endfunc
 " MRU
 """"""""""""""""""""""""""""""
 let MRU_Max_Entries = 400
-map <leader>f :call ToggleMRU()<CR>
-map <leader>ls :MRU spec<CR>
-map <leader>lc :MRU controller<CR>
-map <leader>lm :MRU controller<CR>
-map <leader>lm :MRU controller<CR>
+nnoremap <leader>f :call ToggleMRU()<CR>
+nnoremap <leader>ls :MRU spec<CR>
+nnoremap <leader>lc :MRU controller<CR>
+nnoremap <leader>lm :MRU controller<CR>
+nnoremap <leader>lm :MRU controller<CR>
 let g:mru_is_open = 0
 
 function! ToggleMRU() 
@@ -228,14 +231,14 @@ endfunction
 
 
 " typos
-map :W :w
-map :WQa :wqa
-map :Wqa :wqa
-map :Q :q
-map :Qa :qa
+nnoremap :W :w
+nnoremap :WQa :wqa
+nnoremap :Wqa :wqa
+nnoremap :Q :q
+nnoremap :Qa :qa
 
-map <leader>b :!bundle install<cr>
-map <space> :call commandt#FileFinder('.')<cr>
+nnoremap <leader>b :!bundle install<cr>
+nnoremap <space> :call commandt#FileFinder('.')<cr>
 
 let g:quickfix_is_open = 0
 
@@ -249,8 +252,6 @@ function! QuickfixToggle()
     endif
 endfunction
 
-let g:CommandTFileScanner="find"
-
 imap <c-l> <space>=><space>
 
 " Command T ignore
@@ -258,15 +259,15 @@ set wildignore+=vendor/**,*node_modules*
 "command for :source ~/.vimrc
 
 " Nerdtree
-map <leader>t :NERDTreeToggle<CR>
+nnoremap <leader>t :NERDTreeToggle<CR>
 "map <leader>t :Explore<cr>
 "autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " Macros
-map <leader>, @w<cr>
-map <leader>e @e<cr>
+nnoremap <leader>, @w<cr>
+nnoremap <leader>e @e<cr>
 
 let g:nerdtree_tabs_open_on_gui_startup=0
 let NERDTreeShowHidden=1
