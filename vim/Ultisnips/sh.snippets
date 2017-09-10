@@ -1,13 +1,134 @@
+snippet #
+#!/usr/bin/env bash
+endsnippet
+snippet case
+  case ${1:$command_or_value} in
+    [1-6]*)
+      Message="All is quiet."
+      ;;
+    [7-8]*)
+      Message="Start thinking about cleaning out some stuff.  There's a partition that is $space % full."
+      ;;
+    9[1-8])
+      Message="Better hurry with that new disk...  One partition is $space % full."
+      ;;
+    99)
+      Message="I'm drowning here!  There's a partition at $space %!"
+      ;;
+    *)
+      Message="I seem to be running with an nonexistent amount of disk space..."
+      ;;
+  esac
+
+endsnippet
+snippet usage
+function usage {
+  USAGE=$(cat <<EOF
+bin/run 
+
+Wrapper command for 'docker-compose run <service>'
+
+Usage:
+========================
+
+bin/run rails c
+bin/run rake db:migrate
+bin/run -c -a app cat /etc/hosts 
+bin/run -e test -a rails c
+bin/run -a postgres echo "hi from postgres"
+EOF
+)
+echo "$USAGE"
+}
+
+endsnippet
+snippet start
+#!/usr/bin/env bash
+
+##
+# ${1:Command Name}
+# Author: ${2:Ian Golden <ian@iangolden.com>}
+# 
+# ${3:A simple overview of the command or script}
+#
+# ${4:@command select				command description}
+#
+# ${5:@option -a <PARAM>		option description}
+#
+# Usage:
+${7:#		bin/run <commands>}
+#
+# ${8:Gotcha: -e must preceed -a option}
+#====================================================
+
+function usage {
+	USAGE=$(cat <<EOF
+$1
+
+Author: $2
+
+$3
+
+$4
+
+Usage:
+$5
+
+$8
+EOF
+	)
+	echo "$USAGE"
+}
+
+function run {
+  if [ $1 ]; then
+    echo "Your arguments are:"
+    echo $@ 
+  else
+    usage
+  fi
+
+}
+
+run $@
+endsnippet
+snippet case
+case "$1" in
+        start)
+            start
+            ;;
+         
+        stop)
+            stop
+            ;;
+         
+        status)
+            status anacron
+            ;;
+        restart)
+            stop
+            start
+            ;;
+        condrestart)
+            if test "x`pidof anacron`" != x; then
+                stop
+                start
+            fi
+            ;;
+         
+        *)
+            echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+            exit 1
+ 
+esac
+endsnippet
 snippet counter
 for ((i = 1; i <= n; i++))
 endsnippet
 
-snippet usage
-if [ "$#" == "0" ]; then
-echo "Usage: \nloopdir <dir> <commands>"
-exit 1
+snippet elif
+elif ["$1" == "hello"]; then
 endsnippet
-
 snippet if
 if [ $1 ]; then
 	$0
@@ -26,4 +147,24 @@ snippet exists
 if [ -e "/some/file/path" ]; then
   echo "Exists!"
 fi
+endsnippet
+
+snippet install
+#!/bin/sh
+
+apt-get update && apt-get upgrade -y
+apt-get install build-essential nodejs -y
+
+gem install nokogiri
+endsnippet
+
+
+snippet colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+ENDC='\033[0m' # End color block
 endsnippet

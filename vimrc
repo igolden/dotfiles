@@ -238,19 +238,7 @@ nnoremap :Q :q
 nnoremap :Qa :qa
 
 nnoremap <leader>b :!bundle install<cr>
-nnoremap <space> :call commandt#FileFinder('.')<cr>
-
-let g:quickfix_is_open = 0
-
-function! QuickfixToggle()
-    if g:quickfix_is_open
-        call commandt#private#Delete()
-        let g:quickfix_is_open = 0
-    else
-        call 
-        let g:quickfix_is_open = 1
-    endif
-endfunction
+nnoremap <space> :CommandT<cr>
 
 imap <c-l> <space>=><space>
 
@@ -260,10 +248,11 @@ set wildignore+=vendor/**,*node_modules*
 
 " Nerdtree
 nnoremap <leader>t :NERDTreeToggle<CR>
-"map <leader>t :Explore<cr>
-"autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree innoremap€kb€kb€kb| endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"autocmd BufEnter * call FileTree()
+
 
 " Macros
 nnoremap <leader>, @w<cr>
@@ -275,16 +264,33 @@ let NERDTreeShowHidden=1
 let g:CommandTCancelMap     = ['<ESC>', '<C-c>', '<space>']
 let g:vimroom_background = 'white'
 
-function! EditSnippets() 
-  if !exists("g:UltiSnipsSnippetsDir")
-    :exec ":o g:UltiSnipsEdit<cr>"
-  endif
-endfunction
-
 nnoremap <C-f> :UltiSnipsEdit<cr>
 
 set nuw=2
 
+
+
+let g:headless_tree_open = 0
+function! HeadlessTree()
+  set nosplitright
+  if g:headless_tree_open
+    echom "File tree open"
+  else
+    vertical split . 
+    vertical resize 24
+    set ft=__HeadlessTree__
+    set winfixwidth
+    let g:headless_tree_open = 1
+    "let g:headless_window_id = call get_wininfo()
+  endif
+  set splitright
+endfunction
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
 
 
 

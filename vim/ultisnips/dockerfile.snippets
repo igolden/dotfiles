@@ -1,0 +1,38 @@
+snippet from
+FROM ruby:2.4.1-slim
+MAINTAINER Ian Golden "ian@iangolden.com"
+
+# Install deps
+ADD bin/install install
+RUN chmod +x install && ./install && rm install
+
+ADD bin/start start
+RUN chmod +x start && ./start && rm start
+
+EXPOSE 4000
+VOLUME ["/lib"]
+WORKDIR /lib
+
+CMD ["./start"]
+endsnippet
+
+snippet dockerfile
+FROM ${1:ruby:2.4.1-slim} 
+MAINTAINER ${2:Ian Golden "ian@iangolden.com"}
+
+# Install Deps
+ADD bin/install install
+RUN chmod +x install && ./install && rm install
+
+# Setup Ports
+EXPOSE 4000
+
+# Setup Volumes
+VOLUME ["/lib"]
+WORKDIR /lib
+
+# Start Command
+ADD bin/start start
+RUN chmod +x start 
+CMD ["./start"]
+endsnippet

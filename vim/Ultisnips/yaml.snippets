@@ -27,3 +27,24 @@ Outputs:
   set of outputs
 
 endsnippet
+
+snippet compose
+version: '2'
+
+# Define services
+services:
+  ${1:ServiceName}:
+    build: .
+    volumes:
+      - .:/$1
+    env_file:
+      - .env
+    ${2:environment:
+      SELENIUM_REMOTE_HOST: selenium
+}    depends_on:
+      - "postgres"
+
+${3:volumes:
+  postgres:
+}
+endsnippet

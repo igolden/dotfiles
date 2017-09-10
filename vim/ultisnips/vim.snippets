@@ -17,3 +17,9 @@ function ${1:NameYourFunction}()
 	endif
 endfunction
 endsnippet
+
+snippet if
+if (${1:&ft=='netrw' || &g:some_global=1})
+    ${2::call CustomAction()}
+endif
+endsnippet
