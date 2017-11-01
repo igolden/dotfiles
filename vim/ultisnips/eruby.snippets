@@ -1,0 +1,114 @@
+snippet row
+<div class="row">$0</div>
+endsnippet
+snippet input 
+<input type="$1" ${2:class=""}>
+endsnippet
+snippet form
+<%= form_for @$1 do |f| %>
+  <%= f.label :$2 %>:
+  <%= f.text_field :$2 %><br />
+
+  <%= f.label :last_name %>:
+  <%= f.text_field :last_name %><br />
+
+  <%= f.submit %>
+<% end %>
+endsnippet
+
+snippet render
+<%= render '$0' %>
+endsnippet
+
+snippet each
+<% ${1:@objects}.each do |event| %>
+<% end %>
+endsnippet
+
+snippet table
+<table>
+  <thead>
+		<td>
+			<strong>${1:Table Title}</strong>
+		</td>
+	</thead>
+  <tbody>
+    <% @${2:objects}.each do |event| %>
+      <tr>
+        <td>${3:data}</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+endsnippet
+
+snippet p
+<p><%= $0 %></p>
+endsnippet
+
+snippet h1
+<h1>${1:<%= %>}$0</h1>
+endsnippet
+snippet h4
+<h2>${1:<%= %>}$0</h2>
+endsnippet
+snippet h4
+<h3>${1:<%= %>}$0</h3>
+endsnippet
+snippet h4
+<h4>${1:<%= %>}$0</h4>
+endsnippet
+snippet h4
+<h4>${1:<%= %>}$0</h4>
+endsnippet
+
+snippet ul
+<ul>
+	<li>$0</li>
+</ul>
+endsnippet
+
+snippet <%
+<%= $0 %>
+endsnippet
+
+snippet sign_in
+<% if user_signed_in? %>
+	<%= link_to "Sign Out", "/users/sign_out", method: :delete %>
+<% else %>
+	<%= link_to "Sign In", new_user_session_path %>
+<% end %>
+endsnippet
+
+snippet if
+<% if $1 %>
+	$0
+<% end %>
+endsnippet
+
+snippet lt
+<%= link_to "$1", $2, ${3:class: ''} %>
+endsnippet
+
+snippet img
+<img src="<%= $0 %>">
+endsnippet
+snippet pack
+<%= javascript_pack_tag '${1:hello_react}' %>
+endsnippet
+
+snippet div
+<div class="$1">$0</div>
+endsnippet
+
+snippet show
+<p>
+	<%= @${1:object}.name %>
+</p>
+<p>
+	<%= @$1.description %>
+</p>
+<p>
+	<%= link_to 'Edit', edit_$1_path($1) %>
+</p>
+endsnippet

@@ -633,7 +633,25 @@ snippet mod
 module.exports = $0;
 endsnippet
 
+snippet sv
+<ScrollView style={{$1}}>
+	$0
+</ScrollView>
+endsnippet
 
+snippet v
+<View${1: style={{}}}>$0</View>
+endsnippet
 
+snippet t
+<Text>$0</Text>
+endsnippet
 
+snippet pack
+<%= javascript_pack_tag '${1:hello_react}' %>
+endsnippet
+
+snippet jpt
+<%= javascript_pack_tag 'hello_react' %>
+endsnippet
 

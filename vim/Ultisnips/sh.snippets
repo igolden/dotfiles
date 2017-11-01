@@ -42,7 +42,7 @@ echo "$USAGE"
 }
 
 endsnippet
-snippet start
+snippet script
 #!/usr/bin/env bash
 
 ##
@@ -56,7 +56,7 @@ snippet start
 # ${5:@option -a <PARAM>		option description}
 #
 # Usage:
-${7:#		bin/run <commands>}
+# ${7: bin/run <commands>}
 #
 # ${8:Gotcha: -e must preceed -a option}
 #====================================================
@@ -80,10 +80,17 @@ EOF
 	echo "$USAGE"
 }
 
+function handle_args {
+	if [ \$1 =~ -h|--help]; then
+		usage
+	else
+		usage
+	fi
+}
+
 function run {
   if [ $1 ]; then
-    echo "Your arguments are:"
-    echo $@ 
+    handle_args $@
   else
     usage
   fi

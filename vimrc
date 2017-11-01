@@ -11,6 +11,7 @@ let g:calendar_google_calendar = 1
 
 
 set nocompatible 
+set mouse=
 set hidden
 set history=10000
 set expandtab

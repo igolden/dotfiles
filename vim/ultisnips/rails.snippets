@@ -1,0 +1,78 @@
+snippet mail
+mail( :to      => ENV['OWNER_DEFAULT_EMAIL'] || "owner@example.com",
+			:subject => "New Event Created By Chapter Leader"
+) do |format|
+	format.text
+	format.html
+end
+endsnippet
+
+snippet mailer_spec
+require "rails_helper"
+
+RSpec.describe Notifications, :type => :mailer do
+  describe "notify" do
+    let(:mail) { Notifications.signup }
+
+    it "renders the headers" do
+      expect(mail.subject).to eq("Signup")
+      expect(mail.to).to eq(["to@example.org"])
+      expect(mail.from).to eq(["from@example.com"])
+    end
+
+    it "renders the body" do	
+		puts mail.body
+      expect(mail.body.encoded).include "WELCOME"
+    end
+  end
+end
+endsnippet
+
+snippet FactoryGirl
+# This will guess the User class
+FactoryGirl.define do
+  factory :user do
+    first_name "John"
+    last_name  "Doe"
+    admin false
+  end
+
+  # This will use the User class (Admin would have been guessed)
+  factory :admin, class: User do
+    first_name "Admin"
+    last_name  "User"
+    admin      true
+  end
+end
+endsnippet
+
+
+snippet it
+it "$1" do
+	$0
+end
+endsnippet
+
+snippet if
+if $1
+${2:else if}
+${3:else}
+end
+endsnippet
+
+snippet controller_spec
+RSpec.describe TeamsController do
+  describe "GET index" do
+    it "assigns @teams" do
+      team = Team.create
+      get :index
+      expect(assigns(:teams)).to eq([team])
+    end
+
+    it "renders the index template" do
+      get :index
+      expect(response).to render_template("index")
+    end
+  end
+end
+endsnippet

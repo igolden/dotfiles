@@ -15,6 +15,8 @@ autoload -U compinit
 compinit
 
 # Utilities
+alias xit='exit'
+alias exxit='exit'
 alias mkdri='mkdir'
 alias ls='ls -G'
 alias ll='ls -lG'
@@ -32,6 +34,8 @@ alias md5sum='md5 -r'
 alias rncc='watchman watch-del-all && rm -rf node_modules && yarn && yarn start -- --reset-cache'
 
 alias ivm='vim'
+alias v="vim"
+alias ivim="vim"
 alias ivn='vim'
 alias iv='vim'
 alias vin='vim'
@@ -88,6 +92,7 @@ alias jb='jekyll build'
 
 alias gti='git'
 alias vmi='vim'
+alias vm='vim'
 alias cim='vim'
 
 # Sys Admin Commands
@@ -151,7 +156,15 @@ alias myip="curl ipecho.net/plain; echo"
 
 # docker
 alias stop_docker="docker stop $(docker ps -a -q)"
-alias kill_docker="docker rm $(docker ps -a -q)"
+function kill_docker {
+  echo "Removing docker containers.."
+  docker rm -f $(docker ps -a -q) &>/dev/null
+  echo "Done."
+  echo "Removing docker images.."
+  docker rmi $(docker images) &>/dev/null
+  docker volume rm $(docker volume ls -q) &>/dev/null
+  echo "Done."
+}
 
 # macdown
 alias md="/Applications/MacDown.app/Contents/SharedSupport/bin/macdown"
