@@ -1,6 +1,9 @@
 #!/bin/bash
 
 function uninstall {
+  # uninstall antigen
+  rm -rf ~/.antigen
+  rm ~/.antigen.zsh
   # uninstall vim
   rm -rf ~/.vim/bundle/*
   rm -rf ~/.vim
