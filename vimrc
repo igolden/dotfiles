@@ -1,217 +1,106 @@
-call pathogen#infect()
-filetype plugin indent on
+call pathogen#infect()															" use pathogen for plugins, or else
 
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+filetype plugin indent on 													" filetype plugins and indent support
 
-:set t_Co=256 
-:color railscasts
+let mapleader=","																		" set , as our leader instead default \
 
-set nocompatible
-set hidden
-set history=10000
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set autoindent
-set laststatus=2
-set showmatch
-set incsearch
-set hlsearch
-set ignorecase smartcase
-set cursorline
-set cmdheight=2
-set switchbuf=useopen
-set number
-set numberwidth=5
-set showtabline=1
-set winwidth=80
-set shell=bash
-set t_ti= t_te=
-set scrolloff=3
+imap kj <Esc> 																			" when in insert mode, exit with kj
+
+colorscheme railscasts
+
+set autoindent 																			" autoindent on
+set backspace=eol,indent,start 											" better backspace functionality, end of line, insert, start
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set cmdheight=3                                     " cmd height is 3
+set cuc
+set cursorline
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backspace=indent,eol,start " allow backspacing over everything in insert mode
-set showcmd " display incomplete commands
-syntax on
-set splitbelow
-set splitright
+set encoding=utf-8
+set expandtab 																			" uses correct tab size in insert mode
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=1
+set foldminlines=0
+set hidden																					" when buffer is hidden, unload
+set history=10000 																	" set vim command history to 10K lines
+set hlsearch                                        " highlights search results
+set incsearch                                       " gives you feedback as you search with /
+set ignorecase smartcase                            " handles case as you search
+set laststatus=2																		" multiwindow status line support
+set nocompatible 																		" don't try to be compatible with vi mode
+set number                                          " always show line numbers
+set numberwidth=3                                   " width of line numbers col
+set shiftwidth=2 																		" defaults to tabstop if 0
+set softtabstop=2																		" softtabstop, default it to 2 spaces
+set tabstop=2 																			" ruby style tabstops, two spaces
+set scrolloff=3
+set shell=zsh                                       " use zsh for shell
+set showcmd                                         " display incomplete or wrong commands
+set showmatch                                       " shows matching bracket, open close
+set showtabline=1
+set splitbelow                                      " split vertically below
+set splitright                                      " split horizontally right
+set switchbuf=useopen                               " use the open buffer by default
+set t_ti=
+set t_te=
+set t_Co=256
 set wildmode=longest,list
 set wildmenu
-set cuc
+set wildignore+=vendor/**,.bundle*,*node_modules*
+set winwidth=70                                     " default window columns 
 
+syntax on
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" filetype highlighitng
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au BufRead,BufNewFile *.json set ft=javascript
+au BufNewFile,BufRead {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Set number keys to give git actions
+nnoremap <leader>` :!git diff<CR>
+nnoremap <leader>1 :!git status<CR>
+nnoremap <leader>2 :!git log <CR>
+nnoremap <leader>3 :!git add %<CR>
+nnoremap <leader>4 :!git add .<CR>
+nnoremap <leader>5 :!git commit<CR>
+nnoremap <leader>6 :!git diff origin/master<CR>
+nnoremap <leader>7 :!git diff master<CR>
+nnoremap <leader>8 :!git checkout master<CR>
+nnoremap <leader>9 :!git branch -v<CR>
+nnoremap <leader>0 :!git stash pop<CR>
+nnoremap <leader>- :!git stash<CR>
+nnoremap <leader>= :!git push origin HEAD<CR>
+
+" set window split maneuvering
+nnoremap <c-k> <c-w>k
+nnoremap <c-j> <c-w>j
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
+
+" punish those who use arrow keys
+map <Left> :echo "Shame on you."<cr>
+map <Right> :echo "Shame on you."<cr>
+map <Up> :echo "Shame on you."<cr>
+map <Down> :echo "Shame on you."<cr>
+
+" Typo mappings
+map :W :w
+map :WQ :wq
+map :Wq :wq
+map :Wqa :wqa
+map :WQa :wqa
+
+" TODOs
+" ultisnip
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical"
-
-let mapleader=","
-
-
-" Git
-map <leader>` :!git diff<CR>
-map <leader>1 :!git status<CR>
-map <leader>2 :!git log <CR>
-map <leader>3 :!git add %<CR>
-map <leader>4 :!git add .<CR>
-map <leader>5 :!git commit<CR>
-map <leader>6 :!git diff origin/master<CR>
-map <leader>7 :!git diff master<CR>
-map <leader>8 :!git checkout master<CR>
-map <leader>9 :!git branch -v<CR>
-map <leader>0 :!git stash pop<CR>
-map <leader>- :!git stash<CR>
-map <leader>= :!git push origin HEAD<CR>
-
-" Fixme / Notes
-map <leader>; :!gulp notes<CR>
-map <leader>[ :!gulp notes \| grep TODO<CR>
-map <leader>] :!gulp notes \| grep FIXME<CR>
-map <leader>\ :!gulp notes \| grep OPTIMIZE<CR>
-
-
-map <leader>c :NERDComToggleComment<CR>
-map <leader>v ggVG=
-
-" rails
-map <leader>r :!bundle exec rake test<CR>
-
-
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-:hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
-
-" Set ultisnips triggers
-let g:UltiSnipsExpandTrigger="<tab>"                                            
-let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"                                    
-
-" Move around splits with <c-hjkl>
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-n> :call NumberToggle()<cr>
-" Clear the search buffer when hitting return
-:nnoremap <CR> :nohlsearch<cr>
-nnoremap <leader><leader> <c-^>
-" Map kj to Esc
-imap kj <Esc>
-" arrow keys
-map <Left> :echo "No!"<cr>
-map <Right> :echo "No!"<cr>
-map <Up> :echo "No!"<cr>
-map <Down> :echo "No!"<cr>
-
-cnoremap %% <C-R>=expand('%:h').'/'<cr>  
-" open files current dir
-
-
-" COMMAND T
-map <leader>gr :topleft :split config/routes.rb<cr>
-function! ShowRoutes()
-  " Requires 'scratch' plugin
-  :topleft 100 :split __Routes__
-  " Make sure Vim doesn't write __Routes__ as a file
-  :set buftype=nofile
-  " Delete everything
-  :normal 1GdG
-  " Put routes output in buffer
-  :0r! rake -s routes
-  " Size window to number of lines (1 plus rake output length)
-  :exec ":normal " . line("$") . "_ "
-  " Move cursor to bottom
-  :normal 1GG
-  " Delete empty trailing line
-  :normal dd
-endfunction
-map <leader>gR :call ShowRoutes()<cr>
-map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
-map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
-map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
-map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
-map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
-map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
-map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets/sass<cr>
-map <leader>gf :CommandTFlush<cr>\|:CommandT features<cr>
-map <leader>gg :topleft 100 :split Gemfile<cr>
-map <leader>gt :CommandTFlush<cr>\|:CommandTTag<cr>
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
-
-"folding settings
-set foldmethod=indent   "fold based on indent
-set foldnestmax=10      "deepest fold is 10 levels
-set nofoldenable        "dont fold by default
-set foldlevel=1         "this is just what i use
-set foldminlines=0
-
-" Set encoding
-set encoding=utf-8
-
-" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
-
-" add json syntax highlighting
-au BufNewFile,BufRead *.json set ft=javascript
-
-" MacVIM shift+arrow-keys behavior (required in .vimrc)
-let macvim_hig_shift_movement = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" InsertTime COMMAND
-" Insert the current time
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Show syntax highlighting groups for word under cursor
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <C-S-P> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-
-" Align via equals and arrows
-map <leader>m :Tab /=><cr>
-map <leader>. :Tab /=<cr>
-
-
-
-" typos
-map :W :w
-imap <c-l> <space>=><space>
-
-" Command T ignore
-set wildignore+=vendor/**,*node_modules*
-
-" Nerdtree
-map <leader>t :NERDTreeToggle<CR>
-"map <leader>t :Explore<cr>
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-" Macros
-map <leader>, @w<cr>
-map <leader>e @e<cr>
-
-let g:nerdtree_tabs_open_on_gui_startup=0
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function Hello() 
-  let msg = system('~/.test_vim_script')
-  echom msg
-endfunction
-
-function GetHighlighted() 
-  let vall = execute(. a:group)
-  echom vall
-endfunction
+let g:UltiSEditSplit="vertical"

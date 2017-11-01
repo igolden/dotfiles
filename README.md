@@ -38,19 +38,16 @@ Dotfiles
 * mru.vim/
 * nerdcommenter/
 * nerdtree/
-* rust.vim/
 * sudo.vim/
 * swift.vim/
 * ultisnips/
+* rust.vim/
 * vim-crystal/
 * vim-go/
-* vim-indent-guides/
 * vim-javascript/
 * vim-jsx/
-* vim-multiple-cursors/
 * vim-surround/
 * vim-yankstack/
-* vimproc.vim/
 * vimroom/
 * xterm-color-table.vim/
 
