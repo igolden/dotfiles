@@ -6,7 +6,7 @@ let mapleader=","																		" set , as our leader instead default \
 
 imap kj <Esc> 																			" when in insert mode, exit with kj
 
-colorscheme railscasts
+colorscheme sexy-railscasts
 
 set autoindent 																			" autoindent on
 set backspace=eol,indent,start 											" better backspace functionality, end of line, insert, start
@@ -115,8 +115,6 @@ let g:calendar_google_calendar=0
 let g:nerdtree_tabs_open_on_gui_startup=0
 let NerdTreeShowHidden=1
 
-
-
-
-" PLUGINS
-
+" command t
+let g:CommandTCancelMap = [ '<Esc', '<C-c>', '<space>' ]
+nnoremap <space> :CommandTFlush<cr>\|:CommandT<cr>
