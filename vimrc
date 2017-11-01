@@ -116,5 +116,5 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 let NerdTreeShowHidden=1
 
 " command t
-let g:CommandTCancelMap = [ '<Esc', '<C-c>', '<space>' ]
+let g:CommandTCancelMap = [ '<Esc>', '<C-c>', '<space>' ]
 nnoremap <space> :CommandTFlush<cr>\|:CommandT<cr>
