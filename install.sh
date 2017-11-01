@@ -46,7 +46,14 @@ function install_command_t {
 }
 function install_vim_syntax {
 	echo "Installing vim syntax.."
-	echo "TODO"
+  cd ~/dotfiles/vim/bundle
+  git clone https://github.com/fatih/vim-go 
+  git clone https://github.com/rhysd/vim-crystal
+  git clone https://github.com/rust-lang/rust.vim
+  git clone https://github.com/keith/swift.vim
+  git clone https://github.com/pangloss/vim-javascript
+  git clone https://github.com/mxw/vim-jsx
+  cd ~
 }
 
 
