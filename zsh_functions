@@ -3,7 +3,7 @@
 function init_antigen {
 	source $HOME/.antigen.zsh
 	antigen use oh-my-zsh 	
-  antigen bundle git
+	antigen bundle git
 	antigen theme https://gist.github.com/igolden/b13f9353014327743137 igolden 
 }
 

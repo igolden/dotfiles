@@ -1,16 +1,26 @@
 #!/bin/bash
 
-function setup_git {
-  ln -s ~/dotfiles/gitconfig ~/.gitconfig
-  ln -s ~/dotfiles/githelpers ~/.githelpers
-}
-
 function install_vim_config {
 	echo "Installing vim config.."
 	ln -s ~/dotfiles/vimrc ~/.vimrc
   ln -s ~/dotfiles/vim ~/.vim
 }
 
+function install_git {
+  ln -s ~/dotfiles/gitconfig ~/.gitconfig
+  ln -s ~/dotfiles/githelpers ~/.githelpers
+}
+
+function install_zsh {
+  ln -s ~/dotfiles/zshrc ~/.zshrc
+  ln -s ~/dotfiles/zprofile ~/.zprofile
+  ln -s ~/dotfiles/zsh_aliases ~/.zsh_aliases
+  ln -s ~/dotfiles/zsh_functions ~/.zsh_functions
+}
+
+function install_antigen {
+	curl -L git.io/antigen > $HOME/.antigen.zsh
+}
 function install_vim_plugins {
   cd ~/dotfiles/vim/bundle
   git clone https://github.com/jiangmiao/auto-pairs 
@@ -40,7 +50,9 @@ function install_vim_syntax {
 }
 
 
-setup_git
+install_antigen
+install_git
+install_zsh
 install_vim_config
 install_vim_plugins
 install_command_t

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 function uninstall {
-  # install vim
+  # uninstall vim
+  rm -rf ~/.vim/bundle/*
   rm -rf ~/.vim
   rm ~/.vimrc
   # uninstall git preferences
