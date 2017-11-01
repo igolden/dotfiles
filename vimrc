@@ -99,8 +99,24 @@ map :Wqa :wqa
 map :WQa :wqa
 
 " TODOs
-" ultisnip
+
+" PLUGINS
+
+" Ultisnip
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSEditSplit="vertical"
+
+" google calendar calendar.vim
+let g:calendar_google_calendar=0
+
+" nerdtree
+let g:nerdtree_tabs_open_on_gui_startup=0
+let NerdTreeShowHidden=1
+
+
+
+
+" PLUGINS
+
