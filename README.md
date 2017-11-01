@@ -1,27 +1,32 @@
-igolden dotfiles
+Dotfiles
 ===
 
-* .zshrc
-* .zsh-aliases
-* .zsh-func
-* .vimrc
-* .vim/bundle
-* .vim/snippets
-* .gitconfig
 
+## Contents
 
-
-
-
-### Install
-
-Run `rake install` to create the symlinks needed to setup your environment.
-
-### Snippets to add
-
-* Rakefile snippets
-* Minitest Snippets
-* Spec Snippets
-* Begin/Rescue snippets
-* Special Operators
-
+* zsh
+  * aliases
+  * functions
+  * cron
+  
+* vim
+  * colors
+  * vimrc
+  * aliases
+  * functions
+  * plugins
+  
+* ssh
+  * public keys
+  
+* git configuration
+  * aliases
+  * username
+ 
+* bin files
+  * install
+  * git_config
+  * brew_packages
+  * check
+  
+ 
