@@ -1,6 +1,5 @@
 setopt promptsubst
 setopt EXTENDED_GLOB
-
 autoload -U compinit
 
 # edit-command-line
@@ -8,66 +7,47 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line
 
-# PATH
-export PATH=/opt/local/bin:/opt/local/sbin:$HOME/local/bin:$PATH
-export PATH=$PATH:/usr/local/git/bin/
-export MANPATH=/opt/local/share/man:$MANPATH
-export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
-export PATH="$HOME/bin:$PATH"
-export PATH=$PATH:/usr/local/cuda/bin
-export PATH=/Users/igolden/source/linux/pitools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin:$PATH
-export ANDROID_HOME=/Users/igolden/Library/Android/sdk
-export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PATH="/usr/local/opt/opencv3/bin:$PATH"
+# setup PATH
+export PATH=/opt/local/bin:/opt/local/sbin:$HOME/local/bin:$PATH 	# setup local sbin 
+export PATH=$PATH:/usr/local/git/bin/															# setup git path export MANPATH=/opt/local/share/man:$MANPATH											# man path
+export PATH=/usr/local/sbin:/usr/local/bin:${PATH}								# local sbin
+export PATH=$HOME/bin:$PATH																				# home dir bin
+export PATH=$PATH:/usr/local/cuda/bin															# cuda executable support
+export ANDROID_HOME=/Users/igolden/Library/Android/sdk 						# android sdk path
+export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH  # pkg_config
+export PATH=/usr/local/opt/opencv3/bin:$PATH											# opencv3
 
-source '.zsh_aliases'
+# alias support
+source ~/.zsh_aliases
 
-# Unbreak broken, non-colored terminal
-export TERM='xterm-color'
-export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-export GREP_OPTIONS="--color"
+# Add terminal colors, grep clors
+export TERM='xterm-color'																					# terminal colors
+export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd'													# ls -al colors
+export GREP_OPTIONS='--color' 																		# grep colors
+export ACK_COLOR_MATCH='green'																		# when ack matches, make it green
 
-# Long History
-export HISTSIZE=100000
-export HISTFILE="$HOME/.history"
-export SAVEHIST=$HISTSIZE
+# saving command line history 
+export HISTSIZE=100000																						# save last 100K lines in zsh_history
+export HISTFILE="$HOME/.zsh_history"															# save to ~/.zsh_history
+export SAVEHIST=$HISTSIZE 																				# set the history
 
-# Editors
-export EDITOR=vim
-set -o emacs
+# editor support
+export EDITOR=vim 																								# because vim
+export WORDCHARS='*?[]~&;!$%^<>'																	# how zsh handles vim wordchars
+export ANTIGEN_LOG=~/antigen.log																	# antigen logging
 
-# ?
-export WORDCHARS='*?[]~&;!$%^<>'
-export ACK_COLOR_MATCH='red'
-
-
-if [ -f ~/.git-completion.zsh ]; then
-  . ~/.git-completion.zsh
+# tab completion with git 
+if [[ -f ~/.git-completion.zsh ]]; then
+	. ~/.git-complete.zsh 
 fi
 
-function init_antigen {
-  source "$HOME/dotfiles/antigen/antigen.zsh"
-  antigen bundle robbyrussell/oh-my-zsh lib/
-  antigen bundle git
-  antigen-theme https://gist.github.com/b13f9353014327743137 igolden &> /dev/null
-}
+eval "$(hub alias -s)" 																						# hub as github aliases
 
+source ~/.zsh_functions	 																					# source our .zsh_functions
 
-#chruby
-function init_chruby {
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  chruby 2.4.1
-}
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local									# source a local .zshrc.local if it exists
+[[ -f ~/.travis/travis.sh ]] && source ~/.travis/travis.sh 				# added by travis gem, sources travis
 
-#Hub Alias
-eval "$(hub alias -s)"
-
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-
-
-# added by travis gem
-[ -f /Users/igolden/.travis/travis.sh ] && source /Users/igolden/.travis/travis.sh
-
-# function calls
+# call all functions
 init_antigen
-init_chruby
+init_chruby 
