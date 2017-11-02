@@ -2,9 +2,11 @@ call pathogen#infect()															" use pathogen for plugins, or else
 
 filetype plugin indent on 													" filetype plugins and indent support
 
+syntax on
+
 let mapleader=","																		" set , as our leader instead default \
 
-imap kj <Esc> 																			" when in insert mode, exit with kj
+inoremap kj <Esc> 																		
 
 colorscheme sexy-railscasts
 
@@ -51,7 +53,6 @@ set wildmenu
 set wildignore+=vendor/**,.bundle*,*node_modules*
 set winwidth=70                                     " default window columns 
 
-syntax on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype highlighitng
@@ -97,8 +98,8 @@ map :WQ :wq
 map :Wq :wq
 map :Wqa :wqa
 map :WQa :wqa
-
-" TODOs
+map :wQa :wqa
+map :wqA :wqa
 
 " PLUGINS
 
@@ -117,4 +118,4 @@ let NerdTreeShowHidden=1
 
 " command t
 let g:CommandTCancelMap = [ '<Esc>', '<C-c>', '<space>' ]
-nnoremap <space> :CommandTFlush<cr>\|:CommandT<cr>
+unmap <leader>t

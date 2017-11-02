@@ -7,9 +7,13 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line
 
+# bind search history to arrow keys 
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+
 # setup PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$HOME/local/bin:$PATH 	# setup local sbin 
-export PATH=$PATH:/usr/local/git/bin/															# setup git path export MANPATH=/opt/local/share/man:$MANPATH											# man path
+export PATH=$PATH:/usr/local/git/bin/															# setup git path export MANPATH=/opt/local/share/man:$MANPATH	
 export PATH=/usr/local/sbin:/usr/local/bin:${PATH}								# local sbin
 export PATH=$HOME/bin:$PATH																				# home dir bin
 export PATH=$PATH:/usr/local/cuda/bin															# cuda executable support
