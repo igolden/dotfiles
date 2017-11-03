@@ -4,7 +4,7 @@ function init_antigen {
 	source $HOME/.antigen.zsh
 	antigen use oh-my-zsh 	
 	antigen bundle git
-	antigen theme https://gist.github.com/igolden/b13f9353014327743137 igolden 
+	antigen theme https://gist.github.com/igolden/672c8277bbb16498373a3cb02742d985 igolden-windows  
 }
 
 ## chruby is used to "change rubies" and works great
