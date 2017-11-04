@@ -17,6 +17,8 @@ export PATH=$PATH:/usr/local/git/bin/															# setup git path export MANP
 export PATH=/usr/local/sbin:/usr/local/bin:${PATH}								# local sbin
 export PATH=$HOME/bin:$PATH																				# home dir bin
 export PATH=$PATH:/usr/local/cuda/bin															# cuda executable support
+export PATH=$PATH:/usr/local/go/bin															  # go path support 
+export GOPATH=$HOME
 export ANDROID_HOME=/Users/igolden/Library/Android/sdk 						# android sdk path
 export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH  # pkg_config
 export PATH=/usr/local/opt/opencv3/bin:$PATH											# opencv3
@@ -55,3 +57,5 @@ source ~/.zsh_functions	 																					# source our .zsh_functions
 # call all functions
 init_antigen
 init_chruby 
+
+source ~/bash_powerline.sh

@@ -114,7 +114,7 @@ let g:calendar_google_calendar=0
 " nerdtree
 let g:nerdtree_tabs_open_on_gui_startup=0
 let NerdTreeShowHidden=1
+map <leader>t :NERDTreeToggle<cr>
 
 " command t
 let g:CommandTCancelMap = [ '<Esc>', '<C-c>', '<space>' ]
-nnoremap <space> :CommandTFlush<cr>\|:CommandT<cr>

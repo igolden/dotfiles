@@ -42,6 +42,7 @@ alias gr='git reset'
 
 # Bash wrappers
 alias count='tee >(wc -l)'
+alias sup='sudo apt-get update && sudo apt-get upgrade -y'
 
 # Jekyll Commands
 alias js='jekyll serve'
