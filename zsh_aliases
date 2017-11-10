@@ -13,7 +13,7 @@ alias redis_stop="redis-cli shutdown"
 # md5sum
 alias md5='md5 -r'
 alias md5sum='md5 -r'
-alias rncc='watchman watch-del-all && rm -rf node_modules && yarn && yarn start -- --reset-cache'
+alias rncc='watchman watch-del-all && rm -rf node_modules && yarn cache clean && yarn && yarn start -- --reset-cache'
 
 alias ivm='vim'
 alias ivn='vim'
@@ -100,8 +100,13 @@ alias hn="links 'news.ycombinator.com'"
 alias gpg='gpg2'
 
 function kill_docker {
-  docker rm -f $(docker ps -a -q);
-  docker rmi $(docker images);
+  echo "Removing docker containers.."
+  docker rm -f $(docker ps -a -q) &>/dev/null
+  echo "Done."
+  echo "Removing docker images.."
+  docker rmi $(docker images) &>/dev/null
+  docker volume rm $(docker volume ls -q) &>/dev/null
+  echo "Done."
 }
 
 # fix last command
@@ -158,6 +163,7 @@ alias r='reset'
 alias q='exit'
 
 alias cd..="cd .." # I often make this mistake
+alias cs="cd" 
 
 # Because sometimes you don't have the time to put this two letters
 alias ..='cd ..'

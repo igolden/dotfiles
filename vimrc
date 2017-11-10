@@ -4,6 +4,8 @@ filetype plugin indent on 													" filetype plugins and indent support
 
 syntax on
 
+
+
 let mapleader=","																		" set , as our leader instead default \
 
 inoremap kj <Esc> 																		
@@ -59,6 +61,7 @@ set winwidth=70                                     " default window columns
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufRead,BufNewFile *.json set ft=javascript
 au BufNewFile,BufRead {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
+au BufRead,BufNewFile *.ts set ft=javascript
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -103,11 +106,11 @@ map :wqA :wqa
 
 " PLUGINS
 
-" Ultisnip
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSEditSplit="vertical"
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+let g:UltiSnipsEditSplit="vertical"
 
 " google calendar calendar.vim
 let g:calendar_google_calendar=0
@@ -115,7 +118,8 @@ let g:calendar_google_calendar=0
 " nerdtree
 let g:nerdtree_tabs_open_on_gui_startup=0
 let NerdTreeShowHidden=1
+map <leader>t :NERDTreeToggle<cr>
 
 " command t
 let g:CommandTCancelMap = [ '<Esc>', '<C-c>', '<space>' ]
-unmap <leader>t
+nnoremap <space> :CommandT<cr>
