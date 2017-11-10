@@ -56,6 +56,13 @@ function install_vim_syntax {
   cd ~
 }
 
+function install_powerline_fonts {
+  echo "Installing powerline fonts.."
+  git clone https://github.com/powerline/fonts
+  cd fonts/
+  ./install.sh
+}
+
 
 install_antigen
 install_git
