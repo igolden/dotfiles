@@ -20,6 +20,8 @@ export PATH=$PATH:/usr/local/cuda/bin															# cuda executable support
 export ANDROID_HOME=/Users/igolden/Library/Android/sdk 						# android sdk path
 export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH  # pkg_config
 export PATH=/usr/local/opt/opencv3/bin:$PATH											# opencv3
+export PATH=$HOME/go/bin:$PATH											              # gobin
+export PATH=$HOME/Library/Python/2.7/bin:$PATH
 
 # alias support
 source ~/.zsh_aliases
@@ -55,3 +57,10 @@ source ~/.zsh_functions	 																					# source our .zsh_functions
 # call all functions
 init_antigen
 init_chruby 
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh

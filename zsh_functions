@@ -12,6 +12,6 @@ function init_antigen {
 ## global ruby here, so it's not your system ruby.
 function init_chruby {
 	source /usr/local/opt/chruby/share/chruby/chruby.sh
-	chruby 2.4.1
+	chruby 2.5.0
 }
 

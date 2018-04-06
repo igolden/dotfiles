@@ -49,6 +49,7 @@ alias jb='jekyll build'
 
 alias gti='git'
 alias vmi='vim'
+alias vom='vim'
 alias cim='vim'
 
 # Sys Admin Commands
@@ -78,7 +79,6 @@ alias bbro="git remote add origin git@bitbucket:igolden/$1"
 # Arduino
 alias pf="platformio platforms"
 alias bbro="git remote add origin git@bitbucket:igolden/$1"
-alias ngrok="/Applications/ngrok"
 
 alias agno="vim .antigen/repos/https-COLON--SLASH--SLAcd .antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh.git/themes/"
 
@@ -105,6 +105,8 @@ function kill_docker {
   echo "Done."
   echo "Removing docker images.."
   docker rmi $(docker images) &>/dev/null
+  echo "Done."
+  echo "Removing docker volumes.."
   docker volume rm $(docker volume ls -q) &>/dev/null
   echo "Done."
 }
@@ -214,3 +216,5 @@ function extract {
 # PKG INSTALLER
 
 alias pk='brew'
+
+alias eb='sudo eb'

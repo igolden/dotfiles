@@ -90,10 +90,10 @@ nnoremap <c-l> <c-w>l
 nnoremap <c-h> <c-w>h
 
 " punish those who use arrow keys
-map <Left> :echo "Shame on you."<cr>
-map <Right> :echo "Shame on you."<cr>
-map <Up> :echo "Shame on you."<cr>
-map <Down> :echo "Shame on you."<cr>
+nnoremap <Left> :echo "Shame on you."<cr>
+nnoremap <Right> :echo "Shame on you."<cr>
+nnoremap <Up> :echo "Shame on you."<cr>
+nnoremap <Down> :echo "Shame on you."<cr>
 
 " Typo mappings
 map :W :w

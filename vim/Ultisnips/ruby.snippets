@@ -1,3 +1,7 @@
+snippet rr
+require_relative '$1'
+$0
+endsnippet
 snippet def
 def $1($2)
 	$0
@@ -10,6 +14,17 @@ snippet ##
 #
 #	${2:args:: a, b}
 #
+endsnippet
+snippet #c
+##
+# ${1:SomeClass}
+#
+# ${2:Describe the class here..}
+#
+# ${3:attrs, if any}
+#
+# see `db/schema` for most accurate attrs
+
 endsnippet
 
 snippet mailer
@@ -185,3 +200,9 @@ class MyValidator < ActiveModel::Validator
   end
 end
 endsnippet
+
+snippet model
+class $1 < ActiveRecord::Base
+end
+endsnippet
+

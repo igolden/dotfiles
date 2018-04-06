@@ -1,3 +1,8 @@
+snippet map
+$1.map(($2) => {
+	$0
+})
+endsnippet
 snippet rnccf
 /********************************************************
  * ${1:What is this component? What props does it take?} 
@@ -13,8 +18,8 @@ $1.propTypes = {
 
 export default function ${1:FunctionName} (props) {
   return (
-    <View>
-      <Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>
        $1
       </Text>
     </View>
@@ -624,6 +629,39 @@ task('$2', function($3) {
 endsnippet
 
 
+snippet {
+{${1:state.value.true}
+	? $2
+	: $3 }
+endsnippet
 
+snippet mt
+marginTop: $0,
+endsnippet
 
+snippet {(
+{() => $0
+endsnippet
 
+snippet tss
+this.setState({$1:$0})
+endsnippet
+
+snippet rm
+${1:callback}={() => $0}
+endsnippet
+
+snippet push
+this.props.navigator.push({
+  screen: '$1', 
+  title: undefined,
+  titleImage: require('../../img/my_image.png'),
+  passProps: {}, 
+  animated: true,
+  animationType: 'fade', // slide-horizontal 
+  backButtonTitle: undefined, 
+  backButtonHidden: false, 
+  navigatorStyle: {}, 
+  navigatorButtons: {} 
+})
+endsnippet

@@ -1,0 +1,29 @@
+snippet print
+fmt.Printf("$1")
+endsnippet
+
+snippet println
+fmt.Println($1)
+endsnippet
+
+snippet chomp
+fmt.Scane("$1"${2:, "Name"})
+endsnippet
+
+snippet len
+len($1)
+endsnippet
+
+snippet =
+$1 := $2
+endsnippet
+
+snippet typeof
+reflect.TypeOf($1)$0
+endsnippet
+
+snippet mfunc
+func (${1:m Type}) ${2:FunctionName}() {
+	$0
+}
+endsnippet
