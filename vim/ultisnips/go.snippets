@@ -27,3 +27,11 @@ func (${1:m Type}) ${2:FunctionName}() {
 	$0
 }
 endsnippet
+
+snippet args
+// includes program name
+args := os.Args
+
+// excludes program name
+args := os.Args[1:]
+endsnippet

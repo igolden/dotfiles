@@ -64,3 +64,11 @@ init_chruby
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+
+
+DISABLE_AUTO_TITLE="true"
+
+precmd() {
+  echo -ne "\e]1;$PWD\a"
+}
+export PATH="$(brew --prefix qt@5.5)/bin:$PATH"

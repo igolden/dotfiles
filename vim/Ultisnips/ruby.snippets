@@ -206,3 +206,61 @@ class $1 < ActiveRecord::Base
 end
 endsnippet
 
+snippet factory
+FactoryBot.define do
+  factory :user do
+    first_name "John"
+    last_name  "Doe"
+    admin false
+  end
+
+  # This will use the User class (Admin would have been guessed)
+  factory :admin, class: User do
+    first_name "Admin"
+    last_name  "User"
+    admin      true
+  end
+end
+endsnippet
+
+snippet spec
+require 'spec_helper'
+require 'rails_helper'
+
+describe '$1' do
+  before do
+		$2
+  end
+
+  ## Unit Tests
+  context 'Unit Tests' do
+    it '$3' do
+    end
+  end
+end
+endsnippet
+
+snippet expect
+expect($1).to eq($2)
+endsnippet
+
+
+snippet rescue
+rescue => e
+endsnippet
+
+snippet vcr
+VCR.use_cassette("$1") do
+	$0
+end
+endsnippet
+
+snippet #def
+# $1
+#
+# @params
+# @returns
+def $2${3:()}
+	$0
+end
+endsnippet

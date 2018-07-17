@@ -111,6 +111,12 @@ function kill_docker {
   echo "Done."
 }
 
+function kill_volumes {
+  echo "Removing docker volumes.."
+  docker volume rm $(docker volume ls -q)
+  echo "Done."
+}
+
 # fix last command
 alias fix='sudo $(history -p \!\!)'
 
@@ -218,3 +224,12 @@ function extract {
 alias pk='brew'
 
 alias eb='sudo eb'
+alias awslogs='sudo awslogs'
+
+function google {
+  if [ -z $1 ] ; then
+    echo "No first argument"
+  else
+    links "https://google.com/search?q=$1"
+  fi
+}
