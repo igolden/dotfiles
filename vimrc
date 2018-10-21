@@ -1,3 +1,7 @@
+if has('python3')
+  silent! python3 1
+endif
+
 call pathogen#infect()															" use pathogen for plugins, or else
 
 filetype plugin indent on 													" filetype plugins and indent support
@@ -8,8 +12,7 @@ syntax on
 
 let mapleader=","																		" set , as our leader instead default \
 
-inoremap kj <Esc> 																		
-
+inoremap kj <Esc>
 colorscheme sexy-railscasts
 
 set autoindent 																			" autoindent on

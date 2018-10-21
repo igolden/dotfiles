@@ -99,6 +99,15 @@ alias myip="curl ipecho.net/plain; echo"
 alias hn="links 'news.ycombinator.com'"
 alias gpg='gpg2'
 
+function clear_docker {
+  echo "Removing docker containers.."
+  docker rm -f $(docker ps -a -q) &>/dev/null
+  echo "Done."
+  echo "Removing docker volumes.."
+  docker volume rm $(docker volume ls -q) &>/dev/null
+  echo "Done."
+}
+
 function kill_docker {
   echo "Removing docker containers.."
   docker rm -f $(docker ps -a -q) &>/dev/null
@@ -232,4 +241,28 @@ function google {
   else
     links "https://google.com/search?q=$1"
   fi
+}
+
+
+docker_push_all() {
+  for img in "$@"; do docker push $img; done
+}
+
+get_pids() {
+  ps -ax | grep $1 | while read line ; do echo "$line" | grep -v 'grep' | grep -oh "^[0-9]*"; done
+}
+
+list_ssh() {
+  cat ~/.ssh/config
+}
+
+list_keys() {
+  ls -al ~/.keys/$1
+}
+
+mysql_start() {
+  sudo /usr/local/Cellar/mysql/8.0.12/support-files/mysql.server start
+}
+mysql_stop() {
+  sudo /usr/local/Cellar/mysql/8.0.12/support-files/mysql.server stop
 }

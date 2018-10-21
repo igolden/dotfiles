@@ -52,3 +52,5 @@ Dotfiles
 * xterm-color-table.vim/
 
 
+* GPG secure@iangolden.com
+* B052 60D4 2C67 5851 3167  B035 E6C2 AF83 599C B55D

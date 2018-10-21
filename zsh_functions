@@ -1,10 +1,12 @@
 ## antigen is a zsh tool bundler, and manages themes.
 ## init antigen in the home dir, download theme
 function init_antigen {
-	source $HOME/.antigen.zsh
+	source $HOME/antigen.zsh
 	antigen use oh-my-zsh 	
 	antigen bundle git
+  antigen bundle zsh-users/zsh-syntax-highlighting
 	antigen theme https://gist.github.com/igolden/b13f9353014327743137 igolden 
+  antigen apply
 }
 
 ## chruby is used to "change rubies" and works great

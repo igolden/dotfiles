@@ -9,12 +9,9 @@ snippet rnccf
 ${2: *
  * @flow}
  ********************************************************/
-import React, { PropTypes } from 'react'
+import Reactfrom 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
-$1.propTypes = {
-
-}
 
 export default function ${1:FunctionName} (props) {
   return (
@@ -40,14 +37,13 @@ snippet rnccs
 ${2: *
  * @flow}
  ********************************************************/
-import React, { PropTypes, Component } from 'react'
+import React, {Component} from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 export default class ${1:ClassName} extends Component {
   constructor(${2:props}) {
 		super(props)
 	}
-  static propTypes = {}
   render () {
     return (
       ${0:<View style={styles.container}>
@@ -68,26 +64,16 @@ const styles = StyleSheet.create({
 endsnippet
 
 snippet rccf
-/********************************************************
- * ${1:What is this component? What props does it take?} 
-${2: *
- * @flow}
- ********************************************************/
-import React, { PropTypes } from 'react'
+import React from 'react'
 
 
 export default function ${1:FunctionName} (props) {
   return (
-    <div className="$2">
+    <div className="$3">
        $1
     </div>
   )
 }
-
-$1.propTypes = {
-
-}
-
 endsnippet
 
 
@@ -98,7 +84,7 @@ ${2: *
  * @flow}
  ********************************************************/
 
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 
 export default class ${3:ClassName} extends Component {
   constructor(${4:props}) {
@@ -107,9 +93,6 @@ export default class ${3:ClassName} extends Component {
 			// set initialState
 			// local Class state only
 		}
-	}
-	static propTypes = {
-		// Document all properties
 	}
   render () {
     return (
@@ -121,7 +104,7 @@ export default class ${3:ClassName} extends Component {
 }
 endsnippet
 
-snippet duck
+snippet reducer
 /********************************************************
  * ${1:What is this reducer? What does it do?} 
 ${2: *
@@ -147,12 +130,6 @@ export default connect(
 	mapDispatchToProps
 )($1)
 endsnippet
-snippet prot
-static propTypes = {
-	$0
-}
-endsnippet
-
 snippet maps
 function mapStateToProps ({${1:reducerName}}, {${2:navigator}}) {
 	return {
@@ -295,7 +272,7 @@ snippet flow
 endsnippet
 
 snippet acc
-const $1 = '$1'
+export const $1 = '$1'
 
 export function ${2:actionCreator}($3) {
 	return {
@@ -443,6 +420,9 @@ onPress={($1) => ${2:console.log("onPress")}}
 endsnippet
 snippet oc
 onClick={($1) => ${2:console.log("onClick")}}
+endsnippet
+snippet och
+onChange={(e) => ${2:console.log("onClick")}}
 endsnippet
 
 snippet btn
@@ -605,9 +585,9 @@ casper.then(function() {
 endsnippet
 
 snippet /*
-/**
- * $1
- */
+/*
+  $1
+*/
 endsnippet
 
 #######
@@ -664,4 +644,396 @@ this.props.navigator.push({
   navigatorStyle: {}, 
   navigatorButtons: {} 
 })
+endsnippet
+
+
+#--------------------------------------------------------
+# React JSX HTML Snippets
+#--------------------------------------------------------
+
+# ----------- Input Section -----------
+
+snippet	inp
+<input type="$1" className="$2" onChange={} />
+endsnippet
+
+snippet select
+<select>
+	<option disabled="true" selected="true">$1</option>
+	<option>$2</option>
+</select>
+endsnippet
+
+snippet inpn
+<input type="number" min="$1" step="$2" className="$3" onChange={$0} />
+endsnippet
+snippet inpn
+<input type="text" className="$2" onChange={$0} />
+endsnippet
+
+snippet inps
+<input type="submit" className="$1" />$0
+endsnippet
+
+snippet lab
+<label>$0</label>
+endsnippet
+
+
+snippet ul
+<ul>
+	<li></li>
+</ul>
+endsnippet
+
+#--------------------------------------------------------
+# Axios 
+#--------------------------------------------------------
+
+snippet axpost
+axios({
+  method: 'post',
+  url: '/user/12345',
+  data: {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  }
+});
+endsnippet
+
+#--------------------------------------------------------
+# React FLOW 
+#--------------------------------------------------------
+
+
+snippet frccs
+import * as React from 'react';
+
+type Props = {
+  foo: number,
+  bar?: string,
+};
+
+class MyComponent extends React.Component<Props> {
+  render() {
+    this.props.doesNotExist; // Error! You did not define a `doesNotExist` prop.
+
+    return <div>{this.props.bar}</div>;
+  }
+}
+
+<MyComponent foo={42} />;
+endsnippet
+
+
+snippet container
+import {connect} from 'react-redux'; // import connect
+import {startLoading, stopLoading, loadError} from '../actions/loading';
+import {fetchAuth} from '../actions/userData/auth';
+
+import App from '../components/App'; // import component to connect
+import $1 from '../components/$1'
+
+function mapStateToProps({loading, userData}, {...props}) {
+  return {
+    loading,
+    userData,
+    ...props,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    startLoading: () => dispatch(startLoading()),
+    stopLoading: () => dispatch(stopLoading()),
+    loadError: (e) => dispatch(loadError(e)),
+    fetchAuth: () => dispatch(fetchAuth())
+  };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)($1);
+
+
+endsnippet
+
+
+#=========== PROJECT WORKFLOW =========#
+
+snippet httpservice
+import HTTP from '../utils/http'
+
+export default class $1 {
+  constructor(token) {
+    this.http = new HTTP(token)
+  }
+
+  $2() {
+    var response = this.http.get($0)
+    return response
+  }
+}
+endsnippet
+
+
+
+#=== JSX HTML === #
+
+snippet div
+<div className="$1">
+	$0
+</div>
+endsnippet
+
+snippet h1
+<h1 className="$1">$0</h1>
+endsnippet
+
+snippet h2
+<h2 className="$1">$0</h2>
+endsnippet
+
+snippet h3
+<h3 className="$1">$0</h3>
+endsnippet
+
+snippet h4
+<h4 className="$1">$0</h4>
+endsnippet
+
+snippet h5
+<h5 className="$1">$0</h5>
+endsnippet
+
+snippet h6
+<h6 className="$1">$0</h6>
+endsnippet
+
+snippet span
+<span className="$1">$0</span>
+endsnippet
+
+snippet img
+<img src="$1" className="$2" />$0
+endsnippet
+
+snippet placeh
+<img src="https://placehold.it/$1x$2" className="$3" />$0
+endsnippet
+
+snippet class
+className="$0"
+endsnippet
+
+snippet i
+<i className="fa fa-$1" />$0
+endsnippet
+
+snippet p
+<p className="$1">$0</p>
+endsnippet
+
+snippet input
+<input type="text" className="$1"/>$0
+endsnippet
+
+
+#==============
+
+
+snippet for
+for (var i = 0; i < cars.length; i++) { 
+    text += cars[i] + "<br>";
+}
+endsnippet
+
+
+#========== ENV
+
+snippet env
+process.env('$1')$0
+endsnippet
+
+#========== Bootstrap
+
+
+snippet row
+<div className="row">
+	$0
+</div>
+endsnippet
+
+snippet cont
+<div className="container">
+	$0
+</div>
+endsnippet
+
+snippet md2
+<div className="col-md-2">
+	$0
+</div>
+endsnippet
+
+snippet md3
+<div className="col-md-3">
+	$0
+</div>
+endsnippet
+
+snippet md4
+<div className="col-md-4">
+	$1
+</div>
+endsnippet
+
+snippet md5
+<div className="col-md-5">
+	$0
+</div>
+endsnippet
+
+snippet md6
+<div className="col-md-6">
+	$0
+</div>
+endsnippet
+
+snippet md7
+<div className="col-md-7">
+	$0
+</div>
+endsnippet
+
+snippet md8
+<div className="col-md-8">
+	$0
+</div>
+endsnippet
+
+snippet md9
+<div className="col-md-9">
+	$0
+</div>
+endsnippet
+
+snippet md10
+<div className="col-md-10">
+	$0
+</div>
+endsnippet
+
+snippet md12
+<div className="col-md-12">
+	$0
+</div>
+endsnippet
+
+
+snippet row4
+<div className="row">
+	<div className="col-md-3"></div>
+	<div className="col-md-3"></div>
+	<div className="col-md-3"></div>
+	<div className="col-md-3"></div>
+</div>
+endsnippet
+
+snippet row2
+<div className="row">
+	<div className="col-md-6"></div>
+	<div className="col-md-6"></div>
+</div>
+endsnippet
+
+
+snippet row1
+<div className="row">
+	<div className="col-md-12"></div>
+</div>
+endsnippet
+
+
+snippet table
+<table className="table">
+	<thead>
+		<tr>
+			<th>Header</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Col</td>
+		</tr>
+	</tbody>
+</table>
+endsnippet
+
+snippet tr
+<tr>$0</tr>
+endsnippet
+
+snippet td
+<td>$0</td>
+endsnippet
+
+snippet trh
+<tr>
+	<th>Header</th>
+</tr>
+endsnippet
+
+snippet ob
+onBlur={() => console.log()}
+endsnippet
+
+snippet saga
+import { FETCH_PROPERTIES_SAGA } from '../actions/properties'
+import {call, put, takeEvery} from 'redux-saga/effects';
+import {delay} from 'redux-saga';
+
+import { FETCH_PROPERTIES, LOAD_PROPERTIES, FAIL_PROPERTIES } from '../actions/properties'
+
+
+function* fetchProperties() {
+  yield put({type: FETCH_PROPERTIES});
+  yield delay(2000)
+  if (true) {
+  }
+  yield put({type: FAIL_PROPERTIES});
+}
+
+export function* watchFetchProperties() {
+  yield takeEvery(FETCH_PROPERTIES_SAGA, fetchProperties)
+}
+endsnippet
+
+snippet flex
+$1: {
+	flex: 1,
+	justifyContent: 'center',
+	alignItems: 'center',
+},
+endsnippet
+
+snippet service
+const $1Service = {
+  all: function() {},
+
+  find: function() {},
+
+  update: function() {},
+
+  create: function() {},
+
+  destroy: function() {},
+};
+
+export default $1Service;
+endsnippet
+
+snippet cf
+const $1 = function ($2) {
+	$0
+}
 endsnippet

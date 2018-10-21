@@ -71,4 +71,7 @@ DISABLE_AUTO_TITLE="true"
 precmd() {
   echo -ne "\e]1;$PWD\a"
 }
-export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+#export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+
+# added by travis gem
+[ -f /Users/igolden/.travis/travis.sh ] && source /Users/igolden/.travis/travis.sh
