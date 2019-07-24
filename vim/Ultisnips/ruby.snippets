@@ -271,3 +271,29 @@ class << self
 		$0
 	end
 endsnippet
+
+snippet attribute
+attribute :$0
+endsnippet
+
+snippet attributedo
+attribute :$1 do |obj|
+	$0
+end
+endsnippet
+
+snippet serializer
+class $1Serializer
+  include FastJsonapi::ObjectSerializer
+  attributes :id
+
+  attributes :$2 do |obj|
+	$0
+  end
+end
+endsnippet
+
+snippet rrj
+Rails.root.join($0)
+endsnippet
+

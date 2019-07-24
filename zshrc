@@ -17,7 +17,15 @@ export PATH=$PATH:/usr/local/git/bin/															# setup git path export MANP
 export PATH=/usr/local/sbin:/usr/local/bin:${PATH}								# local sbin
 export PATH=$HOME/bin:$PATH																				# home dir bin
 export PATH=$PATH:/usr/local/cuda/bin															# cuda executable support
-export ANDROID_HOME=/Users/igolden/Library/Android/sdk 						# android sdk path
+export PATH="$HOME/.fastlane/bin:$PATH"
+
+# android
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
 export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH  # pkg_config
 export PATH=/usr/local/opt/opencv3/bin:$PATH											# opencv3
 export PATH=$HOME/go/bin:$PATH											              # gobin
@@ -41,6 +49,9 @@ export SAVEHIST=$HISTSIZE 																				# set the history
 export EDITOR=vim 																								# because vim
 export WORDCHARS='*?[]~&;!$%^<>'																	# how zsh handles vim wordchars
 export ANTIGEN_LOG=~/antigen.log																	# antigen logging
+
+# 85 Supply
+export EFHOME=~/eightyfive/__beta__	
 
 # tab completion with git 
 if [[ -f ~/.git-completion.zsh ]]; then
@@ -75,3 +86,9 @@ precmd() {
 
 # added by travis gem
 [ -f /Users/igolden/.travis/travis.sh ] && source /Users/igolden/.travis/travis.sh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/igolden/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/igolden/node_modules/tabtab/.completions/slss.zsh

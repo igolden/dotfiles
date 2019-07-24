@@ -35,3 +35,8 @@ args := os.Args
 // excludes program name
 args := os.Args[1:]
 endsnippet
+
+
+snippet logf
+log.Fatalf("$1 %v", e)
+endsnippet

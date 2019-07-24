@@ -36,9 +36,11 @@ alias b='bundle install --path .bundle/gems --binstubs .bundle/bin'
 alias be='bundle exec'
 alias grh="git reset --hard"
 alias push="git push origin HEAD"
+alias pull="git pull origin HEAD"
 alias pr="git pull-request"
 alias tree='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset'\'' --abbrev-commit --date=relative'
 alias gr='git reset'
+alias cleanup_git='git fetch origin --prune'
 
 # Bash wrappers
 alias count='tee >(wc -l)'
@@ -244,6 +246,10 @@ function google {
 }
 
 
+commit_times() {
+  git log --author="Ian Golden" --format="%ad" --date="format:%H"|awk '{n=$1+0;if(H[n]++>max)max=H[n]}END{for(i=0;i<24;i++){printf"%02d -%5d ",i,H[i];for(n=0;n<H[i]/max*50;n++){printf "*"}print""}}'
+}
+
 docker_push_all() {
   for img in "$@"; do docker push $img; done
 }
@@ -266,3 +272,16 @@ mysql_start() {
 mysql_stop() {
   sudo /usr/local/Cellar/mysql/8.0.12/support-files/mysql.server stop
 }
+
+ytmp3() {
+  youtube-dl $1 -x --audio-format mp3
+}
+
+dailies() {
+  vim ~/Desktop/TODO.md
+}
+
+alias clear_swap='rm /var/tmp/*.swp'
+alias 85h='cd $EFHOME'
+
+alias download_file="curl -C - -L -O $1"

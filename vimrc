@@ -72,19 +72,19 @@ au BufRead,BufNewFile *.ts set ft=javascript
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Set number keys to give git actions
-nnoremap <leader>` :!git diff<CR>
-nnoremap <leader>1 :!git status<CR>
-nnoremap <leader>2 :!git log <CR>
-nnoremap <leader>3 :!git add %<CR>
-nnoremap <leader>4 :!git add .<CR>
-nnoremap <leader>5 :!git commit<CR>
-nnoremap <leader>6 :!git diff origin/master<CR>
-nnoremap <leader>7 :!git diff master<CR>
-nnoremap <leader>8 :!git checkout master<CR>
-nnoremap <leader>9 :!git branch -v<CR>
-nnoremap <leader>0 :!git stash pop<CR>
-nnoremap <leader>- :!git stash<CR>
-nnoremap <leader>= :!git push origin HEAD<CR>
+nnoremap <leader>` :!git diff<cr>
+nnoremap <leader>1 :!git status<cr>
+nnoremap <leader>2 :!git log <cr>
+nnoremap <leader>3 :!git add %<cr>
+nnoremap <leader>4 :!git add .<cr>
+nnoremap <leader>5 :!git commit<cr>
+nnoremap <leader>6 :!git diff origin/master<cr>
+nnoremap <leader>7 :!git diff master<cr>
+nnoremap <leader>8 :!git checkout master<cr>
+nnoremap <leader>9 :!git branch -v<cr>
+nnoremap <leader>0 :!git stash pop<cr>
+nnoremap <leader>- :!git stash<cr>
+nnoremap <leader>= :!git push origin HEAD<cr>
 
 " set window split maneuvering
 nnoremap <c-k> <c-w>k
@@ -109,11 +109,17 @@ map :wqA :wqa
 
 " PLUGINS
 
+" YouCompleteME
+let g:ycm_key_list_select_completion = ['<Down>']
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "ᐅ"
+
 " Ultisnips
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
+
+nnoremap <leader>u :UltiSnipsEdit<cr>
 
 " google calendar calendar.vim
 let g:calendar_google_calendar=0

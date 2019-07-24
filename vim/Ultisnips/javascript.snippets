@@ -105,14 +105,12 @@ export default class ${3:ClassName} extends Component {
 endsnippet
 
 snippet reducer
-/********************************************************
- * ${1:What is this reducer? What does it do?} 
-${2: *
- * @flow}
- ********************************************************/
-const initialState = {}
+/*
+	$1
+*/
+const initialState = {$2}
 
-export default function ${3:FunctionName} (state = initialState, action) {
+export default function ${3:reducer} (state = initialState, action) {
   switch (action.type) {
     default :
       return state
@@ -727,34 +725,24 @@ endsnippet
 
 
 snippet container
-import {connect} from 'react-redux'; // import connect
-import {startLoading, stopLoading, loadError} from '../actions/loading';
-import {fetchAuth} from '../actions/userData/auth';
-
-import App from '../components/App'; // import component to connect
+import {connect} from 'react-redux'; 
 import $1 from '../components/$1'
 
-function mapStateToProps({loading, userData}, {...props}) {
+function mapStateToProps({$2}, {...props}) {
   return {
-    loading,
-    userData,
     ...props,
+		$2
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    startLoading: () => dispatch(startLoading()),
-    stopLoading: () => dispatch(stopLoading()),
-    loadError: (e) => dispatch(loadError(e)),
-    fetchAuth: () => dispatch(fetchAuth())
+    dispatch: () => console.log("Hello world") 
   };
 }
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )($1);
-
-
 endsnippet
 
 
@@ -835,6 +823,10 @@ endsnippet
 
 snippet input
 <input type="text" className="$1"/>$0
+endsnippet
+
+snippet label
+<label for="$1" className="$2">$0</label>
 endsnippet
 
 
@@ -969,6 +961,10 @@ snippet table
 </table>
 endsnippet
 
+snippet a
+<a href="#">$0</a>
+endsnippet
+
 snippet tr
 <tr>$0</tr>
 endsnippet
@@ -1018,15 +1014,15 @@ endsnippet
 
 snippet service
 const $1Service = {
-  all: function() {},
+  index: function() {},
 
-  find: function() {},
+  show: function(id) {},
 
-  update: function() {},
+  update: function(id, obj) {},
 
-  create: function() {},
+  create: function(obj) {},
 
-  destroy: function() {},
+  destroy: function(id) {},
 };
 
 export default $1Service;
@@ -1036,4 +1032,103 @@ snippet cf
 const $1 = function ($2) {
 	$0
 }
+endsnippet
+
+snippet importlink
+import {Link} from 'react-router-dom' 
+endsnippet
+
+snippet handleinput
+handleInputChange(e) {
+	let state = {}
+	state[e.target.name] = e.target.value
+	this.setState(state)
+}
+endsnippet
+
+snippet formgroup
+<div className="form-group">
+	<label for="" className="form-control"></label>
+	<input type="text" className="form-control"/>
+</div>
+endsnippet
+
+snippet formctl
+className="form-control"
+endsnippet
+
+snippet formcontrol
+className="form-control"
+endsnippet
+
+snippet link
+<Link
+	className="$1"
+	to={'$2'}>
+	$0
+</Link>
+endsnippet
+
+snippet importaxios
+import axios from 'axios';
+endsnippet
+
+snippet hr
+<hr />
+endsnippet
+
+snippet rendercontent
+renderContent() {
+	return (
+		$0
+	)
+}
+endsnippet
+
+snippet jparse
+JSON.parse($0)
+endsnippet
+
+snippet jstring
+JSON.stringify($0)
+endsnippet
+
+snippet strong
+<strong>$0</strong>
+endsnippet
+
+snippet sagaf
+export function* $1() {
+  yield put({ type: FETCH_$2 });
+
+  let token = arguments[0].token;
+
+  let account = new AccountService();
+  let request = yield call(account.getOrders, token);
+
+  if (request.status !== 200) {
+    console.log("Request:", request);
+
+    yield put({ type: FAIL_$2, error: request.statusText });
+  } else {
+    let response = request.data;
+
+    yield put({
+      type: LOAD_$2,
+      data: {
+        orders: response.data.attributes.${2/\w+\s*/\L$0\E/}
+      }
+    });
+  }
+}
+endsnippet
+
+snippet fore
+$1.forEach(($2) => {
+	$0
+})
+endsnippet
+
+snippet i_
+import _ from 'lodash'$0
 endsnippet
