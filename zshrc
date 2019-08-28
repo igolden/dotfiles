@@ -92,3 +92,4 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /Users/igolden/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/igolden/node_modules/tabtab/.completions/slss.zsh
+export PATH="/usr/local/opt/go@1.11/bin:$PATH"

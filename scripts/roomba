@@ -7,7 +7,7 @@ DESKTOP_PATH = "/Users/igolden/Desktop"
 entries = Dir.entries(DESKTOP_PATH)
 
 entries.each do |entry|
-  if  entry.include? "Screenshot"
+  if  entry.include? "Screen Shot" || "IMG"
     FileUtils.rm("#{DESKTOP_PATH}/#{entry}")
   end
 end

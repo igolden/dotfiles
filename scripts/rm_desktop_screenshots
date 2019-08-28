@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+DESKTOP = "/Users/igolden/Desktop"
+
+def main
+  files = Dir.entries(DESKTOP)
+  files.each do |file|
+    FileUtils.rm("#{DESKTOP}/#{file}") if  file.include? "Screen Shot"
+  end
+end
+
+main
+

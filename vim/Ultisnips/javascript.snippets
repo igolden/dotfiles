@@ -1132,3 +1132,49 @@ endsnippet
 snippet i_
 import _ from 'lodash'$0
 endsnippet
+
+snippet duckmount
+this.props.fetch$1();
+var match = this.props.match.params.id;
+
+var ${1/.*/\L$0\E/} = new $1Service();
+	${1/.*/\L$0\E/}
+	.$2(${3:args})
+		.then(res => {
+				if (res.status !== 200) {
+				console.log("Non 200 Code", res);
+				this.props.fail$1(res.data);
+				} else {
+				this.props.load$1(res.data.data);
+				}
+				})
+	.catch(e => {
+			console.log("Request Failed:", e);
+			this.props.fail$1(e);
+			});
+endsnippet
+
+snippet duckflf
+export const FETCH_${1/\w+\s*/\U$0\E/} = 'FETCH_${1/\w+\s*/\U$0\E/}';
+export const LOAD_${1/\w+\s*/\U$0\E/} = 'LOAD_${1/\w+\s*/\U$0\E/}';
+export const FAIL_${1/\w+\s*/\U$0\E/} = 'FAIL_${1/\w+\s*/\U$0\E/}';
+export function fetch$1() {
+  return {
+    type: FETCH_${1/\w+\s*/\U$0\E/},
+  }
+}
+
+export function load$1(data) {
+  return {
+    type: LOAD_${1/\w+\s*/\U$0\E/},
+    data: data
+  }
+}
+
+export function fail$1(data) {
+  return {
+    type: FAIL_${1/\w+\s*/\U$0\E/},
+    data: data
+  }
+}
+endsnippet
