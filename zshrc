@@ -93,3 +93,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /Users/igolden/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/igolden/node_modules/tabtab/.completions/slss.zsh
 export PATH="/usr/local/opt/go@1.11/bin:$PATH"
+
+alias python=/usr/local/bin/python3
+
