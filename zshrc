@@ -67,7 +67,7 @@ source ~/.zsh_functions	 																					# source our .zsh_functions
 
 # call all functions
 init_antigen
-init_chruby 
+#init_chruby 
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
