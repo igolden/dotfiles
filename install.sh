@@ -36,6 +36,7 @@ function install_vim_plugins {
   git clone https://github.com/maxbrunsfeld/vim-yankstack 
   git clone https://github.com/mikewest/vimroom 
   git clone https://github.com/guns/xterm-color-table.vim 
+  git clone https://github.com/Xuyuanp/nerdtree-git-plugin.git 
   cd ~
 }
 function install_command_t {
