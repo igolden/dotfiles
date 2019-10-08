@@ -3,6 +3,7 @@
 function install_vim_config {
 	echo "Installing vim config.."
 	ln -s ~/dotfiles/vimrc ~/.vimrc
+  rm -rf ~/.vim
   ln -s ~/dotfiles/vim ~/.vim
 }
 
