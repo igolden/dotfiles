@@ -19,9 +19,10 @@ function install_zsh {
 }
 
 function install_antigen {
-	curl -L git.io/antigen > $HOME/.antigen.zsh
+	curl -L git.io/antigen > $HOME/antigen.zsh
 }
 function install_vim_plugins {
+  mkdir -p ~/dotfiles/vim/bundle
   cd ~/dotfiles/vim/bundle
   git clone https://github.com/jiangmiao/auto-pairs 
   git clone https://github.com/jlanzarotta/bufexplorer.git 
