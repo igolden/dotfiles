@@ -299,3 +299,74 @@ endsnippet
 
 snippet rakefile
 endsnippet
+
+
+snippet scaffold
+module V1
+  class $1sController < BaseController
+    skip_before_action :authenticate_token, only: %i[upload]
+
+    # get /account/designs
+    def index
+      designs = $1.where(user: @current_user)
+      render json: $1Serializer.new(designs)
+    end
+
+    # get /account/designs/:id
+    def show
+      design = $1.find(params[:id])
+      render json: $1Serializer.new(design)
+    end
+
+    # put /account/designs/:id
+    def update
+      design = $1.find(params[:id])
+      if  design.update(design_params)
+        render json: $1Serializer.new($1.where(user: @current_user))
+      else
+        render json: "ERROR", status: 500
+      end
+    end
+
+    # post /account/designs
+    def create
+      design = $1.new(design_params)
+      design.user = @current_user
+
+      if design.save
+        render json: $1Serializer.new($1.where(user: @current_user))
+      else
+      render json: "ERROR", status: 500
+      end
+    end
+
+    def destroy
+      design = $1.find(params[:id])
+      if  design.destroy
+        render json: $1Serializer.new($1.where(user: @current_user))
+      else
+        render json: "ERROR", status: 500
+      end
+    end
+
+    # FIXME - rename and make this more robust
+    # This is the generic uploads action. It creates an unassociated design and lets it float in the ecosystem
+    def upload
+      if @current_user
+        design = $1.new(user: @current_user)
+      else
+        design = $1.create
+      end
+      design.files.attach(params['file'])
+
+      render json: $1Serializer.new(design).serializable_hash, status: 200
+    end
+
+    private
+
+    def $1_params
+      params.require(:$1).permit(:file, :notes, :colors)
+    end
+  end
+end
+endsnippet

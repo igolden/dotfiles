@@ -67,7 +67,7 @@ source ~/.zsh_functions	 																					# source our .zsh_functions
 
 # call all functions
 init_antigen
-#init_chruby 
+init_chruby 
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
@@ -96,3 +96,5 @@ export PATH="/usr/local/opt/go@1.11/bin:$PATH"
 
 alias python=/usr/local/bin/python3
 
+
+[ -f "/Users/igolden/.shopify-app-cli/shopify.sh" ] && source "/Users/igolden/.shopify-app-cli/shopify.sh"
