@@ -1,6 +1,8 @@
 [user]
 	name = Ian Golden
 	email = ian@iangolden.com
+[hub]
+	protocol = ssh
 [core]
   editor = vim
 	compression = 0
@@ -41,5 +43,5 @@
 
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
-[hub]
-	protocol = ssh
+[init]
+	defaultBranch = master
