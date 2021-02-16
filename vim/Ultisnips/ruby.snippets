@@ -1,84 +1,141 @@
-snippet rr
-require_relative '$1'
-$0
+#
+# Good Snippets
+# -------------
+#
+snippet htdf
+# ${1:function}: ${2:Variable} -> ${3:Primitive}
+# consumes: ${4:what are the inputs?}
+# produces: ${5:what does the function return?}
+# assertions: ${6:what can we asset as true?}
+
+# ${7:stub} # this is the stub
 endsnippet
+
+snippet workspace_new
+$1_LOG_PATH="#{ENV['WORKSPACE_$1']}/$2.log"
+$1_MANIFEST_PATH="#{ENV['WORKSPACE_$1']}/manifest.yaml"
+
+namespace :$2 do
+  logger = Logger.new($1_LOG_PATH)
+  
+  io = File.read($1_MANIFEST_PATH)
+  yaml = YAML.load(io)
+  keys = yaml.keys.uniq
+
+  # extract high level keys
+  keys.each do |key|
+    # access each keys data
+    entry = yaml[key]
+    #
+    # Creates a dynamic task
+    #
+    desc "Take actions on: #{key}"
+    task key do 
+      logger.info("Backing up #{entry['path']}")
+    end
+
+  end
+
+  task :default do
+		pp keys
+	end
+end
+
+
+endsnippet
+
+
+#
+# Plain Ruby Snippets
+# -------------
+#
+
+snippet logger
+logger = Logger.new(${1:STDOUT|'file.log'})
+logger.warn("UHOH")
+endsnippet
+
+
+
+#
+# File Snippets
+# -------------
+#
+snippet gemfile
+source 'https://rubygems.org'
+
+gem '$0'
+endsnippet
+
+snippet yaml
+io = File.read(${1:path})
+yaml = YAML.load(io)
+value = yaml['key']
+endsnippet
+
+
+snippet #def
+# $1
+#
+# @params
+# @returns
+def $2${3:()}
+	$0
+end
+endsnippet
+
+snippet mc
+class << self
+	def $1
+		$0
+	end
+endsnippet
+snippet rdoc
+# ${1:Oneline explanation}
+#
+# == Parameters:
+# ${2:arg}::
+#
+# == Returns:
+
+#
+endsnippet
+
+snippet fileread
+File.read($1)$0
+endsnippet
+
+snippet csv
+CSV.open("${1:path/to/file.csv}", "${2:w+}") do |csv|
+  csv << [${3:"header1", "header2", "header3", "header4"}]
+end
+endsnippet
+
 snippet def
 def $1($2)
 	$0
 end
 endsnippet
-
-snippet ##
-##
-# ${1:This is where you describe the method}
-#
-#	${2:args:: a, b}
-#
-endsnippet
-snippet #c
-##
-# ${1:SomeClass}
-#
-# ${2:Describe the class here..}
-#
-# ${3:attrs, if any}
-#
-# see `db/schema` for most accurate attrs
-
-endsnippet
-
-snippet mailer
-class ${1:YourName}Mailer < ApplicationMailer
+snippet init
+def initialize
 	$0
 end
 endsnippet
 
-snippet ENV
-ENV['$1']
-endsnippet
-
-snippet class
-class ${1:ClassName} < ${2:ApplicationController}
+snippet file
+File.open("", "w+") do |f|
+	$0
 end
 endsnippet
 
-snippet ###
-####################################################
-#	$1
-####################################################
-endsnippet
-snippet ####
-####################################################
-endsnippet
-
-snippet sparams
-def ${1:resource}_params
-	params.require(:$1).permit($2)
+snippet each
+$1.each do |$2|
+	$0
 end
 endsnippet
 
-snippet devise_for
-devise_for :${1:users}, :controllers => { :${2:registrations} => "${3:users/registrations}"}
-endsnippet
 
-snippet constraints
-  constraints (-> (r) { r.path_info =~ /${1:v1}/ }) do 
-    namespace :${2:v1} do
-			$0
-    end
-  end
 
-endsnippet
-
-snippet get
-get "$1", controller: "$2", action: "$3", as: "$4"
-endsnippet
-snippet post
-post "$1", controller: "$2", action: "$3", as: "$4"
-endsnippet
-snippet put
-put "$1", controller: "$2", action: "$3", as: "$4"
-endsnippet
 
 snippet module
 module $1
@@ -87,15 +144,11 @@ module $1
 end
 endsnippet
 
-snippet par
-params['$1']
-endsnippet
 
-snippet ===
-puts "============================================================"
-puts "== $1"
-puts "============================================================"
-endsnippet
+#
+#	Testing Snippets
+# -------------
+#
 
 snippet newtest
 describe ${1:Model} do 
@@ -118,33 +171,6 @@ describe "$1" do
 end
 endsnippet
 
-snippet htdf
-# ${1:function}: ${2:Variable} -> ${3:Primitive}
-# consumes: ${4:what are the inputs?}
-# produces: ${5:what does the function return?}
-# assertions: ${6:what can we asset as true?}
-
-# ${7:stub} # this is the stub
-
-endsnippet
-
-snippet init
-def initialize
-	$0
-end
-endsnippet
-
-snippet file
-File.open("", "w+") do |f|
-	$0
-end
-endsnippet
-
-snippet each
-$1.each do |$2|
-	$0
-end
-endsnippet
 
 snippet test
 test "$1" do
@@ -156,72 +182,14 @@ def setup
 	$0
 end
 endsnippet
+
+# DEPRECATE
 snippet transactional
 self.use_transactional_tests = true
 endsnippet
 
-snippet //
-##############
-#
-# $1
-#
-##############
-endsnippet
 
-snippet gemfile
-source 'https://rubygems.org'
 
-gem '$0'
-endsnippet
-
-snippet csv
-CSV.open("${1:path/to/file.csv}", "${2:w+}") do |csv|
-  csv << [${3:"header1", "header2", "header3", "header4"}]
-end
-endsnippet
-
-snippet rdoc
-# ${1:Oneline explanation}
-#
-# == Parameters:
-# ${2:arg}::
-#
-# == Returns:
-
-#
-endsnippet
-
-snippet validation
-class MyValidator < ActiveModel::Validator
-  def validate(record)
-    unless record.name.starts_with? 'X'
-      record.errors[:name] << 'Need a name starting with X please!'
-    end
-  end
-end
-endsnippet
-
-snippet model
-class $1 < ActiveRecord::Base
-end
-endsnippet
-
-snippet factory
-FactoryBot.define do
-  factory :user do
-    first_name "John"
-    last_name  "Doe"
-    admin false
-  end
-
-  # This will use the User class (Admin would have been guessed)
-  factory :admin, class: User do
-    first_name "Admin"
-    last_name  "User"
-    admin      true
-  end
-end
-endsnippet
 
 snippet spec
 require 'spec_helper'
@@ -255,22 +223,6 @@ VCR.use_cassette("$1") do
 end
 endsnippet
 
-snippet #def
-# $1
-#
-# @params
-# @returns
-def $2${3:()}
-	$0
-end
-endsnippet
-
-snippet mc
-class << self
-	def $1
-		$0
-	end
-endsnippet
 
 snippet attribute
 attribute :$0
@@ -293,16 +245,171 @@ class $1Serializer
 end
 endsnippet
 
-snippet rrj
-Rails.root.join($0)
-endsnippet
 
+#
+# Rake Snippets
+# -------------
+#
 snippet rakefile
 task :$1 do
 	$0
 end
 endsnippet
 
+snippet task
+task :$1 do ${2:'|task, args|'}
+	$0
+end
+endsnippet
+
+snippet desc
+desc "$0"
+endsnippet
+
+
+snippet namespace
+#
+# ${1:'Namespace description here'}
+#
+namespace :$2 do
+	task :$3 do |task, args|
+		$0
+	end
+
+	task :$4 do |task, args|
+		$0
+	end
+
+	task :$5 do |task, args|
+		$0
+	end
+end
+endsnippet
+
+#
+# Rails Snippets
+# -------------
+#
+snippet validation
+class MyValidator < ActiveModel::Validator
+  def validate(record)
+    unless record.name.starts_with? 'X'
+      record.errors[:name] << 'Need a name starting with X please!'
+    end
+  end
+end
+endsnippet
+
+snippet model
+class $1 < ActiveRecord::Base
+end
+endsnippet
+
+snippet factory
+FactoryBot.define do
+  factory :user do
+    first_name "John"
+    last_name  "Doe"
+    admin false
+  end
+
+  # This will use the User class (Admin would have been guessed)
+  factory :admin, class: User do
+    first_name "Admin"
+    last_name  "User"
+    admin      true
+  end
+end
+endsnippet
+snippet par
+params['$1']
+endsnippet
+snippet mailer
+class ${1:YourName}Mailer < ApplicationMailer
+	$0
+end
+endsnippet
+snippet get
+get "$1", controller: "$2", action: "$3", as: "$4"
+endsnippet
+snippet post
+post "$1", controller: "$2", action: "$3", as: "$4"
+endsnippet
+snippet put
+put "$1", controller: "$2", action: "$3", as: "$4"
+endsnippet
+snippet sparams
+def ${1:resource}_params
+	params.require(:$1).permit($2)
+end
+endsnippet
+
+snippet controller
+class ${1:ClassName} < ${2:ApplicationController}
+end
+endsnippet
+
+snippet devise_for
+devise_for :${1:users}, :controllers => { :${2:registrations} => "${3:users/registrations}"}
+endsnippet
+
+snippet constraints
+  constraints (-> (r) { r.path_info =~ /${1:v1}/ }) do 
+    namespace :${2:v1} do
+			$0
+    end
+  end
+endsnippet
+
+
+
+
+#
+# Misc Snippets
+# -------------
+#
+snippet rrj
+Rails.root.join($0)
+endsnippet
+
+snippet rr
+require_relative '$1'
+$0
+endsnippet
+snippet ##
+##
+# ${1:This is where you describe the method}
+#
+#	${2:args:: a, b}
+#
+endsnippet
+
+snippet #c
+##
+# ${1:SomeClass}
+#
+# ${2:Describe the class here..}
+#
+# ${3:attrs, if any}
+#
+# see `db/schema` for most accurate attrs
+
+endsnippet
+
+snippet ###
+####################################################
+#	$1
+####################################################
+endsnippet
+
+snippet ####
+####################################################
+endsnippet
+
+# DEPRECATE
+snippet transactional
+self.use_transactional_tests = true
+endsnippet
 
 snippet scaffold
 module V1

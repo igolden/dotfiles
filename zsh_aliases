@@ -1,7 +1,15 @@
+
+#
+# workspace Utils
+#
+
+alias today="vim $TODAY_PATH"
+alias tomorrow="vim $TOMORROW_PATH"
+
 # Utilities
+unalias ll
+alias ll='ls -laG'
 alias mkdri='mkdir'
-alias ls='ls -G'
-alias ll='ls -lG'
 alias c="clear"
 alias vup="vagrant up"
 alias vupp="vagrant up --provision"
@@ -15,6 +23,15 @@ alias md5='md5 -r'
 alias md5sum='md5 -r'
 alias rncc='watchman watch-del-all && rm -rf node_modules && yarn cache clean && yarn && yarn start -- --reset-cache'
 
+#
+# Rake Utils
+#
+alias tasks="bundle exec rake --tasks"
+
+#
+# vim Typos
+#
+
 alias ivm='vim'
 alias ivn='vim'
 alias iv='vim'
@@ -23,6 +40,30 @@ alias cim='vim'
 alias mcim='vim'
 alias mim='vim'
 alias fim='vim'
+
+
+alias vimrc="vim ~/.vimrc"
+
+
+
+#
+# zsh Utils
+#
+alias zshrc="vim -O ~/.zshrc ~/.zsh_aliases"
+
+#
+# Navigation 
+#
+alias wksp="cd $WORKSPACE"
+alias code="cd $WORKSPACE_CODE"
+alias logs="cd $WORKSPACE_LOG"
+alias media="cd $WORKSPACE_MEDIA"
+
+alias vwksp="vim $WORKSPACE"
+alias vcode="vim $WORKSPACE_CODE"
+alias vlogs="vim $WORKSPACE_LOG"
+alias vmedia="vim $WORKSPACE_MEDIA"
+
 
 alias r=rails
 alias sr="screen -r"
@@ -283,5 +324,9 @@ dailies() {
 
 alias clear_swap='rm /var/tmp/*.swp'
 alias 85h='cd $EFHOME'
+
+
+alias dotfiles="vim $DOTFILES_PATH"
+
 
 alias download_file="curl -C - -L -O $1"
