@@ -19,6 +19,8 @@ export PATH=$HOME/bin:$PATH																				# home dir bin
 export PATH=$PATH:/usr/local/cuda/bin															# cuda executable support
 export PATH="$HOME/.fastlane/bin:$PATH"
 
+export WORKSPACE="$HOME/workspace"
+
 # android
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
