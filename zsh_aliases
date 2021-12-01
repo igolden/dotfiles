@@ -24,8 +24,7 @@ alias md5sum='md5 -r'
 alias rncc='watchman watch-del-all && rm -rf node_modules && yarn cache clean && yarn && yarn start -- --reset-cache'
 
 #
-# Rake Utils
-#
+# Rake Utils #
 alias tasks="bundle exec rake --tasks"
 
 #
@@ -55,7 +54,6 @@ alias zshrc="vim -O ~/.zshrc ~/.zsh_aliases"
 # Navigation 
 #
 alias wksp="cd $WORKSPACE"
-alias code="cd $WORKSPACE_CODE"
 alias logs="cd $WORKSPACE_LOG"
 alias media="cd $WORKSPACE_MEDIA"
 
@@ -330,3 +328,6 @@ alias dotfiles="vim $DOTFILES_PATH"
 
 
 alias download_file="curl -C - -L -O $1"
+
+alias tmpnote="vim ~/workspace/tmp/$(date '+%Y-%m-%d-%H%M%S').md"
+

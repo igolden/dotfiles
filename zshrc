@@ -19,6 +19,8 @@ export PATH=$HOME/bin:$PATH																				# home dir bin
 export PATH=$PATH:/usr/local/cuda/bin															# cuda executable support
 export PATH="$HOME/.fastlane/bin:$PATH"
 
+
+export TODAY=$(date '+%Y-%m-%d')
 export WORKSPACE="$HOME/workspace"
 export WORKSPACE_CODE="$WORKSPACE/code"
 export WORKSPACE_LOG="$WORKSPACE/log"
@@ -33,11 +35,12 @@ export TOMORROW_PATH="$WORKSPACE/today.md"
 export DOTFILES_PATH="$HOME/dotfiles"
 
 # android
-export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
+
 
 export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH  # pkg_config
 export PATH=/usr/local/opt/opencv3/bin:$PATH											# opencv3
@@ -67,7 +70,6 @@ if [[ -f ~/.git-completion.zsh ]]; then
 	. ~/.git-complete.zsh 
 fi
 
-eval "$(hub alias -s)" 																						# hub as github aliases
 
 ## antigen is a zsh tool bundler, and manages themes.
 ## init antigen in the home dir, download theme
@@ -85,7 +87,7 @@ function init_antigen {
 ## global ruby here, so it's not your system ruby.
 function init_chruby {
 	source /usr/local/opt/chruby/share/chruby/chruby.sh
-  chruby 2.7.1
+  chruby 3.0.2
 }
 
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local									# source a local .zshrc.local if it exists

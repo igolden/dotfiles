@@ -18,7 +18,7 @@ colorscheme sexy-railscasts
 set autoindent 																			" autoindent on
 set backspace=eol,indent,start 											" better backspace functionality, end of line, insert, start
 set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupdir=~/.vim-tmp,~/workspace/tmp/vim-backups,~/tmp,/var/tmp,/tmp
 set cmdheight=3                                     " cmd height is 3
 set cuc
 set cursorline
@@ -70,6 +70,13 @@ au BufRead,BufNewFile *.ts set ft=javascript
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+" TESTING
+nnoremap ; :
+nmap <silent> ,/ :nohlsearch<CR>
+
+
 
 " Set number keys to give git actions
 nnoremap <leader>` :!git diff<cr>

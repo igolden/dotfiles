@@ -1,4 +1,57 @@
 #
+# Recent Snippets
+# -------------
+snippet sftask
+require 'pry'
+require 'dotenv'
+require 'active_record'
+require 'yaml'
+require_relative '../lib/servus_data_tool'
+
+Dotenv.load
+
+desc '${2:Describe this task}'
+task :${1:new_salesforce_task} do
+  s1log("[${3:LOG_KEY}][START] - #{DateTime.now}")
+  rfclient = Restforce.new(instance_url: 'https://servus.my.salesforce.com')
+
+    # PREPARE QUERIED DATA
+    q = <<-QUERY
+    SELECT  Id
+    FROM ${4:SObject}
+    QUERY
+    records = rfclient.query(q).to_a
+
+  # SETUP SHEET DATA
+  ds = ServusDataTool::DataSource.new
+  rows = ds.sc_historical_sheet
+  rows.shift # Removes headers
+
+
+  s1log("$3", "PREFLIGHT", "Preflight Report")
+  s1log("$3", "PREFLIGHT", "==================")
+  s1log("$3", "PREFLIGHT", "Source: #{records.count} records")
+  s1log("$3", "PREFLIGHT", "Target: #{rows.count} rows")
+  s1log("$3", "PREFLIGHT", "")
+  s1log("$3", "PREFLIGHT", "Source Keys: #{records.first.keys.join('\n')}")
+  s1log("$3", "PREFLIGHT", "Target Keys: #{rows.first.keys.join('\n')}")
+
+	matches = 0
+	source.each do |srcItem|
+		hits = target.filter {|t| t["Tr.#"] == srcItem["Tracking_Number__c"]}
+		matches += 1 unless hits.empty?
+	end
+
+  s1log("$3", "RESULTS", "Results")
+  s1log("$3", "RESULTS", "==================")
+  s1log("$3", "RESULTS", "Matches: #{hits.count}")
+  s1log("$3", "PREFLIGHT", "")
+  s1log("$3", "PREFLIGHT", "Source: #{records.count} records")
+  s1log("$3", "PREFLIGHT", "Target: #{rows.count} rows")
+  end
+end
+endsnippet
+#
 # Good Snippets
 # -------------
 #
@@ -126,6 +179,10 @@ snippet file
 File.open("", "w+") do |f|
 	$0
 end
+endsnippet
+
+snippet list_files_dir
+Dir.entries(${1:path}).select { |f| File.file? File.join(${2:path}, f) }
 endsnippet
 
 snippet each
@@ -479,4 +536,30 @@ module V1
     end
   end
 end
+endsnippet
+
+
+snippet servustask
+desc '$1'
+task :$2 do
+  ds = ServusDataTool::DataSource.new
+  sheet = ds.$3
+  sheet.shift
+
+  sheet.each do |row|
+    begin
+      ServusDataTool::Logger.log("START_$4 - $5")
+			$0
+      binding.pry
+      ServusDataTool::Logger.log("SUCCESS_$4 - $5")
+    rescue => e
+      ServusDataTool::Logger.error(
+        "ERROR_$4 - $5 - #{e.backtrace}"
+      )
+      Utils.append_to_txt(${6:ID FOR ROW}, '$2')
+    end
+    sleep(1)
+  end
+end
+
 endsnippet

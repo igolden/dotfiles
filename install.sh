@@ -37,11 +37,12 @@ function install_vim_plugins {
   git clone https://github.com/mikewest/vimroom 
   git clone https://github.com/guns/xterm-color-table.vim 
   git clone https://github.com/Xuyuanp/nerdtree-git-plugin.git 
+  git clone https://github.com/prettier/vim-prettier.git 
   cd ~
 }
 function install_command_t {
-  cd ~/dotfiles/vim/bundle
-  git clone https://github.com/wincent/command-t
+  #cd ~/dotfiles/vim/bundle
+  #git clone https://github.com/wincent/command-t
   cd command-t/ruby/command-t/ext/command-t
   ruby extconf.rb
   make
@@ -67,10 +68,10 @@ function install_powerline_fonts {
 }
 
 
-install_antigen
-install_git
-install_zsh
-install_vim_config
-install_vim_plugins
+#install_antigen
+#install_git
+#install_zsh
+#install_vim_config
+#install_vim_plugins
 install_command_t
-install_vim_syntax
+#install_vim_syntax

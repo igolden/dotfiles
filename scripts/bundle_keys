@@ -1,13 +1,21 @@
+#!/bin/bash
 set -e
-#!/usr/local/bin/ruby
 
-KEYDIR = "/Users/igolden/.keys"
+tmp_dir=$(mktemp -d -t misc-XXXXXXXXXX)
 
-#system "mkdir /tmp/keys"
-#system "mkdir /tmp/keys"
-
-
-#gpg --export -a "User Name" > public.key
-#gpg --export-secret-key -a "User Name" > private.key
+USERNAME=secure@iangolden.com
+ARCHIVE_NAME=gpg_keys
+ARCHIVE_PATH=$ARCHIVE_NAME.tar.gzip
+BACKUP_PATH=/Volumes/PEXHDFAT/backups
 
 
+mkdir $tmp_dir/keys
+
+gpg --export -a "$USERNAME" > $tmp_dir/keys/$USERNAME.public.gpg.key
+gpg --export-secret-key -a "$USERNAME" > $tmp_dir/keys/$USERNAME.private.gpg.key
+tar -zvcf $ARCHIVE_PATH  -C $tmp_dir keys
+gpg -e -r "$USERNAME" $ARCHIVE_PATH
+
+mv $ARCHIVE_PATH.gpg  $BACKUP_PATH
+ 
+rm -rf $tmp_dir
