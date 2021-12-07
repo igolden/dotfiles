@@ -45,6 +45,27 @@ test.skip('${1:Title}', () => {
     // ...
 });
 endsnippet
+
+snippet nextpage
+import Head from "next/head";
+
+export default function $1() {
+  return (
+    <div className="$2">
+      <Head>
+        <title>${3:Page Title}</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Layout>
+        <div className="h-full py-10">
+					$0
+        </div>
+      </Layout>
+    </div>
+  );
+}
+endsnippet
+
 snippet test
 test('${1:Test Name}', () => {
 		const ${1:target} = ${2:new TargetClass()}
