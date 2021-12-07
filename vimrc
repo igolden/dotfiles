@@ -113,26 +113,36 @@ map :wQa :wqa
 map :wqA :wqa
 
 " PLUGINS
+inoremap <expr> <CR> pumvisible() ? "<C-R>=UltiSnips#ExpandSnippetOrJump()<CR>" : "\<CR>"
 
 " YouCompleteME
-let g:ycm_key_list_select_completion = ['<Down>']
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "ᐅ"
+let g:ycm_key_list_select_completion = ['<Tab>']
+"let g:ycm_key_invoke_completion ='<Enter>'
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_use_ultisnips_completer = 1
 
 " Ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsExpandTrigger = "<nop>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
-nnoremap <leader>u :UltiSnipsEdit<cr>
+let g:ulti_expand_or_jump_res = 0 "default value, just set once
+function! Ulti_ExpandOrJump_and_getRes()
+    call UltiSnips#ExpandSnippetOrJump()
+    return g:ulti_expand_or_jump_res
+endfunction
 
-" google calendar calendar.vim
-let g:calendar_google_calendar=0
+inoremap <CR> <C-R>=(Ulti_ExpandOrJump_and_getRes() > 0)?"":"\n"<CR>
+
+
+nnoremap <leader>u :UltiSnipsEdit<cr>
 
 " nerdtree
 let g:nerdtree_tabs_open_on_gui_startup=0
 let NerdTreeShowHidden=1
 map <leader>t :NERDTreeToggle<cr>
+
 
 " command t
 let g:CommandTCancelMap = [ '<Esc>', '<C-c>', '<space>' ]

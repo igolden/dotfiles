@@ -1,3 +1,16 @@
+snippet promise
+return new Promise((req,res) => {
+		})
+endsnippet
+snippet controller
+class Controller {
+  index = (req, res) => {
+		$0
+  };
+}
+
+module.exports = HealthCheckController;
+endsnippet
 snippet fs
 const fs = require('fs');
 
@@ -9,8 +22,29 @@ console.log('readFile called');
 endsnippet
 
 snippet test
-test('$1', () => {
-  expect($0).toBe($2)
+test('${1:Test Name}', () => {
+		const ${1:target} = ${2:new TargetClass()}
+		const res = $1${3:.method()}
+		expect(res).toBe(${4:true})
+});
+endsnippet
+snippet beforeeach
+beforeEach(() => {
+	$0
+});
+endsnippet
+
+snippet aftereach
+afterEach(() => {
+	$0
+});
+endsnippet
+
+snippet asynctest
+test('${1:Test Name}', async () => {
+		const ${1:target} = ${2:new TargetClass()}
+		const res = await $1${3:.method()}
+		expect(res).toBe(${4:true})
 });
 endsnippet
 snippet map

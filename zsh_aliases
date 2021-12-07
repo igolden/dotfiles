@@ -1,7 +1,4 @@
 
-#
-# workspace Utils
-#
 
 alias today="vim $TODAY_PATH"
 alias tomorrow="vim $TOMORROW_PATH"
@@ -27,6 +24,13 @@ alias rncc='watchman watch-del-all && rm -rf node_modules && yarn cache clean &&
 #
 # Rake Utils #
 alias tasks="bundle exec rake --tasks"
+
+#
+#
+# workspace Utils
+
+alias my_issues="~/workspace/lib/workspace-cli/get_issues.sh"
+
 
 #
 # vim Typos
