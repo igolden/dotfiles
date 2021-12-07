@@ -105,9 +105,6 @@ init_chruby
 
 DISABLE_AUTO_TITLE="true"
 
-precmd() {
-  echo -ne "\e]1;$PWD\a"
-}
 #export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
 
 # added by travis gem
@@ -123,10 +120,7 @@ export PATH="/usr/local/opt/go@1.11/bin:$PATH"
 alias python=/usr/local/bin/python3
 
 
-
-
 source ~/.zsh_aliases
-precmd
 
 [ -f "/Users/igolden/.shopify-app-cli/shopify.sh" ] && source "/Users/igolden/.shopify-app-cli/shopify.sh"
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local									# source a local .zshrc.local if it exists

@@ -1,3 +1,22 @@
+snippet sendgrid_mail
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+const msg = {
+  to: 'test@example.com', // Change to your recipient
+  from: 'test@example.com', // Change to your verified sender
+  subject: 'Sending with SendGrid is Fun',
+  text: 'and easy to do anywhere, even with Node.js',
+  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+}
+sgMail
+  .send(msg)
+  .then(() => {
+    console.log('Email sent')
+  })
+  .catch((error) => {
+    console.error(error)
+  })
+endsnippet
 snippet promise
 return new Promise((req,res) => {
 		})
@@ -21,6 +40,11 @@ fs.readFile('${1:path}', 'utf8', function(err, data){
 console.log('readFile called');
 endsnippet
 
+snippet testskip
+test.skip('${1:Title}', () => {
+    // ...
+});
+endsnippet
 snippet test
 test('${1:Test Name}', () => {
 		const ${1:target} = ${2:new TargetClass()}
@@ -1062,19 +1086,33 @@ $1: {
 endsnippet
 
 snippet service
-const $1Service = {
-  index: function() {},
+const axios = require('axios');
 
-  show: function(id) {},
+class ${1:ServiceName} {
+	// Create an axios instance
+  init = () => {
+    let client = axios.create({
+      baseURL: ${2:https://api.baseurl.com},
+      headers: {
+        "X-Auth-Token": process.env.TOKEN
+      }
+    })
+    return client
+  }
 
-  update: function(id, obj) {},
+  ${3:route} =  async () => {
+    let apiClient = this.init()
+    try {
+       let res = await apiClient.get("${4:/path}")
+       return res.data
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  }
+}
 
-  create: function(obj) {},
-
-  destroy: function(id) {},
-};
-
-export default $1Service;
+module.exports = $1 
 endsnippet
 
 snippet cf
