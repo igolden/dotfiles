@@ -1,3 +1,13 @@
+snippet fs
+const fs = require('fs');
+
+fs.readFile('${1:path}', 'utf8', function(err, data){
+    console.log(data);
+});
+  
+console.log('readFile called');
+endsnippet
+
 snippet test
 test('$1', () => {
   expect($0).toBe($2)

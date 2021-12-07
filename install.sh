@@ -68,10 +68,10 @@ function install_powerline_fonts {
 }
 
 
-#install_antigen
-#install_git
-#install_zsh
-#install_vim_config
-#install_vim_plugins
+install_antigen
+install_git
+install_zsh
+install_vim_config
+install_vim_plugins
 install_command_t
-#install_vim_syntax
+install_vim_syntax

@@ -2,36 +2,34 @@ if has('python3')
   silent! python3 1
 endif
 
+set shell=/opt/homebrew/bin/zsh                    " use zsh for shell
 call pathogen#infect()															" use pathogen for plugins, or else
 
 filetype plugin indent on 													" filetype plugins and indent support
 
 syntax on
 
-
-
 let mapleader=","																		" set , as our leader instead default \
 
 inoremap kj <Esc>
 colorscheme sexy-railscasts
 
+
 set autoindent 																			" autoindent on
 set backspace=eol,indent,start 											" better backspace functionality, end of line, insert, start
-set backup
-set backupdir=~/.vim-tmp,~/workspace/tmp/vim-backups,~/tmp,/var/tmp,/tmp
-set cmdheight=3                                     " cmd height is 3
+set cmdheight=4                                     " cmd height is 3
 set cuc
 set cursorline
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set encoding=utf-8
 set expandtab 																			" uses correct tab size in insert mode
-set foldmethod=indent
+set foldmethod=syntax
 set foldnestmax=10
 set nofoldenable
+set noswapfile
 set foldlevel=1
 set foldminlines=0
 set hidden																					" when buffer is hidden, unload
-set history=10000 																	" set vim command history to 10K lines
+set history=1000 																	  " set vim command history to 1K lines
 set hlsearch                                        " highlights search results
 set incsearch                                       " gives you feedback as you search with /
 set ignorecase smartcase                            " handles case as you search
@@ -43,7 +41,7 @@ set shiftwidth=2 																		" defaults to tabstop if 0
 set softtabstop=2																		" softtabstop, default it to 2 spaces
 set tabstop=2 																			" ruby style tabstops, two spaces
 set scrolloff=3
-set shell=zsh                                       " use zsh for shell
+set shelltype=3
 set showcmd                                         " display incomplete or wrong commands
 set showmatch                                       " shows matching bracket, open close
 set showtabline=1

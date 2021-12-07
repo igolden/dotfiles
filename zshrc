@@ -49,8 +49,7 @@ export PATH=$HOME/Library/Python/2.7/bin:$PATH
 
 # alias support
 
-# Add terminal colors, grep clors
-export TERM='xterm-color'																					# terminal colors
+export TERM='xterm-256color'																					# terminal colors
 export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd'													# ls -al colors
 export GREP_OPTIONS='--color' 																		# grep colors
 export ACK_COLOR_MATCH='green'																		# when ack matches, make it green
@@ -82,16 +81,15 @@ function init_antigen {
   antigen apply
 }
 
+
 ## chruby is used to "change rubies" and works great
 ## with ruby-install. Install your ruby, set your
 ## global ruby here, so it's not your system ruby.
 function init_chruby {
-	source /usr/local/opt/chruby/share/chruby/chruby.sh
-  chruby 3.0.2
+  source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+  chruby 3.0.3
 }
 
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local									# source a local .zshrc.local if it exists
-[[ -f ~/.travis/travis.sh ]] && source ~/.travis/travis.sh 				# added by travis gem, sources travis
 
 # call all functions
 init_antigen
@@ -125,7 +123,11 @@ export PATH="/usr/local/opt/go@1.11/bin:$PATH"
 alias python=/usr/local/bin/python3
 
 
-[ -f "/Users/igolden/.shopify-app-cli/shopify.sh" ] && source "/Users/igolden/.shopify-app-cli/shopify.sh"
 
 
 source ~/.zsh_aliases
+precmd
+
+[ -f "/Users/igolden/.shopify-app-cli/shopify.sh" ] && source "/Users/igolden/.shopify-app-cli/shopify.sh"
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local									# source a local .zshrc.local if it exists
+[[ -f ~/.travis/travis.sh ]] && source ~/.travis/travis.sh 				# added by travis gem, sources travis

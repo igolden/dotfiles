@@ -8,6 +8,7 @@ alias tomorrow="vim $TOMORROW_PATH"
 
 # Utilities
 unalias ll
+alias git='hub'
 alias ll='ls -laG'
 alias mkdri='mkdir'
 alias c="clear"
@@ -76,7 +77,7 @@ alias be='bundle exec'
 alias grh="git reset --hard"
 alias push="git push origin HEAD"
 alias pull="git pull origin HEAD"
-alias pr="git pull-request"
+alias pr="hub pull-request"
 alias tree='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset'\'' --abbrev-commit --date=relative'
 alias gr='git reset'
 alias cleanup_git='git fetch origin --prune'
