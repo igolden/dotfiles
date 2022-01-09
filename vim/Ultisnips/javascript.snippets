@@ -1,3 +1,8 @@
+
+
+snippet mex
+module.exports = {$0}
+endsnippet
 snippet sendgrid_mail
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
@@ -701,7 +706,7 @@ task('$2', function($3) {
 endsnippet
 
 
-snippet {
+snippet {?
 {${1:state.value.true}
 	? $2
 	: $3 }
@@ -928,8 +933,8 @@ endsnippet
 
 
 snippet for
-for (var i = 0; i < cars.length; i++) { 
-    text += cars[i] + "<br>";
+for (let item of items) { 
+	$0
 }
 endsnippet
 
