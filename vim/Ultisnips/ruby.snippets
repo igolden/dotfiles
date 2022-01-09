@@ -1,6 +1,9 @@
 #
 # Recent Snippets
 # -------------
+snippet entries
+Dir.entries("$0").reject {|x| x.match(/^(\.|\.\.)$/)}
+endsnippet
 snippet sftask
 require 'pry'
 require 'dotenv'
