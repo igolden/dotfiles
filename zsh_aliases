@@ -6,6 +6,7 @@ alias tomorrow="vim $TOMORROW_PATH"
 # Utilities
 unalias ll
 alias git='hub'
+alias grep='ggrep'
 alias ll='ls -laG'
 alias mkdri='mkdir'
 alias c="clear"
@@ -21,9 +22,28 @@ alias md5='md5 -r'
 alias md5sum='md5 -r'
 alias rncc='watchman watch-del-all && rm -rf node_modules && yarn cache clean && yarn && yarn start -- --reset-cache'
 
-#
-# Rake Utils #
-alias tasks="bundle exec rake --tasks"
+alias ni="npm i"
+alias nis="npm i -s"
+alias nr="npm run"
+alias nrt="npm run test"
+
+alias python=/usr/local/bin/python3
+alias yarn="npm"
+
+# Datestamp a tarball
+function bak() {
+  cp $1 ${1}.bak
+}
+
+# Datestamp a tarball
+function dtar() {
+  echo $1
+  echo $2
+  $fname=""
+  tar -rvf $(date +%F)_${1}.tar $2
+}
+
+alias taskui="bundle exec rake --tasks"
 
 #
 #
@@ -54,6 +74,7 @@ alias vimrc="vim ~/.vimrc"
 # zsh Utils
 #
 alias zshrc="vim -O ~/.zshrc ~/.zsh_aliases"
+
 
 #
 # Navigation 
@@ -268,6 +289,7 @@ function extract {
    fi
 }
 
+  alias grep='ggrep'
   # Search process by name and highlight !
   function psgrep() { ps ax | grep -v grep | grep "$@" -i --color=auto; }
 
@@ -336,3 +358,43 @@ alias download_file="curl -C - -L -O $1"
 
 alias tmpnote="vim ~/workspace/tmp/$(date '+%Y-%m-%d-%H%M%S').md"
 
+pgcheck() {
+  PGPASSWORD=mysecretpassword psql -U postgres -d servus_bbb_data_1 -h 10.1.10.86 -c "SELECT COUNT(*) FROM bbb_profiles" | awk 'c&&!--c;/count/{c=2}'
+}
+
+gitignoreio() {
+  curl --silent https://www.toptal.com/developers/gitignore/api/$1 >> '.gitignore'
+}
+gi() {
+  IFS=' '
+  read -A strarr <<< $@
+
+# Print each value of the array by using the loop
+for val in "${strarr[@]}";
+do
+  echo "⎷ Added $val .gitignore entries"
+  gitignoreio $val
+done  
+}
+
+# Search your histfile for command and organize by frequency
+hist() {
+  cat $HISTFILE | grep -Pa "$1" | cut -d ';' -f 2 | sort | uniq -c | sort -n
+}
+
+taskcount() {
+  cat ~/.task/backlog.data | grep -Po '(?<=\"status\":)\".*\"(?=,)' | uniq -c | sort -nr
+}
+
+taskeventcount() {
+  cat ~/.task/backlog.data | grep -Po '(?<=\"uuid\":)\".*\"(?=(,|))' | sort | uniq -c | sort -nr
+}
+
+alias taskui='taskwarrior-tui'
+
+TODAY() {
+   date '+%Y-%m-%d'
+}
+
+alias grip="grip -b"
+alias tasktui=taskwarrior-tui

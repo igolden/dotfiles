@@ -20,14 +20,16 @@ export PATH=$PATH:/usr/local/cuda/bin															# cuda executable support
 export PATH="$HOME/.fastlane/bin:$PATH"
 
 
-export TODAY=$(date '+%Y-%m-%d')
 export WORKSPACE="$HOME/workspace"
-export WORKSPACE_CODE="$WORKSPACE/code"
-export WORKSPACE_LOG="$WORKSPACE/log"
-export WORKSPACE_MEDIA="$WORKSPACE/media"
-export WORKSPACE_TMP="$WORKSPACE/tmp"
-export WORKSPACE_KEYS="$WORKSPACE/.keys"
-export WORKSPACE_PROJECTS="$WORKSPACE/.projects"
+export EFS="$WORKSPACE/85supply"
+export IGOLDEN="$WORKSPACE/igolden"
+
+export NOTES="$WORKSPACE/notes"
+
+
+function note {
+  vim ~/workspace/notes/$1.md
+}
 
 export TODAY_PATH="$WORKSPACE/today.md"
 export TOMORROW_PATH="$WORKSPACE/today.md"
@@ -47,11 +49,10 @@ export PATH=/usr/local/opt/opencv3/bin:$PATH											# opencv3
 export PATH=$HOME/go/bin:$PATH											              # gobin
 export PATH=$HOME/Library/Python/2.7/bin:$PATH
 
-# alias support
-
 export TERM='xterm-256color'																					# terminal colors
 export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd'													# ls -al colors
 export GREP_OPTIONS='--color' 																		# grep colors
+
 export ACK_COLOR_MATCH='green'																		# when ack matches, make it green
 
 # saving command line history 
@@ -117,7 +118,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [[ -f /Users/igolden/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/igolden/node_modules/tabtab/.completions/slss.zsh
 export PATH="/usr/local/opt/go@1.11/bin:$PATH"
 
-alias python=/usr/local/bin/python3
 
 
 source ~/.zsh_aliases
@@ -125,3 +125,7 @@ source ~/.zsh_aliases
 [ -f "/Users/igolden/.shopify-app-cli/shopify.sh" ] && source "/Users/igolden/.shopify-app-cli/shopify.sh"
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local									# source a local .zshrc.local if it exists
 [[ -f ~/.travis/travis.sh ]] && source ~/.travis/travis.sh 				# added by travis gem, sources travis
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

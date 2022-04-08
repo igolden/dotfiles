@@ -1,0 +1,10 @@
+snippet func
+function! ${1:FunctionName}()
+  echo 'Hello World!'
+  return 0
+endfunction
+endsnippet
+
+snippet command
+command! ${1:CommandName} :call ${2:FunctionName}()
+endsnippet

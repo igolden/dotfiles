@@ -1,6 +1,22 @@
 #
 # Recent Snippets
 # -------------
+
+snippet datascript
+require_relative 'data_tool'
+
+sf = DataTool.load_sf_accounts
+connex = DataTool.load_connex
+
+OUTPUT_PATH = "#{DateTime.now.strftime("%Y%m%d")}_exception_report_connex_vs_s1_companies.csv" 
+
+cc = connex.map {|x| x[0]}.to_set.sort
+sfc = sf.map  {|x| x["Name"]}.to_set.sort
+matches = cc.reject{ |x| sfc.include?(x)}
+out = matches.map {|x| {"In Connex, Not in S1": x}}
+
+DataTool.write_to_csv(out, OUTPUT_PATH)
+endsnippet
 snippet sftask
 require 'pry'
 require 'dotenv'
