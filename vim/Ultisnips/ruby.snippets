@@ -1,6 +1,17 @@
 #
 # Recent Snippets
 # -------------
+snippet remove_lines
+def remove_lines(input_file, matcher)
+  File.open("#{input_file}.new", "w+") do |tmp|
+    File.foreach(input_file) do |line|
+      tmp << line unless line.include?("alias #{matcher}=")
+    end
+  end
+
+  FileUtils.mv("#{input_file}.new", input_file)
+end
+endsnippet
 snippet datascript
 require_relative 'data_tool'
 
