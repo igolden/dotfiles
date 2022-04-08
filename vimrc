@@ -2,7 +2,7 @@ if has('python3')
   silent! python3 1
 endif
 
-set shell=/opt/homebrew/bin/zsh                    " use zsh for shell
+set shell=zsh                    " use zsh for shell
 call pathogen#infect()															" use pathogen for plugins, or else
 
 filetype plugin indent on 													" filetype plugins and indent support

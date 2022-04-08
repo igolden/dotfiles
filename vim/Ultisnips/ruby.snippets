@@ -1,7 +1,6 @@
 #
 # Recent Snippets
 # -------------
-
 snippet datascript
 require_relative 'data_tool'
 
@@ -16,6 +15,9 @@ matches = cc.reject{ |x| sfc.include?(x)}
 out = matches.map {|x| {"In Connex, Not in S1": x}}
 
 DataTool.write_to_csv(out, OUTPUT_PATH)
+endsnippet
+snippet entries
+Dir.entries("$0").reject {|x| x.match(/^(\.|\.\.)$/)}
 endsnippet
 snippet sftask
 require 'pry'

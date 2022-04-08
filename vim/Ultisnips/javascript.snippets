@@ -6,30 +6,31 @@ module.exports = {
 	run
 }
 endsnippet
+
 snippet inqcheckbox
 const inquirer = require("inquirer");
 
 const main = async () => {
-  let answers = await inquirer.prompt([
-    {
-      type: "checkbox",
-      message: "${1: Make your selection}",
-      name: "${2:Attribute name}",
-      choices: [
-        // Add Choices here..
-      ],
-      validate(answer) {
-        // Ensure they make at least a single
-        // selection.
-        if (answer.length < 1) {
-          return "You must choose at least one topping.";
-        }
+	let answers = await inquirer.prompt([
+			{
+type: "checkbox",
+message: "${1: Make your selection}",
+name: "${2:Attribute name}",
+choices: [
+// Add Choices here..
+],
+validate(answer) {
+// Ensure they make at least a single
+// selection.
+if (answer.length < 1) {
+return "You must choose at least one topping.";
+}
 
-        return true;
-      },
-    },
-  ]);
-  console.log(JSON.stringify(answers, null, "  "));
+return true;
+},
+},
+	]);
+console.log(JSON.stringify(answers, null, "  "));
 };
 
 main();
@@ -37,13 +38,13 @@ main();
 endsnippet
 snippet nextapi
 export default async function handler(req, res) {
-  res.status(200).json({ status: "ok", time: new Date().toTimeString() });
+	res.status(200).json({ status: "ok", time: new Date().toTimeString() });
 }
-endsnippet
+	endsnippet
 snippet a()
-(async() => {
-	$0
-})()
+	(async() => {
+	 $0
+	 })()
 endsnippet
 snippet @class
 
@@ -55,48 +56,48 @@ endsnippet
 
 snippet jsdoc
 {
-  "plugins": ["plugins/markdown"],
-  "recurseDepth": 10,
-  "source": {
-    "include": ["."],
-    "includePattern": ".js$",
-    "excludePattern": "node_modules/*"
-  },
-  "tags": {
-    "allowUnknownTags": true,
-    "dictionaries": ["jsdoc"]
-  },
-  "templates": {
-    "cleverLinks": false,
-    "monospaceLinks": false,
-    "search": true,
-    "default": {
-      "staticFiles": {
-        "include": ["__docs__"]
-      }
-    },
-    "better-docs": {
-      "name": "${1:Project Title}",
-      "logo": "",
-      "title": "$1",
-      "css": "style.css",
-      "hideGenerator": false,
-      "navLinks": [
-        {
-          "label": "Github",
-          "href": "${2:Github URL}"
-        }
-      ]
-    }
-  },
-  "opts": {
-    "template": "node_modules/better-docs",
-    "tutorials": "./__docs__/tutorials",
-    "readme": "README.md",
-    "encoding": "utf8",
-    "destination": "docs",
-    "recurse": true
-  }
+	"plugins": ["plugins/markdown"],
+	"recurseDepth": 10,
+	"source": {
+		"include": ["."],
+		"includePattern": ".js$",
+		"excludePattern": "node_modules/*"
+	},
+	"tags": {
+		"allowUnknownTags": true,
+		"dictionaries": ["jsdoc"]
+	},
+	"templates": {
+		"cleverLinks": false,
+		"monospaceLinks": false,
+		"search": true,
+		"default": {
+			"staticFiles": {
+				"include": ["__docs__"]
+			}
+		},
+		"better-docs": {
+			"name": "${1:Project Title}",
+			"logo": "",
+			"title": "$1",
+			"css": "style.css",
+			"hideGenerator": false,
+			"navLinks": [
+			{
+				"label": "Github",
+				"href": "${2:Github URL}"
+			}
+			]
+		}
+	},
+	"opts": {
+		"template": "node_modules/better-docs",
+		"tutorials": "./__docs__/tutorials",
+		"readme": "README.md",
+		"encoding": "utf8",
+		"destination": "docs",
+		"recurse": true
+	}
 }
 endsnippet
 snippet a==
@@ -109,16 +110,19 @@ try {
 	$0
 } catch (e) {
 	console.log(e)
-	return e
+		return e
 }
 endsnippet
 snippet file
 try {
-  fs.writeFileSync('/Users/joe/test.txt', content)
-  //file written successfully
+	fs.writeFileSync('/Users/joe/test.txt', content)
+		//file written successfully
 } catch (err) {
-  console.error(err)
+	console.error(err)
 }
+endsnippet
+snippet mex
+module.exports = {$0}
 endsnippet
 snippet sendgrid_mail
 const sgMail = require('@sendgrid/mail')
@@ -167,6 +171,27 @@ test.skip('${1:Title}', () => {
     // ...
 });
 endsnippet
+
+snippet nextpage
+import Head from "next/head";
+
+export default function $1() {
+  return (
+    <div className="$2">
+      <Head>
+        <title>${3:Page Title}</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Layout>
+        <div className="h-full py-10">
+					$0
+        </div>
+      </Layout>
+    </div>
+  );
+}
+endsnippet
+
 snippet test
 test('${1:Test Name}', () => {
 		const ${2:target} = ${3:new TargetClass()}
@@ -1018,8 +1043,8 @@ endsnippet
 
 
 snippet for
-for (var i = 0; i < cars.length; i++) { 
-    text += cars[i] + "<br>";
+for (let item of items) { 
+	$0
 }
 endsnippet
 
