@@ -325,3 +325,6 @@ function! s:align()
   endif
 endfunction
 
+
+autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.rb,Rake*,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
+

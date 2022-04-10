@@ -33,9 +33,13 @@ return true;
 console.log(JSON.stringify(answers, null, "  "));
 };
 
-main();
-
+main()
 endsnippet
+
+snippet dotenv
+require('dotenv').config()
+endsnippet
+
 snippet nextapi
 export default async function handler(req, res) {
 	res.status(200).json({ status: "ok", time: new Date().toTimeString() });
