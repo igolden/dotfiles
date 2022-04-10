@@ -28,7 +28,7 @@ if ARGV.first.match?(/\w*=\w*/)
   puts "Adding alias.."
 
   File.open("#{Dir.home}/.zsh_aliases", "a+") do |f|
-    f << "alias #{ARGV.first}"
+    f << "alias #{ARGV.first}\n"
   end
 
   puts "Added #{_alias}"

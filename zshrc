@@ -87,8 +87,8 @@ function init_antigen {
 ## with ruby-install. Install your ruby, set your
 ## global ruby here, so it's not your system ruby.
 function init_chruby {
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  chruby 3.0.2
+  source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+  chruby 3.0.3
 }
 
 

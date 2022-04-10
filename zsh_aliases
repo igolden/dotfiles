@@ -1,5 +1,3 @@
-
-
 alias today="vim $TODAY_PATH"
 alias tomorrow="vim $TOMORROW_PATH"
 
@@ -397,4 +395,6 @@ TODAY() {
 }
 
 alias grip="grip -b"
-alias tasktui=taskwarrior-tui
+alias add_alias=/Users/igolden/dotfiles/scripts/add_zsh_alias.rb
+alias dbeaver=/opt/homebrew/Caskroom/dbeaver-community/22.0.2/DBeaver.app/Contents/MacOS/dbeaver
+alias remove_alias=/Users/igolden/dotfiles/scripts/remove_zsh_alias.rb
