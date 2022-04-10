@@ -12,7 +12,7 @@ bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
 # setup PATH
-export PATH=/opt/local/bin:/opt/local/sbin:$HOME/local/bin:$PATH 	# setup local sbin 
+export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/local/bin:$PATH 	# setup local sbin 
 export PATH=$PATH:/usr/local/git/bin/															# setup git path export MANPATH=/opt/local/share/man:$MANPATH	
 export PATH=/usr/local/sbin:/usr/local/bin:${PATH}								# local sbin
 export PATH=$HOME/bin:$PATH																				# home dir bin
@@ -31,6 +31,7 @@ function note {
   vim ~/workspace/notes/$1.md
 }
 
+	
 export TODAY_PATH="$WORKSPACE/today.md"
 export TOMORROW_PATH="$WORKSPACE/today.md"
 
@@ -120,7 +121,7 @@ export PATH="/usr/local/opt/go@1.11/bin:$PATH"
 
 
 
-source ~/.zsh_aliases
+source $HOME/.zsh_aliases
 
 [ -f "/Users/igolden/.shopify-app-cli/shopify.sh" ] && source "/Users/igolden/.shopify-app-cli/shopify.sh"
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local									# source a local .zshrc.local if it exists
