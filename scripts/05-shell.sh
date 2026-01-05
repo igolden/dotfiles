@@ -27,6 +27,10 @@ cp "$DOTFILES_DIR/config/gitconfig" "$HOME/.gitconfig"
 echo "Installing ~/.githelpers..."
 cp "$DOTFILES_DIR/config/githelpers" "$HOME/.githelpers"
 
+# Copy gemrc
+echo "Installing ~/.gemrc..."
+cp "$DOTFILES_DIR/config/gemrc" "$HOME/.gemrc"
+
 # Setup nvim config
 echo "Installing ~/.config/nvim/..."
 mkdir -p "$HOME/.config"
