@@ -1,7 +1,6 @@
 Dotfiles
 ===
 
-
 ## Contents
 
 * zsh

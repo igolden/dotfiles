@@ -10,7 +10,7 @@ README = /(readme|README)\.(md|txt|rdoc)/
 NODE_PATHS = ['node_modules']
 RUBY_PATHS = ['.bundle', 'vendor']
 
-IGNORE = ['.DS_Store', '*.env', 'log', '*.key', '*.pem']
+IGNORE = ['.DS_Store', '*.env', 'log', '*.key', '*.pem', "output", "~*"]
 
 DONT_IGNORE = [".env.example"]
 
