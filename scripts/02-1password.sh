@@ -19,7 +19,7 @@ echo ""
 # Open 1Password
 open -a "1Password"
 
-read -p "Press Enter when 1Password is ready..."
+read -p "Press Enter when 1Password is ready..." </dev/tty
 
 # Verify 1Password CLI is working
 echo "Verifying 1Password CLI..."

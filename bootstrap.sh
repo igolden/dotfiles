@@ -30,7 +30,7 @@ if ! xcode-select -p &>/dev/null; then
     echo "Please click 'Install' and wait for completion."
     echo ""
     xcode-select --install
-    read -p "Press Enter after installation completes..."
+    read -p "Press Enter after installation completes..." </dev/tty
 else
     echo "Xcode CLI Tools already installed, skipping..."
 fi

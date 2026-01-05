@@ -12,7 +12,7 @@ echo ""
 # Check if SSH key already exists
 if [[ -f "$SSH_KEY" ]]; then
     echo "SSH key already exists at $SSH_KEY"
-    read -p "Generate new key anyway? (y/N) " -n 1 -r
+    read -p "Generate new key anyway? (y/N) " -n 1 -r </dev/tty
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         echo "Using existing key..."
@@ -49,7 +49,7 @@ echo ""
 # Open GitHub SSH settings
 open "https://github.com/settings/ssh/new"
 
-read -p "Press Enter after adding the key to GitHub..."
+read -p "Press Enter after adding the key to GitHub..." </dev/tty
 
 # Verify GitHub connection
 echo ""

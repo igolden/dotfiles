@@ -43,7 +43,7 @@ cp -r "$DOTFILES_DIR/config/nvim" "$HOME/.config/nvim"
 # Set bash as default shell (if not already)
 if [[ "$SHELL" != "/bin/bash" ]]; then
     echo "Setting bash as default shell..."
-    chsh -s /bin/bash
+    sudo chsh -s /bin/bash "$USER" </dev/tty
     echo "Default shell changed to bash (restart terminal to apply)"
 else
     echo "Bash is already the default shell"
