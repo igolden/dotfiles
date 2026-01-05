@@ -54,7 +54,7 @@ read -p "Press Enter after adding the key to GitHub..." </dev/tty
 # Verify GitHub connection
 echo ""
 echo "Testing GitHub connection..."
-ssh -T git@github.com 2>&1 | head -2
+ssh -o StrictHostKeyChecking=accept-new -T git@github.com 2>&1 || true
 
 echo ""
 echo "SSH key setup complete!"
