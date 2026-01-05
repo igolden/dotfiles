@@ -2,10 +2,22 @@
 # Bootstrap script for fresh macOS install
 # Run with: curl -fsSL https://raw.githubusercontent.com/igolden/dotfiles/main/bootstrap.sh | bash
 
-set -e
-
 DOTFILES_DIR="$HOME/dotfiles"
 DOTFILES_REPO="https://github.com/igolden/dotfiles.git"
+
+# Run a step resiliently - continue even if it fails
+run_step() {
+    local step_name="$1"
+    local script_path="$2"
+
+    if source "$script_path"; then
+        echo "$step_name completed successfully"
+    else
+        echo ""
+        echo "Warning: $step_name had errors but continuing..."
+        echo ""
+    fi
+}
 
 echo "========================================"
 echo "  macOS Bootstrap Script"
@@ -62,26 +74,26 @@ fi
 
 # Step 5: Install core tools and 1Password
 echo "[5/10] Installing core tools..."
-source "$DOTFILES_DIR/scripts/01-homebrew.sh"
+run_step "Core tools installation" "$DOTFILES_DIR/scripts/01-homebrew.sh"
 
 # Step 6: 1Password auth (manual)
 echo "[6/10] 1Password setup..."
-source "$DOTFILES_DIR/scripts/02-1password.sh"
+run_step "1Password setup" "$DOTFILES_DIR/scripts/02-1password.sh"
 
 # Step 7: Pull secrets from 1Password
 echo "[7/10] Restoring secrets..."
-source "$DOTFILES_DIR/scripts/03-secrets.sh"
+run_step "Secrets restoration" "$DOTFILES_DIR/scripts/03-secrets.sh"
 
 # Step 8: SSH key + GitHub
 echo "[8/10] SSH key setup..."
-source "$DOTFILES_DIR/scripts/04-ssh-github.sh"
+run_step "SSH key setup" "$DOTFILES_DIR/scripts/04-ssh-github.sh"
 
 # Step 9: Shell + Runtime setup
 echo "[9/10] Shell and runtime setup..."
-source "$DOTFILES_DIR/scripts/05-shell.sh"
-source "$DOTFILES_DIR/scripts/06-node.sh"
-source "$DOTFILES_DIR/scripts/08-ruby.sh"
-source "$DOTFILES_DIR/scripts/07-apps.sh"
+run_step "Shell setup" "$DOTFILES_DIR/scripts/05-shell.sh"
+run_step "Node.js setup" "$DOTFILES_DIR/scripts/06-node.sh"
+run_step "Ruby setup" "$DOTFILES_DIR/scripts/08-ruby.sh"
+run_step "Apps installation" "$DOTFILES_DIR/scripts/07-apps.sh"
 
 # Switch dotfiles remote to SSH now that SSH is configured
 echo "Switching dotfiles remote to SSH..."

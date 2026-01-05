@@ -1,6 +1,12 @@
 #!/bin/bash
 # 1Password setup - requires manual authentication
 
+# Check if already configured
+if op account list &>/dev/null; then
+    echo "1Password CLI already configured, skipping setup..."
+    exit 0
+fi
+
 echo ""
 echo "==========================================="
 echo "  ACTION REQUIRED: 1Password Setup"

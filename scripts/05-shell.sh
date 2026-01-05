@@ -34,9 +34,14 @@ cp "$DOTFILES_DIR/config/gemrc" "$HOME/.gemrc"
 # Setup nvim config
 echo "Installing ~/.config/nvim/..."
 mkdir -p "$HOME/.config"
-if [[ -d "$HOME/.config/nvim" ]]; then
-    echo "Backing up existing nvim config..."
-    mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup"
+if [[ -d "$HOME/.config/nvim" && ! -L "$HOME/.config/nvim" ]]; then
+    if [[ ! -d "$HOME/.config/nvim.backup" ]]; then
+        echo "Backing up existing nvim config..."
+        mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup"
+    else
+        echo "Backup already exists, removing old nvim config..."
+        rm -rf "$HOME/.config/nvim"
+    fi
 fi
 cp -r "$DOTFILES_DIR/config/nvim" "$HOME/.config/nvim"
 
