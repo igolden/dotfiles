@@ -43,5 +43,15 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/bin:$PATH"
 # --- fnm (node) ---
 command -v fnm &>/dev/null && eval "$(fnm env)"
 
+# --- chruby (ruby) ---
+if [[ -f /opt/homebrew/opt/chruby/share/chruby/chruby.sh ]]; then
+    source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+    source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+    chruby ruby-3.4.1 2>/dev/null
+fi
+
+# --- Aliases ---
+[[ -f ~/.aliases.bash ]] && source ~/.aliases.bash
+
 # --- Local overrides (API keys, etc) ---
 [[ -f ~/.bashrc.local ]] && source ~/.bashrc.local

@@ -15,6 +15,10 @@ fi
 echo "Installing ~/.bashrc..."
 cp "$DOTFILES_DIR/config/bashrc" "$HOME/.bashrc"
 
+# Copy aliases
+echo "Installing ~/.aliases.bash..."
+cp "$DOTFILES_DIR/config/aliases.bash" "$HOME/.aliases.bash"
+
 # Copy gitconfig
 echo "Installing ~/.gitconfig..."
 cp "$DOTFILES_DIR/config/gitconfig" "$HOME/.gitconfig"

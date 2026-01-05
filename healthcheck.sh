@@ -46,6 +46,7 @@ check_command npm
 check_command python3
 check_command go
 check_command ruby
+check_command pod
 
 echo ""
 echo "--- Project Tools ---"
