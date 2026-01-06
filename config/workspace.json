@@ -1,0 +1,13 @@
+{
+  "root": "~/workspace",
+  "structure": [
+    {
+      "name": "playbox",
+      "type": "directory",
+      "children": [
+        { "name": "playbox-app", "type": "repo", "repo": "igolden/playbox-app" },
+        { "name": "playbox-website", "type": "repo", "repo": "igolden/playbox-website" }
+      ]
+    }
+  ]
+}

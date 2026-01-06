@@ -15,6 +15,10 @@ fi
 echo "Installing ~/.bashrc..."
 cp "$DOTFILES_DIR/config/bashrc" "$HOME/.bashrc"
 
+# Copy bash_profile (macOS login shells read this, not bashrc)
+echo "Installing ~/.bash_profile..."
+cp "$DOTFILES_DIR/config/bash_profile" "$HOME/.bash_profile"
+
 # Copy aliases
 echo "Installing ~/.aliases.bash..."
 cp "$DOTFILES_DIR/config/aliases.bash" "$HOME/.aliases.bash"

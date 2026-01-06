@@ -40,7 +40,7 @@ fi
 cd "$DOTFILES_DIR"
 
 # Step 1: Xcode Command Line Tools
-echo "[1/10] Installing Xcode Command Line Tools..."
+echo "[1/11] Installing Xcode Command Line Tools..."
 if ! xcode-select -p &>/dev/null; then
     echo ""
     echo "==========================================="
@@ -57,7 +57,7 @@ else
 fi
 
 # Step 2: Install Homebrew
-echo "[2/10] Installing Homebrew..."
+echo "[2/11] Installing Homebrew..."
 if ! command -v brew &>/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -66,34 +66,34 @@ else
 fi
 
 # Step 3: Install git (needed to clone dotfiles)
-echo "[3/10] Installing git..."
+echo "[3/11] Installing git..."
 brew install git
 
 # Step 4: Install core tools
-echo "[4/10] Installing core tools..."
+echo "[4/11] Installing core tools..."
 run_step "Core tools installation" "$DOTFILES_DIR/scripts/01-homebrew.sh"
 
 # Step 5: 1Password auth (manual)
-echo "[5/10] 1Password setup..."
+echo "[5/11] 1Password setup..."
 run_step "1Password setup" "$DOTFILES_DIR/scripts/02-1password.sh"
 
 # Step 6: Pull secrets from 1Password
-echo "[6/10] Restoring secrets..."
+echo "[6/11] Restoring secrets..."
 run_step "Secrets restoration" "$DOTFILES_DIR/scripts/03-secrets.sh"
 
 # Step 7: SSH key + GitHub
-echo "[7/10] SSH key setup..."
+echo "[7/11] SSH key setup..."
 run_step "SSH key setup" "$DOTFILES_DIR/scripts/04-ssh-github.sh"
 
 # Step 8: Shell + Runtime setup
-echo "[8/10] Shell and runtime setup..."
+echo "[8/11] Shell and runtime setup..."
 run_step "Shell setup" "$DOTFILES_DIR/scripts/05-shell.sh"
 run_step "Node.js setup" "$DOTFILES_DIR/scripts/06-node.sh"
 run_step "Ruby setup" "$DOTFILES_DIR/scripts/08-ruby.sh"
 run_step "Apps installation" "$DOTFILES_DIR/scripts/07-apps.sh"
 
 # Step 9: macOS settings
-echo "[9/10] Configuring macOS settings..."
+echo "[9/11] Configuring macOS settings..."
 run_step "macOS settings" "$DOTFILES_DIR/scripts/09-macos.sh"
 
 # Switch dotfiles remote to SSH now that SSH is configured
@@ -101,8 +101,12 @@ echo "Switching dotfiles remote to SSH..."
 cd "$DOTFILES_DIR"
 git remote set-url origin git@github.com:igolden/dotfiles.git
 
-# Step 10: Run healthcheck
-echo "[10/10] Running Healthcheck..."
+# Step 10: Workspace setup
+echo "[10/11] Setting up workspace..."
+run_step "Workspace setup" "$DOTFILES_DIR/scripts/10-workspace.sh"
+
+# Step 11: Run healthcheck
+echo "[11/11] Running Healthcheck..."
 echo ""
 source "$DOTFILES_DIR/healthcheck.sh"
 

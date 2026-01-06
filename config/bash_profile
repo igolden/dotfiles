@@ -1,0 +1,5 @@
+# ~/.bash_profile
+# macOS Terminal/iTerm2 open login shells which read this file.
+# Source bashrc to keep all config in one place.
+
+[[ -f ~/.bashrc ]] && source ~/.bashrc
