@@ -68,4 +68,4 @@ restore_secret "op://$VAULT/ssh_config/config" ~/.ssh/config 600
 
 echo ""
 echo "Secrets restoration complete!"
-exit 0  # Always exit successfully
+return 0
