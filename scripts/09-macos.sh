@@ -64,9 +64,23 @@ echo "  - Alfred hotkey set to CMD+Space"
 defaults write com.apple.dock mru-spaces -bool false
 echo "  - Spaces auto-rearrange disabled"
 
-# 9. iTerm2 - disable native tab style
+# 8. iTerm2 - disable native tab style
 defaults write com.googlecode.iterm2 TabStyle -int 0
 echo "  - iTerm2 tab style set to traditional"
+
+# 9. Dock configuration
+dockutil --remove all --no-restart 2>/dev/null || true
+dockutil --add /Applications/iTerm.app --no-restart 2>/dev/null || true
+dockutil --add /Applications/Firefox.app --no-restart 2>/dev/null || true
+dockutil --add /Applications/Linear.app --no-restart 2>/dev/null || true
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock show-recents -bool false
+echo "  - Dock configured (iTerm2, Firefox, Linear + auto-hide)"
+
+# 10. Default browser
+defaultbrowser firefox 2>/dev/null || true
+echo "  - Firefox set as default browser"
 
 # Apply settings
 killall Dock 2>/dev/null || true

@@ -2,7 +2,7 @@
 # Install Homebrew packages
 
 echo "Installing CLI tools..."
-brew install git gh neovim ripgrep jq wget htop tmux fzf bash-completion@2 || true
+brew install git gh neovim ripgrep jq wget htop tmux fzf bash-completion@2 dockutil defaultbrowser || true
 
 echo "Installing runtimes..."
 brew install fnm python@3.12 go chruby ruby-install || true
@@ -13,5 +13,8 @@ brew install ffmpeg yt-dlp postgresql@14 redis watchman docker docker-compose aw
 echo "Installing 1Password..."
 brew install --cask --force 1password || true
 brew install 1password-cli || true
+
+echo "Installing fonts..."
+brew install --cask font-jetbrains-mono-nerd-font || true
 
 echo "Homebrew packages installed!"

@@ -54,6 +54,24 @@ process_item() {
             echo "  [clone]  $full_path <- git@github.com:$repo.git"
             git clone "git@github.com:$repo.git" "$full_path"
         fi
+
+        # Process envs if present
+        local envs=$(echo "$item" | jq -c '.envs // []')
+        if [[ "$envs" != "[]" ]]; then
+            echo "$envs" | jq -c '.[]' | while read -r env; do
+                local op_name=$(echo "$env" | jq -r '.op')
+                local op_field=$(echo "$env" | jq -r '.field')
+                local env_path=$(echo "$env" | jq -r '.path')
+                local dest="$full_path/$env_path"
+
+                mkdir -p "$(dirname "$dest")"
+                if op read "op://macbook_setup/$op_name/$op_field" > "$dest" 2>/dev/null; then
+                    echo "  [env]    $env_path"
+                else
+                    echo "  [env]    $env_path (failed)"
+                fi
+            done
+        fi
     fi
 }
 

@@ -5,7 +5,20 @@
       "name": "playbox",
       "type": "directory",
       "children": [
-        { "name": "playbox-app", "type": "repo", "repo": "igolden/playbox-app" },
+        {
+          "name": "playbox-app",
+          "type": "repo",
+          "repo": "igolden/playbox-app",
+          "envs": [
+            { "op": "playbox_root_env", "field": "config", "path": ".env" },
+            { "op": "playbox_app_env", "field": "config", "path": "./app/.env" },
+            { "op": "playbox_app_env_dev", "field": "config", "path": "./app/.env.dev" },
+            { "op": "playbox_app_env_production", "field": "config", "path": "./app/.env.production" },
+            { "op": "playbox_api_env", "field": "config", "path": "./api/.env" },
+            { "op": "playbox_api_env_qa", "field": "config", "path": "./api/.env.qa" },
+            { "op": "playbox_api_env_production", "field": "config", "path": "./api/.env.production" }
+          ]
+        },
         { "name": "playbox-website", "type": "repo", "repo": "igolden/playbox-website" }
       ]
     }
