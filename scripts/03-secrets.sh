@@ -2,7 +2,35 @@
 # Pull secrets from 1Password
 # Requires: 1Password CLI configured and authenticated
 
+set +e  # Don't exit on errors - we handle them gracefully
+
 VAULT="macbook_setup"
+
+# Helper function to restore a secret with retry logic
+restore_secret() {
+    local op_path="$1"
+    local dest="$2"
+    local perms="$3"
+    local max_attempts=3
+    local attempt=1
+
+    while [[ $attempt -le $max_attempts ]]; do
+        if op read "$op_path" > "$dest" 2>/dev/null; then
+            chmod "$perms" "$dest"
+            echo "  - $(basename "$dest") restored"
+            return 0
+        fi
+        if [[ $attempt -lt $max_attempts ]]; then
+            echo "  - Attempt $attempt failed, retrying..."
+            sleep 1
+        fi
+        ((attempt++))
+    done
+
+    echo "  - Warning: Failed to restore $(basename "$dest") after $max_attempts attempts"
+    rm -f "$dest"  # Clean up empty/partial file
+    return 1
+}
 
 echo "Restoring secrets from 1Password..."
 
@@ -12,21 +40,11 @@ mkdir -p ~/.aws
 
 # --- AWS Credentials ---
 echo "Writing ~/.aws/credentials..."
-if op read "op://$VAULT/aws_credentials/credentials" &>/dev/null; then
-    op read "op://$VAULT/aws_credentials/credentials" > ~/.aws/credentials
-    chmod 600 ~/.aws/credentials
-    echo "  - AWS credentials restored"
-else
-    echo "  - Warning: AWS credentials not found in 1Password"
-fi
+restore_secret "op://$VAULT/aws_credentials/credentials" ~/.aws/credentials 600
 
 echo "Writing ~/.aws/config..."
-if op read "op://$VAULT/aws_credentials/config" &>/dev/null; then
-    op read "op://$VAULT/aws_credentials/config" > ~/.aws/config
-    chmod 600 ~/.aws/config
-    echo "  - AWS config restored"
-else
-    # Create default config
+if ! restore_secret "op://$VAULT/aws_credentials/config" ~/.aws/config 600; then
+    # Create default config if restore failed
     cat > ~/.aws/config << 'EOF'
 [default]
 region = us-east-1
@@ -39,26 +57,15 @@ fi
 echo "Restoring EC2 keys to ~/.keys/..."
 
 for key in "playbox-prod-infra" "little-leaps-strapi" "playbox-dev-infra"; do
-    if op read "op://$VAULT/$key/private_key" &>/dev/null; then
-        op read "op://$VAULT/$key/private_key" > ~/.keys/${key}.pem
-        chmod 400 ~/.keys/${key}.pem
-        echo "  - ${key}.pem restored"
-    else
-        echo "  - Warning: ${key}.pem not found in 1Password"
-    fi
+    restore_secret "op://$VAULT/$key/private_key" ~/.keys/${key}.pem 400
 done
 
 # --- SSH Config ---
 echo "Writing ~/.ssh/config..."
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
-if op read "op://$VAULT/ssh_config/config" &>/dev/null; then
-    op read "op://$VAULT/ssh_config/config" > ~/.ssh/config
-    chmod 600 ~/.ssh/config
-    echo "  - SSH config restored"
-else
-    echo "  - Warning: SSH config not found in 1Password"
-fi
+restore_secret "op://$VAULT/ssh_config/config" ~/.ssh/config 600
 
 echo ""
 echo "Secrets restoration complete!"
+return 0

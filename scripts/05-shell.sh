@@ -15,6 +15,10 @@ fi
 echo "Installing ~/.bashrc..."
 cp "$DOTFILES_DIR/config/bashrc" "$HOME/.bashrc"
 
+# Copy bash_profile (macOS login shells read this, not bashrc)
+echo "Installing ~/.bash_profile..."
+cp "$DOTFILES_DIR/config/bash_profile" "$HOME/.bash_profile"
+
 # Copy aliases
 echo "Installing ~/.aliases.bash..."
 cp "$DOTFILES_DIR/config/aliases.bash" "$HOME/.aliases.bash"
@@ -34,16 +38,21 @@ cp "$DOTFILES_DIR/config/gemrc" "$HOME/.gemrc"
 # Setup nvim config
 echo "Installing ~/.config/nvim/..."
 mkdir -p "$HOME/.config"
-if [[ -d "$HOME/.config/nvim" ]]; then
-    echo "Backing up existing nvim config..."
-    mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup"
+if [[ -d "$HOME/.config/nvim" && ! -L "$HOME/.config/nvim" ]]; then
+    if [[ ! -d "$HOME/.config/nvim.backup" ]]; then
+        echo "Backing up existing nvim config..."
+        mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup"
+    else
+        echo "Backup already exists, removing old nvim config..."
+        rm -rf "$HOME/.config/nvim"
+    fi
 fi
 cp -r "$DOTFILES_DIR/config/nvim" "$HOME/.config/nvim"
 
 # Set bash as default shell (if not already)
 if [[ "$SHELL" != "/bin/bash" ]]; then
     echo "Setting bash as default shell..."
-    chsh -s /bin/bash
+    sudo chsh -s /bin/bash "$USER" </dev/tty
     echo "Default shell changed to bash (restart terminal to apply)"
 else
     echo "Bash is already the default shell"
