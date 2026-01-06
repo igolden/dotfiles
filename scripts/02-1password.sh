@@ -1,38 +1,39 @@
 #!/bin/bash
 # 1Password setup - requires manual authentication
 
-# Check if already configured
-if op account list &>/dev/null; then
-    echo "1Password CLI already configured, skipping setup..."
-    exit 0
-fi
-
 echo ""
 echo "==========================================="
 echo "  ACTION REQUIRED: 1Password Setup"
 echo "==========================================="
 echo ""
-echo "Please complete the following steps:"
-echo ""
-echo "  1. Open 1Password app (it should have launched)"
-echo "  2. Sign in to your account"
-echo "  3. Go to Settings > Developer"
-echo "  4. Enable 'Integrate with 1Password CLI'"
-echo ""
-echo "==========================================="
-echo ""
 
-# Open 1Password
-open -a "1Password"
+# Loop until op whoami succeeds
+while true; do
+    # Step 1: Prompt to login to 1Password app
+    echo "Step 1: Open and sign in to 1Password app"
+    echo "  - Go to Settings > Developer"
+    echo "  - Enable 'Integrate with 1Password CLI'"
+    echo ""
+    open -a "1Password"
+    read -p "Press Enter when 1Password is ready..." </dev/tty
 
-read -p "Press Enter when 1Password is ready..." </dev/tty
+    # Step 2: Run op signin
+    echo ""
+    echo "Step 2: Signing in to 1Password CLI..."
+    op signin 2>/dev/null
+    read -p "Press Enter to continue..." </dev/tty
 
-# Verify 1Password CLI is working
-echo "Verifying 1Password CLI..."
-if op account list &>/dev/null; then
-    echo "1Password CLI is configured!"
-else
-    echo "Error: 1Password CLI not configured properly"
-    echo "Please ensure you enabled CLI integration in 1Password settings"
-    exit 1
-fi
+    # Step 3: Check op whoami
+    echo ""
+    echo "Verifying 1Password CLI..."
+    if op whoami &>/dev/null; then
+        echo "1Password CLI configured successfully!"
+        op whoami
+        break
+    else
+        echo ""
+        echo "ERROR: 1Password CLI not configured properly."
+        echo "Let's try again..."
+        echo ""
+    fi
+done
