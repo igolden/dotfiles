@@ -14,7 +14,7 @@ brew install --cask \
   visual-studio-code \
   android-studio \
   figma \
-  linear \
+  linear-linear \
   bruno \
   rectangle || true
 
