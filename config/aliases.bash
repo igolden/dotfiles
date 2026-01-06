@@ -132,3 +132,64 @@ gi() {
 tmpnote() {
     nvim ~/workspace/tmp/"$(date '+%Y-%m-%d-%H%M%S')".md
 }
+
+# Sync workspace - ensure all directories and repos from workspace.json exist
+sync_workspace() {
+    local config="${DOTFILES_DIR:-$HOME/dotfiles}/config/workspace.json"
+
+    if [[ ! -f "$config" ]]; then
+        echo "Error: workspace.json not found at $config"
+        return 1
+    fi
+
+    local root
+    root=$(jq -r '.root' "$config" | sed "s|^~|$HOME|")
+    echo "Syncing workspace: $root"
+
+    # Process items recursively
+    _sync_item() {
+        local parent="$1"
+        local item="$2"
+
+        local name type repo full_path
+        name=$(echo "$item" | jq -r '.name')
+        type=$(echo "$item" | jq -r '.type')
+        full_path="$parent/$name"
+
+        if [[ "$type" == "directory" ]]; then
+            if [[ ! -d "$full_path" ]]; then
+                echo "  [create] $full_path"
+                mkdir -p "$full_path"
+            else
+                echo "  [exists] $full_path"
+            fi
+
+            # Process children
+            local children
+            children=$(echo "$item" | jq -c '.children // []')
+            if [[ "$children" != "[]" ]]; then
+                echo "$children" | jq -c '.[]' | while read -r child; do
+                    _sync_item "$full_path" "$child"
+                done
+            fi
+
+        elif [[ "$type" == "repo" ]]; then
+            repo=$(echo "$item" | jq -r '.repo')
+
+            if [[ -d "$full_path/.git" ]]; then
+                echo "  [exists] $full_path (repo: $repo)"
+            else
+                echo "  [clone]  $full_path <- git@github.com:$repo.git"
+                git clone "git@github.com:$repo.git" "$full_path"
+            fi
+        fi
+    }
+
+    # Process each top-level item
+    jq -c '.structure[]' "$config" | while read -r item; do
+        _sync_item "$root" "$item"
+    done
+
+    echo ""
+    echo "Workspace sync complete!"
+}

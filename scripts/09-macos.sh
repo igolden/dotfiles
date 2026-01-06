@@ -59,44 +59,10 @@ echo "  - Spotlight shortcut disabled"
 defaults write com.runningwithcrayons.Alfred-Preferences hotkey -dict keyChar -int 49 keyCode -int 49 modifierFlags -int 1048576 2>/dev/null || true
 echo "  - Alfred hotkey set to CMD+Space"
 
-# 7. Mission Control - CREATE DESKTOPS FIRST
-echo "  - Creating 8 desktops..."
-osascript <<'APPLESCRIPT' 2>/dev/null || echo "    (Manual desktop creation may be needed)"
-tell application "System Events"
-    set frontApp to name of first application process whose frontmost is true
-    do shell script "open -a 'Mission Control'"
-    delay 1
-    -- Click add desktop button 7 times (to get 8 total with default)
-    repeat 7 times
-        try
-            click button 1 of group "Spaces Bar" of group 1 of group "Mission Control" of process "Dock"
-            delay 0.5
-        end try
-    end repeat
-    delay 0.5
-    key code 53 -- Escape to close Mission Control
-    delay 0.3
-    tell application process frontApp to set frontmost to true
-end tell
-APPLESCRIPT
-
-# 8. Mission Control settings (AFTER desktops exist)
+# 7. Mission Control settings
 # Disable auto-rearrange Spaces based on recent use
 defaults write com.apple.dock mru-spaces -bool false
 echo "  - Spaces auto-rearrange disabled"
-
-# Set CMD+1 through CMD+8 for switching desktops
-# Hotkey IDs: 118-125 for Desktop 1-8
-# Parameters: (ASCII code, key code, 1048576=CMD modifier)
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 118 '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>49</integer><integer>18</integer><integer>1048576</integer></array><key>type</key><string>standard</string></dict></dict>'
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 119 '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>50</integer><integer>19</integer><integer>1048576</integer></array><key>type</key><string>standard</string></dict></dict>'
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 120 '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>51</integer><integer>20</integer><integer>1048576</integer></array><key>type</key><string>standard</string></dict></dict>'
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 121 '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>52</integer><integer>21</integer><integer>1048576</integer></array><key>type</key><string>standard</string></dict></dict>'
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 122 '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>53</integer><integer>23</integer><integer>1048576</integer></array><key>type</key><string>standard</string></dict></dict>'
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 123 '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>54</integer><integer>22</integer><integer>1048576</integer></array><key>type</key><string>standard</string></dict></dict>'
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 124 '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>55</integer><integer>26</integer><integer>1048576</integer></array><key>type</key><string>standard</string></dict></dict>'
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 125 '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>56</integer><integer>28</integer><integer>1048576</integer></array><key>type</key><string>standard</string></dict></dict>'
-echo "  - CMD+1 through CMD+8 set for desktop switching"
 
 # 9. iTerm2 - disable native tab style
 defaults write com.googlecode.iterm2 TabStyle -int 0
