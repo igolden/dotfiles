@@ -7,6 +7,9 @@ git_prompt() { local b=$(parse_git_branch); [[ -n "$b" ]] && echo "($b) "; }
 PS1='\[\033[1;33m\]\u\[\033[0m\]@\[\033[1;34m\]\h\[\033[0m\]:\[\033[1;32m\]\w\[\033[0m\]
 \[\033[1;31m\]$(git_prompt)\[\033[0m\][\t] \$ '
 
+# --- Job control (ensures Ctrl+Z works) ---
+set -o monitor
+
 # --- History search with arrows ---
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'

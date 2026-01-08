@@ -23,6 +23,10 @@ cp "$DOTFILES_DIR/config/bash_profile" "$HOME/.bash_profile"
 echo "Installing ~/.aliases.bash..."
 cp "$DOTFILES_DIR/config/aliases.bash" "$HOME/.aliases.bash"
 
+# Copy inputrc (readline config - fixes paste issues)
+echo "Installing ~/.inputrc..."
+cp "$DOTFILES_DIR/config/inputrc" "$HOME/.inputrc"
+
 # Copy gitconfig
 echo "Installing ~/.gitconfig..."
 cp "$DOTFILES_DIR/config/gitconfig" "$HOME/.gitconfig"

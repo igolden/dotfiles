@@ -1,0 +1,9 @@
+# ~/.inputrc - Readline configuration
+
+# Enable bracketed paste mode (prevents ESC chars on paste)
+set enable-bracketed-paste on
+
+# General readline improvements
+set bell-style none
+set colored-stats on
+set mark-symlinked-directories on

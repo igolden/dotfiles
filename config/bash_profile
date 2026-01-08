@@ -2,4 +2,7 @@
 # macOS Terminal/iTerm2 open login shells which read this file.
 # Source bashrc to keep all config in one place.
 
+# Suppress macOS Catalina+ warning about bash deprecation
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 [[ -f ~/.bashrc ]] && source ~/.bashrc
