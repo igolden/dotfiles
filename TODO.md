@@ -5,3 +5,5 @@
 - Need claude settings pulled over
 - Need linux bootstrap script for servers
 - Need a way to sync changes to configs back to dotfiles repo
+- Add fzf-tab
+- Need ssh autocomplete
