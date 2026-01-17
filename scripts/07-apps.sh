@@ -12,11 +12,12 @@ brew install --cask \
   docker-desktop \
   slack \
   visual-studio-code \
-  dbeaver-community \ 
+  dbeaver-community \
   android-studio \
   figma \
   linear-linear \
   drawio \
+  tailscale-app \
   bruno \
   rectangle || true
 
