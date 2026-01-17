@@ -8,6 +8,7 @@
 - Add fzf-tab
 - Need ssh autocomplete
 - Need tailscale installed as a core dependency
+- Need database connections/scripts exported
 
 - Add ./bin for scripts and add to shell setup to symlink
 
